@@ -792,9 +792,12 @@
       });
 
       const target = document.getElementById(sectionId);
+
       if (target) {
         target.classList.remove('hidden');
-        target.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
       }
     }
 

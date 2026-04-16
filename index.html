@@ -26,7 +26,7 @@
   <section class="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-6">
     <div class="bg-white rounded-3xl shadow-lg p-6">
       <p class="text-sm text-slate-500 mb-2">Total Pengambilan ATK</p>
-      <h3 class="text-3xl font-bold text-green-600">1.250 Item</h3>
+      <h3 class="text-3xl font-bold text-green-600" id="totalPengambilan">0 Item</h3>
     </div>
 
     <div class="bg-white rounded-3xl shadow-lg p-6">
@@ -73,23 +73,44 @@
         <div>
           <h4 class="text-xl font-bold text-green-600 mb-4">Pemasukan Stok</h4>
           <div class="space-y-4">
-            <input type="text" placeholder="Nama Barang" class="w-full border rounded-xl p-3">
-            <input type="number" placeholder="Jumlah Masuk" class="w-full border rounded-xl p-3">
+            <input type="text" id="barangMasuk" placeholder="Nama Barang" class="w-full border rounded-xl p-3">
+            <input type="number" id="jumlahMasuk" placeholder="Jumlah Masuk" class="w-full border rounded-xl p-3">
             <input type="date" class="w-full border rounded-xl p-3">
-            <button class="w-full bg-green-600 text-white py-3 rounded-xl hover:bg-green-700">Simpan Pemasukan</button>
+            <button onclick="simpanPemasukan()" class="w-full bg-green-600 text-white py-3 rounded-xl hover:bg-green-700">Simpan Pemasukan</button>
           </div>
         </div>
 
         <div>
           <h4 class="text-xl font-bold text-red-600 mb-4">Pengeluaran Stok</h4>
           <div class="space-y-4">
-            <input type="text" placeholder="Nama Barang" class="w-full border rounded-xl p-3">
-            <input type="number" placeholder="Jumlah Keluar" class="w-full border rounded-xl p-3">
+            <input type="text" id="barangKeluar" placeholder="Nama Barang" class="w-full border rounded-xl p-3">
+            <input type="number" id="jumlahKeluar" placeholder="Jumlah Keluar" class="w-full border rounded-xl p-3">
             <input type="text" placeholder="Departemen" class="w-full border rounded-xl p-3">
             <input type="text" placeholder="Nama Pengambil / Karyawan" class="w-full border rounded-xl p-3">
-            <button class="w-full bg-red-600 text-white py-3 rounded-xl hover:bg-red-700">Simpan Pengeluaran</button>
+            <button onclick="simpanPengeluaran()" class="w-full bg-red-600 text-white py-3 rounded-xl hover:bg-red-700">Simpan Pengeluaran</button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-3xl shadow-lg p-8 mt-10">
+      <h3 class="text-2xl font-bold text-slate-700 mb-6">Database Stok Barang</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-100">
+            <tr>
+              <th class="p-3 text-left">No</th>
+              <th class="p-3 text-left">Kode</th>
+              <th class="p-3 text-left">Nama Barang</th>
+              <th class="p-3 text-left">Kategori</th>
+              <th class="p-3 text-left">Stok Awal</th>
+              <th class="p-3 text-left">Stok Masuk</th>
+              <th class="p-3 text-left">Stok Keluar</th>
+              <th class="p-3 text-left">Sisa Stok</th>
+            </tr>
+          </thead>
+          <tbody id="tabelBarang"></tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -101,7 +122,7 @@
       const kode = document.getElementById('kodeBarang').value;
       const nama = document.getElementById('namaBarang').value;
       const kategori = document.getElementById('kategoriBarang').value;
-      const stok = document.getElementById('stokAwal').value;
+      const stok = parseInt(document.getElementById('stokAwal').value);
 
       if (!kode || !nama || !kategori || !stok) {
         alert('Semua data barang harus diisi');
@@ -112,21 +133,107 @@
         kode,
         nama,
         kategori,
-        stok
+        stokAwal: stok,
+        stokMasuk: 0,
+        stokKeluar: 0,
+        sisaStok: stok
       };
 
       barangList.push(barangBaru);
-
       localStorage.setItem('masterBarang', JSON.stringify(barangList));
 
+      tampilkanBarang();
+      resetFormBarang();
       alert('Master barang berhasil disimpan');
+    }
 
+    function simpanPemasukan() {
+      const namaBarang = document.getElementById('barangMasuk').value;
+      const jumlahMasuk = parseInt(document.getElementById('jumlahMasuk').value);
+
+      const barang = barangList.find(item => item.nama.toLowerCase() === namaBarang.toLowerCase());
+
+      if (!barang) {
+        alert('Barang tidak ditemukan');
+        return;
+      }
+
+      barang.stokMasuk += jumlahMasuk;
+      barang.sisaStok += jumlahMasuk;
+
+      localStorage.setItem('masterBarang', JSON.stringify(barangList));
+      tampilkanBarang();
+
+      document.getElementById('barangMasuk').value = '';
+      document.getElementById('jumlahMasuk').value = '';
+
+      alert('Pemasukan stok berhasil disimpan');
+    }
+
+    function simpanPengeluaran() {
+      const namaBarang = document.getElementById('barangKeluar').value;
+      const jumlahKeluar = parseInt(document.getElementById('jumlahKeluar').value);
+
+      const barang = barangList.find(item => item.nama.toLowerCase() === namaBarang.toLowerCase());
+
+      if (!barang) {
+        alert('Barang tidak ditemukan');
+        return;
+      }
+
+      if (barang.sisaStok < jumlahKeluar) {
+        alert('Sisa stok tidak mencukupi');
+        return;
+      }
+
+      barang.stokKeluar += jumlahKeluar;
+      barang.sisaStok -= jumlahKeluar;
+
+      localStorage.setItem('masterBarang', JSON.stringify(barangList));
+      tampilkanBarang();
+
+      document.getElementById('barangKeluar').value = '';
+      document.getElementById('jumlahKeluar').value = '';
+
+      alert('Pengeluaran stok berhasil disimpan');
+    }
+
+    function tampilkanBarang() {
+      const tbody = document.getElementById('tabelBarang');
+      const totalPengambilan = document.getElementById('totalPengambilan');
+      tbody.innerHTML = '';
+
+      let totalKeluar = 0;
+
+      barangList.forEach((barang, index) => {
+        totalKeluar += barang.stokKeluar;
+
+        tbody.innerHTML += `
+          <tr class="border-b hover:bg-slate-50">
+            <td class="p-3">${index + 1}</td>
+            <td class="p-3">${barang.kode}</td>
+            <td class="p-3">${barang.nama}</td>
+            <td class="p-3">${barang.kategori}</td>
+            <td class="p-3 text-green-600 font-bold">${barang.stokAwal}</td>
+            <td class="p-3 text-blue-600 font-bold">${barang.stokMasuk}</td>
+            <td class="p-3 text-red-600 font-bold">${barang.stokKeluar}</td>
+            <td class="p-3 text-purple-700 font-bold">${barang.sisaStok}</td>
+          </tr>
+        `;
+      });
+
+      totalPengambilan.textContent = totalKeluar + ' Item';
+    }
+
+    function resetFormBarang() {
       document.getElementById('kodeBarang').value = '';
       document.getElementById('namaBarang').value = '';
       document.getElementById('kategoriBarang').value = '';
       document.getElementById('stokAwal').value = '';
+    }
 
-      console.log(barangList);
+    window.onload = function () {
+      tampilkanBarang();
     }
   </script>
 </body>

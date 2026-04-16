@@ -25,7 +25,7 @@
   <div class="bg-white rounded-3xl shadow-lg p-6 mt-6 md:col-span-3">
       <h3 class="text-2xl font-bold text-slate-700 mb-6">Persentase Pengambilan per Departemen</h3>
       <div class="overflow-x-auto">
-        <div id="chartPersentaseDepartemen" class="flex items-end gap-6 h-72 border-b border-l border-slate-300 px-6 pt-6 pb-2"></div>
+        <div id="chartPersentaseDepartemen" class="flex items-end gap-6 h-72 border-b border-l border-slate-400 px-12 pt-6 pb-8 bg-slate-50 rounded-2xl overflow-x-auto"></div>
       </div>
     </div>
   </section>
@@ -828,7 +828,7 @@
 
         Object.keys(departemenData).forEach(dept => {
           const persenDept = totalKeluar > 0 ? ((departemenData[dept] / totalKeluar) * 100).toFixed(1) : 0;
-          const tinggiBar = Math.max(40, (persenDept * 2.2));
+          const tinggiBar = Math.max(30, (persenDept * 2.5));
 
           chartEl.innerHTML += `
             <div class="flex flex-col items-center justify-end min-w-[110px] h-full relative">
@@ -840,10 +840,10 @@
                 <span>0%</span>
               </div>
               <div class="flex items-end h-56">
-                <div class="w-16 bg-blue-500 rounded-t-lg" style="height:${tinggiBar}px"></div>
+                <div class="w-16 bg-blue-600 border border-blue-800 rounded-t-lg shadow-md" style="height:${tinggiBar}px"></div>
               </div>
-              <span class="text-sm font-bold text-slate-700 mt-2">${persenDept}%</span>
-              <span class="text-xs text-center text-slate-700 mt-2 w-24 break-words leading-tight">${dept}</span>
+              <span class="text-sm font-bold text-slate-900 mt-2">${persenDept}%</span>
+              <span class="text-sm text-center font-semibold text-slate-800 mt-2 w-24 break-words leading-tight">${dept}</span>
             </div>
           `;
         });

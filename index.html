@@ -113,10 +113,28 @@
         <div>
           <h4 class="text-xl font-bold text-green-600 mb-4">Pemasukan Stok</h4>
           <div class="space-y-4">
-            <input type="text" id="barangMasuk" placeholder="Nama Barang" class="w-full border rounded-xl p-3">
-            <input type="number" id="jumlahMasuk" placeholder="Jumlah Masuk" class="w-full border rounded-xl p-3">
-            <input type="date" class="w-full border rounded-xl p-3">
-            <button onclick="simpanPemasukan()" class="w-full bg-green-600 text-white py-3 rounded-xl hover:bg-green-700">Simpan Pemasukan</button>
+            <input type="date" id="tanggalMasuk" class="w-full border rounded-xl p-3">
+
+            <div id="listPemasukanBarang" class="space-y-4">
+              <div class="grid md:grid-cols-2 gap-4 border rounded-2xl p-4 bg-slate-50 pemasukan-item">
+                <div>
+                  <input list="masterBarangList" type="text" class="namaBarangMasuk w-full border rounded-xl p-3" placeholder="Cari Nama Barang">
+                </div>
+                <div>
+                  <input type="number" class="jumlahBarangMasuk w-full border rounded-xl p-3" placeholder="Jumlah Masuk">
+                </div>
+              </div>
+            </div>
+
+            <datalist id="masterBarangList"></datalist>
+
+            <button onclick="tambahBarisPemasukan()" class="w-full bg-slate-600 text-white py-3 rounded-xl hover:bg-slate-700">
+              Tambah Barang Lagi
+            </button>
+
+            <button onclick="simpanPemasukan()" class="w-full bg-green-600 text-white py-3 rounded-xl hover:bg-green-700">
+              Simpan Pemasukan
+            </button>
           </div>
         </div>
 
@@ -190,6 +208,7 @@
       localStorage.setItem('masterBarang', JSON.stringify(barangList));
 
       tampilkanBarang();
+      updateDatalistBarang();
       resetFormBarang();
       alert('Master barang berhasil disimpan');
     }
@@ -278,25 +297,71 @@
       reader.readAsArrayBuffer(file);
     }
 
+    function tambahBarisPemasukan() {
+      const container = document.getElementById('listPemasukanBarang');
+
+      container.innerHTML += `
+        <div class="grid md:grid-cols-2 gap-4 border rounded-2xl p-4 bg-slate-50 pemasukan-item">
+          <div>
+            <input list="masterBarangList" type="text" class="namaBarangMasuk w-full border rounded-xl p-3" placeholder="Cari Nama Barang">
+          </div>
+          <div>
+            <input type="number" class="jumlahBarangMasuk w-full border rounded-xl p-3" placeholder="Jumlah Masuk">
+          </div>
+        </div>
+      `;
+    }
+
+    function updateDatalistBarang() {
+      const datalist = document.getElementById('masterBarangList');
+      datalist.innerHTML = '';
+
+      barangList.forEach(barang => {
+        datalist.innerHTML += `<option value="${barang.nama}">${barang.nama}</option>`;
+      });
+    }
+
     function simpanPemasukan() {
-      const namaBarang = document.getElementById('barangMasuk').value;
-      const jumlahMasuk = parseInt(document.getElementById('jumlahMasuk').value);
+      const namaBarangInputs = document.querySelectorAll('.namaBarangMasuk');
+      const jumlahBarangInputs = document.querySelectorAll('.jumlahBarangMasuk');
 
-      const barang = barangList.find(item => item.nama.toLowerCase() === namaBarang.toLowerCase());
+      let berhasil = false;
 
-      if (!barang) {
-        alert('Barang tidak ditemukan');
+      namaBarangInputs.forEach((input, index) => {
+        const namaBarang = input.value;
+        const jumlahMasuk = parseInt(jumlahBarangInputs[index].value);
+
+        if (!namaBarang || !jumlahMasuk) return;
+
+        const barang = barangList.find(item => item.nama.toLowerCase() === namaBarang.toLowerCase());
+
+        if (!barang) return;
+
+        barang.stokMasuk += jumlahMasuk;
+        barang.sisaStok += jumlahMasuk;
+        berhasil = true;
+      });
+
+      if (!berhasil) {
+        alert('Tidak ada data pemasukan yang valid');
         return;
       }
-
-      barang.stokMasuk += jumlahMasuk;
-      barang.sisaStok += jumlahMasuk;
 
       localStorage.setItem('masterBarang', JSON.stringify(barangList));
       tampilkanBarang();
 
-      document.getElementById('barangMasuk').value = '';
-      document.getElementById('jumlahMasuk').value = '';
+      document.getElementById('listPemasukanBarang').innerHTML = `
+        <div class="grid md:grid-cols-2 gap-4 border rounded-2xl p-4 bg-slate-50 pemasukan-item">
+          <div>
+            <input list="masterBarangList" type="text" class="namaBarangMasuk w-full border rounded-xl p-3" placeholder="Cari Nama Barang">
+          </div>
+          <div>
+            <input type="number" class="jumlahBarangMasuk w-full border rounded-xl p-3" placeholder="Jumlah Masuk">
+          </div>
+        </div>
+      `;
+
+      document.getElementById('tanggalMasuk').value = '';
 
       alert('Pemasukan stok berhasil disimpan');
     }
@@ -414,6 +479,7 @@
     window.onload = function () {
       tampilkanBarang();
       tampilkanKaryawan();
+      updateDatalistBarang();
     }
   </script>
 </body>

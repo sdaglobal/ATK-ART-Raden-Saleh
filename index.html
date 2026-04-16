@@ -66,7 +66,7 @@
   <section class="max-w-7xl mx-auto px-6 py-6">
       
     </div>
-    <div id="master-barang-section" class="bg-white rounded-3xl shadow-lg p-8 mb-10 scroll-mt-28 hidden">
+    <div id="master-barang-section" style="display:none" class="bg-white rounded-3xl shadow-lg p-8 mb-10 scroll-mt-28">
       <h3 class="text-2xl font-bold text-purple-700 mb-6">Master Data Barang</h3>
       <div class="grid md:grid-cols-2 gap-6">
         <input type="text" id="kodeBarang" placeholder="Kode Barang" class="w-full border rounded-xl p-3">
@@ -91,7 +91,7 @@
       </div>
     </div>
 
-    <div id="master-karyawan-section" class="bg-white rounded-3xl shadow-lg p-8 mb-10 scroll-mt-28 hidden">
+    <div id="master-karyawan-section" style="display:none" class="bg-white rounded-3xl shadow-lg p-8 mb-10 scroll-mt-28">
       <h3 class="text-2xl font-bold text-orange-600 mb-6">Master Data Karyawan</h3>
       <div class="grid md:grid-cols-2 gap-6">
         <input type="text" id="namaKaryawan" placeholder="Nama Karyawan" class="w-full border rounded-xl p-3">
@@ -131,7 +131,7 @@
       </div>
     </div>
 
-    <div id="stok-atk-section" class="bg-white rounded-3xl shadow-lg p-8 mb-10 scroll-mt-28">
+    <div id="stok-atk-section" style="display:none" class="bg-white rounded-3xl shadow-lg p-8 mb-10 scroll-mt-28">
       <h3 class="text-2xl font-bold text-blue-700 mb-6">Input Data Stok ATK</h3>
       <div class="grid md:grid-cols-2 gap-8">
         <div>
@@ -202,7 +202,7 @@
       </div>
     </div>
 
-    <div id="database-barang-section" class="bg-white rounded-3xl shadow-lg p-8 mt-10 scroll-mt-28">
+    <div id="database-barang-section" style="display:none" class="bg-white rounded-3xl shadow-lg p-8 mt-10 scroll-mt-28">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
         <h3 class="text-2xl font-bold text-slate-700">Database Stok Barang</h3>
         <input type="text" id="searchBarang" placeholder="Cari kode, nama barang, kategori, atau satuan" class="border rounded-xl px-4 py-3 w-full md:w-96" onkeyup="tampilkanBarang()">
@@ -775,27 +775,17 @@
     }
 
     function tampilSection(sectionId) {
-      const semuaSection = [
-        'stok-atk-section',
-        'database-barang-section',
-        'master-barang-section',
-        'master-karyawan-section',
-        'histori-masuk-section',
-        'histori-keluar-section'
-      ];
-
-      semuaSection.forEach(id => {
-        const element = document.getElementById(id);
-        if (element) {
-          element.style.display = 'none';
-        }
-      });
+      document.getElementById('stok-atk-section').style.display = 'none';
+      document.getElementById('database-barang-section').style.display = 'none';
+      document.getElementById('master-barang-section').style.display = 'none';
+      document.getElementById('master-karyawan-section').style.display = 'none';
+      document.getElementById('histori-masuk-section').style.display = 'none';
+      document.getElementById('histori-keluar-section').style.display = 'none';
 
       const target = document.getElementById(sectionId);
 
       if (target) {
         target.style.display = 'block';
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
 
@@ -873,7 +863,7 @@
     }
   </script>
   <section class="max-w-7xl mx-auto px-6 pb-10">
-    <div id="histori-masuk-section" class="bg-white rounded-3xl shadow-lg p-8 mt-10 scroll-mt-28 hidden">
+    <div id="histori-masuk-section" style="display:none" class="bg-white rounded-3xl shadow-lg p-8 mt-10 scroll-mt-28">
       <span id="histori-masuk"></span>
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
         <h3 class="text-2xl font-bold text-green-700">Histori Pemasukan Stok</h3>
@@ -899,7 +889,7 @@
       </div>
     </div>
 
-    <div id="histori-keluar-section" class="bg-white rounded-3xl shadow-lg p-8 mt-10 scroll-mt-28 hidden">
+    <div id="histori-keluar-section" style="display:none" class="bg-white rounded-3xl shadow-lg p-8 mt-10 scroll-mt-28">
       <span id="histori-keluar"></span>
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
         <h3 class="text-2xl font-bold text-red-700">Histori Pengeluaran Stok</h3>

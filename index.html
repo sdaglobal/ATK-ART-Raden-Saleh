@@ -47,6 +47,7 @@
         <input type="text" id="kodeBarang" placeholder="Kode Barang" class="w-full border rounded-xl p-3">
         <input type="text" id="namaBarang" placeholder="Nama Barang" class="w-full border rounded-xl p-3">
         <input type="text" id="kategoriBarang" placeholder="Kategori Barang" class="w-full border rounded-xl p-3">
+        <input type="text" id="satuanBarang" placeholder="Satuan Barang (pcs, box, rim, pack)" class="w-full border rounded-xl p-3">
         <input type="number" id="stokAwal" placeholder="Stok Awal" class="w-full border rounded-xl p-3">
       </div>
       <button onclick="simpanBarang()" class="mt-6 bg-purple-700 text-white px-6 py-3 rounded-xl hover:bg-purple-800">
@@ -103,6 +104,7 @@
               <th class="p-3 text-left">Kode</th>
               <th class="p-3 text-left">Nama Barang</th>
               <th class="p-3 text-left">Kategori</th>
+              <th class="p-3 text-left">Satuan</th>
               <th class="p-3 text-left">Stok Awal</th>
               <th class="p-3 text-left">Stok Masuk</th>
               <th class="p-3 text-left">Stok Keluar</th>
@@ -122,9 +124,10 @@
       const kode = document.getElementById('kodeBarang').value;
       const nama = document.getElementById('namaBarang').value;
       const kategori = document.getElementById('kategoriBarang').value;
+      const satuan = document.getElementById('satuanBarang').value;
       const stok = parseInt(document.getElementById('stokAwal').value);
 
-      if (!kode || !nama || !kategori || !stok) {
+      if (!kode || !nama || !kategori || !satuan || !stok) {
         alert('Semua data barang harus diisi');
         return;
       }
@@ -133,6 +136,7 @@
         kode,
         nama,
         kategori,
+        satuan,
         stokAwal: stok,
         stokMasuk: 0,
         stokKeluar: 0,
@@ -214,6 +218,7 @@
             <td class="p-3">${barang.kode}</td>
             <td class="p-3">${barang.nama}</td>
             <td class="p-3">${barang.kategori}</td>
+            <td class="p-3">${barang.satuan}</td>
             <td class="p-3 text-green-600 font-bold">${barang.stokAwal}</td>
             <td class="p-3 text-blue-600 font-bold">${barang.stokMasuk}</td>
             <td class="p-3 text-red-600 font-bold">${barang.stokKeluar}</td>
@@ -229,6 +234,7 @@
       document.getElementById('kodeBarang').value = '';
       document.getElementById('namaBarang').value = '';
       document.getElementById('kategoriBarang').value = '';
+      document.getElementById('satuanBarang').value = '';
       document.getElementById('stokAwal').value = '';
     }
 

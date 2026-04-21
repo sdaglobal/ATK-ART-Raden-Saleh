@@ -686,9 +686,39 @@ alert('Pengeluaran stok berhasil disimpan');
 
           barangList = importedData;
 localStorage.setItem('masterBarang', JSON.stringify(barangList));
+
+historiMasuk = [];
+historiKeluar = [];
+
+barangList.forEach(barang => {
+  if (Number(barang.stokMasuk || 0) > 0) {
+    historiMasuk.push({
+      tanggal: new Date().toISOString().split('T')[0],
+      namaBarang: barang.nama,
+      jumlahMasuk: Number(barang.stokMasuk || 0)
+    });
+  }
+
+  if (Number(barang.stokKeluar || 0) > 0) {
+    historiKeluar.push({
+      tanggal: new Date().toISOString().split('T')[0],
+      namaBarang: barang.nama,
+      jumlahKeluar: Number(barang.stokKeluar || 0),
+      pengambil: '-',
+      departemen: '-'
+    });
+  }
+});
+
+localStorage.setItem('historiMasuk', JSON.stringify(historiMasuk));
+localStorage.setItem('historiKeluar', JSON.stringify(historiKeluar));
+
 tampilkanBarang();
+tampilkanHistoriMasuk();
+tampilkanHistoriKeluar();
 renderGrafikPengeluaran();
 updateDepartemenTerbanyak();
+
 alert('Master barang berhasil diimport dari file XLSX');
         } catch (error) {
           alert('File XLSX gagal dibaca');

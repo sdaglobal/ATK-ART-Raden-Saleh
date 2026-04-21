@@ -22,12 +22,6 @@
       <h2 class="text-4xl font-bold mb-4">Dashboard Pengambilan ATK</h2>
       <p class="text-lg opacity-90">Pantau pengambilan ATK terbanyak setiap departemen secara real-time.</p>
     </div>
-  <div class="bg-white rounded-3xl shadow-lg p-6 mt-6 md:col-span-3">
-      <h3 class="text-2xl font-bold text-slate-700 mb-6">Persentase Pengambilan per Departemen</h3>
-      <div class="overflow-x-auto">
-        <div id="chartPersentaseDepartemen" class="flex items-end gap-6 h-72 border-b border-l border-slate-400 px-12 pt-6 pb-8 bg-slate-50 rounded-2xl overflow-x-auto"></div>
-      </div>
-    </div>
   </section>
 
   <section class="max-w-7xl mx-auto px-6 pb-10">
@@ -38,9 +32,8 @@
     </div>
 
     <div class="bg-white rounded-3xl shadow-lg p-6">
-      <p class="text-sm text-slate-500 mb-2">Departemen Pengambilan Terbanyak</p>
-      <h3 id="departemenTerbanyak" class="text-3xl font-bold text-red-600">-</h3>
-      <p id="persentaseDepartemen" class="text-sm text-slate-500 mt-2">0%</p>
+      <p class="text-sm text-slate-500 mb-2">Departemen Terbanyak</p>
+      <h3 class="text-3xl font-bold text-red-600">HRD</h3>
     </div>
 
     <div class="bg-white rounded-3xl shadow-lg p-6">
@@ -53,12 +46,12 @@
     <div class="max-w-7xl mx-auto px-6 py-4">
       <div class="bg-white rounded-3xl shadow-lg p-4">
         <div class="flex flex-wrap gap-3 justify-center">
-          <a href="javascript:void(0)" onclick="return showOnlySection('stok-atk-section')" class="bg-blue-700 text-white px-5 py-3 rounded-xl hover:bg-blue-800 cursor-pointer inline-block">Stok ATK</a>
-          <a href="javascript:void(0)" onclick="return showOnlySection('database-barang-section')" class="bg-slate-700 text-white px-5 py-3 rounded-xl hover:bg-slate-800 cursor-pointer inline-block">Database Barang</a>
-          <a href="javascript:void(0)" onclick="return showOnlySection('master-barang-section')" class="bg-purple-700 text-white px-5 py-3 rounded-xl hover:bg-purple-800 cursor-pointer inline-block">Master Barang</a>
-          <a href="javascript:void(0)" onclick="return showOnlySection('master-karyawan-section')" class="bg-orange-600 text-white px-5 py-3 rounded-xl hover:bg-orange-700 cursor-pointer inline-block">Master Karyawan</a>
-          <a href="javascript:void(0)" onclick="return showOnlySection('histori-masuk-section')" class="bg-green-600 text-white px-5 py-3 rounded-xl hover:bg-green-700 cursor-pointer inline-block">Histori Masuk</a>
-          <a href="javascript:void(0)" onclick="return showOnlySection('histori-keluar-section')" class="bg-red-600 text-white px-5 py-3 rounded-xl hover:bg-red-700 cursor-pointer inline-block">Histori Keluar</a>
+          <button onclick="tampilSection('stok-atk-section')" class="bg-blue-700 text-white px-5 py-3 rounded-xl hover:bg-blue-800">Stok ATK</button>
+          <button onclick="tampilSection('database-barang-section')" class="bg-slate-700 text-white px-5 py-3 rounded-xl hover:bg-slate-800">Database Barang</button>
+          <button onclick="tampilSection('master-barang-section')" class="bg-purple-700 text-white px-5 py-3 rounded-xl hover:bg-purple-800">Master Barang</button>
+          <button onclick="tampilSection('master-karyawan-section')" class="bg-orange-600 text-white px-5 py-3 rounded-xl hover:bg-orange-700">Master Karyawan</button>
+          <button onclick="tampilSection('histori-masuk-section')" class="bg-green-600 text-white px-5 py-3 rounded-xl hover:bg-green-700">Histori Masuk</button>
+          <button onclick="tampilSection('histori-keluar-section')" class="bg-red-600 text-white px-5 py-3 rounded-xl hover:bg-red-700">Histori Keluar</button>
           
         </div>
       </div>
@@ -68,7 +61,7 @@
   <section class="max-w-7xl mx-auto px-6 py-6">
       
     </div>
-    <div id="master-barang-section"  class="bg-white rounded-3xl shadow-lg p-8 mb-10 scroll-mt-28">
+    <div id="master-barang-section" class="bg-white rounded-3xl shadow-lg p-8 mb-10 scroll-mt-28 hidden">
       <h3 class="text-2xl font-bold text-purple-700 mb-6">Master Data Barang</h3>
       <div class="grid md:grid-cols-2 gap-6">
         <input type="text" id="kodeBarang" placeholder="Kode Barang" class="w-full border rounded-xl p-3">
@@ -93,7 +86,7 @@
       </div>
     </div>
 
-    <div id="master-karyawan-section"  class="bg-white rounded-3xl shadow-lg p-8 mb-10 scroll-mt-28">
+    <div id="master-karyawan-section" class="bg-white rounded-3xl shadow-lg p-8 mb-10 scroll-mt-28 hidden">
       <h3 class="text-2xl font-bold text-orange-600 mb-6">Master Data Karyawan</h3>
       <div class="grid md:grid-cols-2 gap-6">
         <input type="text" id="namaKaryawan" placeholder="Nama Karyawan" class="w-full border rounded-xl p-3">
@@ -133,7 +126,7 @@
       </div>
     </div>
 
-    <div id="stok-atk-section"  class="bg-white rounded-3xl shadow-lg p-8 mb-10 scroll-mt-28">
+    <div id="stok-atk-section" class="bg-white rounded-3xl shadow-lg p-8 mb-10 scroll-mt-28">
       <h3 class="text-2xl font-bold text-blue-700 mb-6">Input Data Stok ATK</h3>
       <div class="grid md:grid-cols-2 gap-8">
         <div>
@@ -204,7 +197,7 @@
       </div>
     </div>
 
-    <div id="database-barang-section"  class="bg-white rounded-3xl shadow-lg p-8 mt-10 scroll-mt-28">
+    <div id="database-barang-section" class="bg-white rounded-3xl shadow-lg p-8 mt-10 scroll-mt-28">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
         <h3 class="text-2xl font-bold text-slate-700">Database Stok Barang</h3>
         <input type="text" id="searchBarang" placeholder="Cari kode, nama barang, kategori, atau satuan" class="border rounded-xl px-4 py-3 w-full md:w-96" onkeyup="tampilkanBarang()">
@@ -592,16 +585,14 @@
 
       localStorage.setItem('masterBarang', JSON.stringify(barangList));
       tampilkanBarang();
-      tampilkanHistoriKeluar();
-      updateDashboardDepartemen();
 
       document.getElementById('listPengeluaranBarang').innerHTML = `
         <div class="grid md:grid-cols-[2fr_1fr_auto] gap-4 border rounded-2xl p-4 bg-slate-50 pengeluaran-item">
           <input list="masterBarangList" type="text" class="namaBarangKeluar w-full min-w-[220px] border rounded-xl p-3" placeholder="Cari atau pilih barang">
           <input type="number" class="jumlahBarangKeluar w-full border rounded-xl p-3" placeholder="Jumlah Keluar">
           <input type="hidden" class="departemenKeluar">
-          <div class="flex gap-2">
-            <input type="hidden" class="pengambilKeluar">
+                <div class="flex gap-2">
+                  <input type="hidden" class="pengambilKeluar">
             <button type="button" onclick="hapusBarisPengeluaran(this)" class="bg-red-600 text-white px-4 rounded-xl hover:bg-red-700">
               Hapus
             </button>
@@ -610,6 +601,8 @@
       `;
 
       document.getElementById('tanggalKeluar').value = '';
+
+      tampilkanHistoriKeluar();
       alert('Pengeluaran stok berhasil disimpan');
     }
 
@@ -774,92 +767,8 @@
       XLSX.writeFile(workbook, 'histori-pengeluaran.xlsx');
     }
 
-    
-
-    function updateDashboardDepartemen() {
-      const totalKeluar = historiKeluar.reduce((total, item) => total + Number(item.jumlahKeluar || 0), 0);
-
-      const departemenData = {};
-
-      historiKeluar.forEach(item => {
-        const dept = item.departemen || 'Lainnya';
-        departemenData[dept] = (departemenData[dept] || 0) + Number(item.jumlahKeluar || 0);
-      });
-
-      let departemenTerbanyak = '-';
-      let jumlahTerbanyak = 0;
-
-      Object.keys(departemenData).forEach(dept => {
-        if (departemenData[dept] > jumlahTerbanyak) {
-          departemenTerbanyak = dept;
-          jumlahTerbanyak = departemenData[dept];
-        }
-      });
-
-      const persentase = totalKeluar > 0 ? ((jumlahTerbanyak / totalKeluar) * 100).toFixed(1) : 0;
-
-      const departemenEl = document.getElementById('departemenTerbanyak');
-      const persentaseEl = document.getElementById('persentaseDepartemen');
-      const listEl = document.getElementById('listPersentaseDepartemen');
-
-      if (listEl) {
-        listEl.innerHTML = '';
-
-        Object.keys(departemenData).forEach(dept => {
-          const persenDept = totalKeluar > 0 ? ((departemenData[dept] / totalKeluar) * 100).toFixed(1) : 0;
-
-          listEl.innerHTML += `
-            <div class="border rounded-2xl p-4 bg-slate-50 w-full">
-              <div class="flex justify-between items-center mb-2">
-                <span class="font-semibold text-slate-700">${dept}</span>
-                <span class="font-bold text-blue-700">${persenDept}%</span>
-              </div>
-              <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
-                <div class="bg-blue-600 h-3 rounded-full" style="width: ${persenDept}%"></div>
-              </div>
-            </div>
-          `;
-        });
-      }
-
-      const chartEl = document.getElementById('chartPersentaseDepartemen');
-      if (chartEl) {
-        chartEl.innerHTML = '';
-
-        sortedDepartemen.forEach(item => {
-          const dept = item[0];
-          const jumlah = item[1];
-          const persenDept = totalKeluar > 0 ? ((jumlah / totalKeluar) * 100).toFixed(1) : 0;
-          const tinggiBar = Math.max(30, persenDept * 2.5);
-
-          chartEl.innerHTML += `
-            <div class="flex flex-col items-center justify-end min-w-[120px] h-full">
-              <div class="h-56 flex items-end">
-                <div class="w-16 bg-blue-600 border border-blue-800 rounded-t-lg shadow-lg flex items-start justify-center text-white text-sm font-bold pt-2" style="height:${tinggiBar}px">
-                  ${persenDept}%
-                </div>
-              </div>
-              <div class="mt-3 text-sm font-semibold text-slate-800 text-center leading-tight break-words w-24">
-                ${dept}
-              </div>
-            </div>
-          `;
-        });
-      }
-
-      const persentaseEl = document.getElementById('persentaseDepartemen');
-
-      if (departemenEl) {
-        departemenEl.textContent = departemenTerbanyak;
-      }
-
-      if (persentaseEl) {
-        persentaseEl.textContent = persentase + '% dari total pengambilan';
-      }
-    }
-
-    function showOnlySection(sectionId) {
-      const sections = [
+    function tampilSection(sectionId) {
+      const semuaSection = [
         'stok-atk-section',
         'database-barang-section',
         'master-barang-section',
@@ -868,41 +777,37 @@
         'histori-keluar-section'
       ];
 
-      sections.forEach(id => {
-        const section = document.getElementById(id);
-        if (section) {
-          section.style.display = 'none';
+      semuaSection.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.classList.add('hidden');
         }
       });
 
-      const activeSection = document.getElementById(sectionId);
-      if (activeSection) {
-        activeSection.style.display = 'block';
-        activeSection.scrollIntoView({ behavior: 'smooth' });
+      const target = document.getElementById(sectionId);
+      if (target) {
+        target.classList.remove('hidden');
+        target.scrollIntoView({ behavior: 'smooth' });
       }
-
-      return false;
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    window.onload = function () {
+      document.getElementById('stok-atk-section').classList.add('hidden');
+      document.getElementById('database-barang-section').classList.add('hidden');
+      document.getElementById('master-barang-section').classList.add('hidden');
+      document.getElementById('master-karyawan-section').classList.add('hidden');
+      document.getElementById('histori-masuk-section').classList.add('hidden');
+      document.getElementById('histori-keluar-section').classList.add('hidden');
       tampilkanBarang();
       tampilkanKaryawan();
       updateSelectBarang();
       updateDatalistKaryawan();
       tampilkanHistoriMasuk();
       tampilkanHistoriKeluar();
-      updateDashboardDepartemen();
-
-      document.getElementById('stok-atk-section').style.display = 'none';
-      document.getElementById('database-barang-section').style.display = 'none';
-      document.getElementById('master-barang-section').style.display = 'none';
-      document.getElementById('master-karyawan-section').style.display = 'none';
-      document.getElementById('histori-masuk-section').style.display = 'none';
-      document.getElementById('histori-keluar-section').style.display = 'none';
     }
   </script>
   <section class="max-w-7xl mx-auto px-6 pb-10">
-    <div id="histori-masuk-section"  class="bg-white rounded-3xl shadow-lg p-8 mt-10 scroll-mt-28">
+    <div id="histori-masuk-section" class="bg-white rounded-3xl shadow-lg p-8 mt-10 scroll-mt-28 hidden">
       <span id="histori-masuk"></span>
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
         <h3 class="text-2xl font-bold text-green-700">Histori Pemasukan Stok</h3>
@@ -928,7 +833,7 @@
       </div>
     </div>
 
-    <div id="histori-keluar-section"  class="bg-white rounded-3xl shadow-lg p-8 mt-10 scroll-mt-28">
+    <div id="histori-keluar-section" class="bg-white rounded-3xl shadow-lg p-8 mt-10 scroll-mt-28 hidden">
       <span id="histori-keluar"></span>
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
         <h3 class="text-2xl font-bold text-red-700">Histori Pengeluaran Stok</h3>
@@ -958,4 +863,3 @@
   </section>
 </body>
 </html>
-```

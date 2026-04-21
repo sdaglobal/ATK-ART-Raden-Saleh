@@ -7,6 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   </head>
 <body class="min-h-screen bg-slate-100 text-slate-800">
   <header class="bg-blue-700 text-white shadow-lg">
@@ -850,6 +851,7 @@ function renderGrafikPengeluaran() {
   }
 
   window.grafikPengeluaranChart = new Chart(canvas, {
+  plugins: [ChartDataLabels],
     type: 'bar',
     data: {
       labels,
@@ -874,10 +876,46 @@ function renderGrafikPengeluaran() {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: {
-          display: false
-        }
-      },
+  legend: {
+    display: false
+  },
+  tooltip: {
+    callbacks: {
+      label: function(context) {
+        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+        const value = context.raw;
+        const persen = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+
+        return `${value} item (${persen}%)`;
+      }
+    }
+  },
+  datalabels: {
+    anchor: 'end',
+    align: 'top',
+    color: '#334155',
+    font: {
+      weight: 'bold'
+    },
+    formatter: function(value, context) {
+      const total = context.dataset.data.reduce((a, b) => a + b, 0);
+      const persen = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+      return persen + '%';
+    }
+  }
+},
+  tooltip: {
+    callbacks: {
+      label: function(context) {
+        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+        const value = context.raw;
+        const persen = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+
+        return `${value} item (${persen}%)`;
+      }
+    }
+  }
+},
       scales: {
         y: {
           beginAtZero: true,

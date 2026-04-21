@@ -6,8 +6,8 @@
   <title>Dashboard Internal ATK</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
 <body class="min-h-screen bg-slate-100 text-slate-800">
   <header class="bg-blue-700 text-white shadow-lg">
     <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
@@ -33,16 +33,16 @@
     </div>
 
     <div class="bg-white rounded-3xl shadow-lg p-6">
-      <p class="text-sm text-slate-500 mb-2">Departemen Terbanyak</p>
-      <h3 class="text-3xl font-bold text-red-600" id="departemenTerbanyak">-</h3>
-    </div>
+  <p class="text-sm text-slate-500 mb-2">Departemen Terbanyak</p>
+  <h3 class="text-3xl font-bold text-red-600" id="departemenTerbanyak">-</h3>
+</div>
 
     <div class="bg-white rounded-3xl shadow-lg p-6">
       <p class="text-sm text-slate-500 mb-2">ATK Paling Banyak Diambil</p>
       <h3 class="text-3xl font-bold text-blue-700">Kertas A4</h3>
     </div>
   </section>
-<section class="max-w-7xl mx-auto px-6 pb-10">
+        <section class="max-w-7xl mx-auto px-6 pb-10">
   <div class="bg-white rounded-3xl shadow-lg p-8 mb-10">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
       <div>
@@ -696,7 +696,6 @@ localStorage.setItem('masterBarang', JSON.stringify(barangList));
 tampilkanBarang();
 renderGrafikPengeluaran();
 updateDepartemenTerbanyak();
-
 alert('Master barang berhasil diimport dari file XLSX');
         } catch (error) {
           alert('File XLSX gagal dibaca');
@@ -814,13 +813,29 @@ function renderGrafikPengeluaran() {
 
   if (!canvas) return;
 
+  const daftarDepartemen = [
+    'Fin, Acc & Tax',
+    'HCS',
+    'Information & Technology',
+    'Procurement',
+    'Purchasing',
+    'QAQC',
+    'Sales & Marketing',
+    'Technical & Machining',
+    'Warehouse & Logistic'
+  ];
+
   const dataDepartemen = {};
+
+  daftarDepartemen.forEach(departemen => {
+    dataDepartemen[departemen] = 0;
+  });
 
   historiKeluar.forEach(item => {
     const departemen = item.departemen || 'Tidak Diketahui';
     const jumlah = Number(item.jumlahKeluar || 0);
 
-    if (!dataDepartemen[departemen]) {
+    if (!dataDepartemen.hasOwnProperty(departemen)) {
       dataDepartemen[departemen] = 0;
     }
 
@@ -837,10 +852,10 @@ function renderGrafikPengeluaran() {
   window.grafikPengeluaranChart = new Chart(canvas, {
     type: 'bar',
     data: {
-      labels: labels.length ? labels : ['Belum Ada Data'],
+      labels,
       datasets: [{
         label: 'Jumlah Pengeluaran',
-        data: values.length ? values : [0],
+        data: values,
         backgroundColor: [
           '#2563eb',
           '#16a34a',
@@ -848,7 +863,9 @@ function renderGrafikPengeluaran() {
           '#9333ea',
           '#ea580c',
           '#0891b2',
-          '#ca8a04'
+          '#ca8a04',
+          '#4f46e5',
+          '#be123c'
         ],
         borderRadius: 12
       }]
@@ -898,26 +915,27 @@ function updateDepartemenTerbanyak() {
   });
 
   const element = document.getElementById('departemenTerbanyak');
+
   if (element) {
     element.textContent = departemenTerbanyak;
   }
 }
 
 window.onload = function () {
-      document.getElementById('stok-atk-section').classList.add('hidden');
-      document.getElementById('database-barang-section').classList.add('hidden');
-      document.getElementById('master-barang-section').classList.add('hidden');
-      document.getElementById('master-karyawan-section').classList.add('hidden');
-      document.getElementById('histori-masuk-section').classList.add('hidden');
-      document.getElementById('histori-keluar-section').classList.add('hidden');
-      tampilkanBarang();
-      tampilkanKaryawan();
-      updateSelectBarang();
-      updateDatalistKaryawan();
-      tampilkanHistoriMasuk();
-tampilkanHistoriKeluar();
-renderGrafikPengeluaran();
-updateDepartemenTerbanyak();
+  document.getElementById('stok-atk-section').classList.add('hidden');
+  document.getElementById('database-barang-section').classList.add('hidden');
+  document.getElementById('master-barang-section').classList.add('hidden');
+  document.getElementById('master-karyawan-section').classList.add('hidden');
+  document.getElementById('histori-masuk-section').classList.add('hidden');
+  document.getElementById('histori-keluar-section').classList.add('hidden');
+  tampilkanBarang();
+  tampilkanKaryawan();
+  updateSelectBarang();
+  updateDatalistKaryawan();
+  tampilkanHistoriMasuk();
+  tampilkanHistoriKeluar();
+  renderGrafikPengeluaran();
+  updateDepartemenTerbanyak();
 }
   </script>
   <section class="max-w-7xl mx-auto px-6 pb-10">

@@ -1462,10 +1462,14 @@ window.onload = function () {
   tampilkanKaryawan();
   updateSelectBarang();
 updateDatalistKaryawan();
-loadBarangDariSupabase();
 loadKaryawanDariSupabase();
-loadHistoriMasukDariSupabase();
-loadHistoriKeluarDariSupabase();
+
+Promise.all([
+  loadHistoriMasukDariSupabase(),
+  loadHistoriKeluarDariSupabase()
+]).then(() => {
+  loadBarangDariSupabase();
+});
 
 setTimeout(() => {
   updateDatalistKaryawan();

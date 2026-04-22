@@ -344,7 +344,7 @@ async function loadBarangDariSupabase() {
   const { data, error } = await supabaseClient
   .from('master_barang')
   .select('*')
-  .order('kode', { ascending: true });
+  .order('id', { ascending: true });
 
   console.log('Data barang dari Supabase:', data);
   console.log('Error Supabase:', error);

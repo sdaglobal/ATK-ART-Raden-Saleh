@@ -253,6 +253,36 @@ const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
   }
 }
 
+async function simpanHistoriMasukKeSupabase(data) {
+  const { error } = await supabaseClient
+    .from('histori_masuk')
+    .insert([{
+      tanggal: data.tanggal,
+      nama_barang: data.namaBarang,
+      jumlah_masuk: data.jumlahMasuk
+    }]);
+
+  if (error) {
+    console.log('Gagal simpan histori masuk:', error);
+  }
+}
+
+async function simpanHistoriKeluarKeSupabase(data) {
+  const { error } = await supabaseClient
+    .from('histori_keluar')
+    .insert([{
+      tanggal: data.tanggal,
+      nama_barang: data.namaBarang,
+      jumlah_keluar: data.jumlahKeluar,
+      pengambil: data.pengambil,
+      departemen: data.departemen
+    }]);
+
+  if (error) {
+    console.log('Gagal simpan histori keluar:', error);
+  }
+}
+
 async function simpanBarangKeSupabase(barang) {
   const { error } = await supabaseClient
     .from('master_barang')
@@ -271,7 +301,20 @@ async function simpanBarangKeSupabase(barang) {
     console.log('Gagal simpan barang:', error);
   }
 }
+async function updateBarangKeSupabase(barang) {
+  const { error } = await supabaseClient
+    .from('master_barang')
+    .update({
+      stok_masuk: barang.stokMasuk,
+      stok_keluar: barang.stokKeluar,
+      sisa_stok: barang.sisaStok
+    })
+    .eq('kode', barang.kode);
 
+  if (error) {
+    console.log('Gagal update barang:', error);
+  }
+}
 async function loadKaryawanDariSupabase() {
   const { data, error } = await supabaseClient
     .from('master_karyawan')
@@ -317,6 +360,52 @@ async function loadBarangDariSupabase() {
     tampilkanBarang();
     updateSelectBarang();
     updateAtkTerbanyak();
+  }
+}
+    async function loadHistoriMasukDariSupabase() {
+  const { data, error } = await supabaseClient
+    .from('histori_masuk')
+    .select('*')
+    .order('tanggal', { ascending: false });
+
+  console.log('Histori masuk:', data);
+  console.log('Error histori masuk:', error);
+
+  if (!error && data) {
+    historiMasuk = data.map(item => ({
+      tanggal: item.tanggal,
+      namaBarang: item.nama_barang,
+      jumlahMasuk: item.jumlah_masuk
+    }));
+
+    localStorage.setItem('historiMasuk', JSON.stringify(historiMasuk));
+    tampilkanHistoriMasuk();
+  }
+}
+
+async function loadHistoriKeluarDariSupabase() {
+  const { data, error } = await supabaseClient
+    .from('histori_keluar')
+    .select('*')
+    .order('tanggal', { ascending: false });
+
+  console.log('Histori keluar:', data);
+  console.log('Error histori keluar:', error);
+
+  if (!error && data) {
+    historiKeluar = data.map(item => ({
+      tanggal: item.tanggal,
+      namaBarang: item.nama_barang,
+      jumlahKeluar: item.jumlah_keluar,
+      pengambil: item.pengambil,
+      departemen: item.departemen
+    }));
+
+    localStorage.setItem('historiKeluar', JSON.stringify(historiKeluar));
+
+    tampilkanHistoriKeluar();
+    renderGrafikPengeluaran();
+    updateDepartemenTerbanyak();
   }
 }
       async function simpanBarang() {
@@ -504,7 +593,7 @@ alert('Master karyawan berhasil diimport');
       item.remove();
     }
 
-    function simpanPemasukan() {
+    async function simpanPemasukan() {
       const namaBarangInputs = document.querySelectorAll('.namaBarangMasuk');
       const jumlahBarangInputs = document.querySelectorAll('.jumlahBarangMasuk');
 
@@ -536,11 +625,16 @@ alert('Master karyawan berhasil diimport');
         barang.stokMasuk = Number(barang.stokMasuk || 0) + jumlahMasuk;
         barang.sisaStok = Number(barang.sisaStok || 0) + jumlahMasuk;
 
-        historiMasuk.push({
-          tanggal: document.getElementById('tanggalMasuk').value,
-          namaBarang,
-          jumlahMasuk
-        });
+await updateBarangKeSupabase(barang);
+
+        const dataMasuk = {
+  tanggal: document.getElementById('tanggalMasuk').value,
+  namaBarang,
+  jumlahMasuk
+};
+
+historiMasuk.push(dataMasuk);
+simpanHistoriMasukKeSupabase(dataMasuk);
 
         localStorage.setItem('historiMasuk', JSON.stringify(historiMasuk));
         berhasil = true;
@@ -634,7 +728,7 @@ alert('Master karyawan berhasil diimport');
       item.remove();
     }
 
-    function simpanPengeluaran() {
+    async function simpanPengeluaran() {
       const namaBarangInputs = document.querySelectorAll('.namaBarangKeluar');
       const jumlahBarangInputs = document.querySelectorAll('.jumlahBarangKeluar');
 
@@ -670,13 +764,18 @@ alert('Master karyawan berhasil diimport');
         barang.stokKeluar = Number(barang.stokKeluar || 0) + jumlahKeluar;
         barang.sisaStok = Number(barang.sisaStok || 0) - jumlahKeluar;
 
-        historiKeluar.push({
-          tanggal: document.getElementById('tanggalKeluar').value,
-          namaBarang,
-          jumlahKeluar,
-          pengambil: document.getElementById('namaPengambilGlobal').value,
-          departemen: document.getElementById('departemenGlobal').value
-        });
+await updateBarangKeSupabase(barang);
+
+        const dataKeluar = {
+  tanggal: document.getElementById('tanggalKeluar').value,
+  namaBarang,
+  jumlahKeluar,
+  pengambil: document.getElementById('namaPengambilGlobal').value,
+  departemen: document.getElementById('departemenGlobal').value
+};
+
+historiKeluar.push(dataKeluar);
+simpanHistoriKeluarKeSupabase(dataKeluar);
 
         localStorage.setItem('historiKeluar', JSON.stringify(historiKeluar));
         berhasil = true;
@@ -1194,6 +1293,8 @@ window.onload = function () {
 updateDatalistKaryawan();
 loadBarangDariSupabase();
 loadKaryawanDariSupabase();
+loadHistoriMasukDariSupabase();
+loadHistoriKeluarDariSupabase();
 
 setTimeout(() => {
   updateDatalistKaryawan();

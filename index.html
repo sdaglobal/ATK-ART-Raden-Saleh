@@ -239,7 +239,7 @@ let historiKeluar = JSON.parse(localStorage.getItem('historiKeluar')) || [];
 
 const supabaseUrl = 'https://wlnibcoqspxwmylkyolk.supabase.co';
 const supabaseKey = 'sb_publishable_lycr_Pk_EfTZxPmUJ3xsag_isf7AEwS';
-const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
     async function simpanBarangKeSupabase(barang) {
   const { error } = await supabaseClient
     .from('master_barang')
@@ -721,14 +721,14 @@ alert('Pengeluaran stok berhasil disimpan');
       XLSX.writeFile(workbook, 'master-barang.xlsx');
     }
 
-    function importBarang(event) {
+    async function importBarang(event) {
       const file = event.target.files[0];
 
       if (!file) return;
 
       const reader = new FileReader();
 
-      reader.onload = function(e) {
+      reader.onload = async function(e) {
         try {
           const data = new Uint8Array(e.target.result);
           const workbook = XLSX.read(data, { type: 'array' });
@@ -738,6 +738,19 @@ alert('Pengeluaran stok berhasil disimpan');
 
           barangList = importedData;
 localStorage.setItem('masterBarang', JSON.stringify(barangList));
+
+for (const barang of barangList) {
+  await simpanBarangKeSupabase({
+    kode: barang.kode,
+    nama: barang.nama,
+    kategori: barang.kategori,
+    satuan: barang.satuan,
+    stokAwal: Number(barang.stokAwal || barang.stok_awal || 0),
+    stokMasuk: Number(barang.stokMasuk || barang.stok_masuk || 0),
+    stokKeluar: Number(barang.stokKeluar || barang.stok_keluar || 0),
+    sisaStok: Number(barang.sisaStok || barang.sisa_stok || 0)
+  });
+}
 
 historiMasuk = [];
 historiKeluar = [];

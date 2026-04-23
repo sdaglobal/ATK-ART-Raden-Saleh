@@ -63,7 +63,10 @@
           <button onclick="tampilSection('master-karyawan-section')" class="bg-orange-600 text-white px-5 py-3 rounded-xl hover:bg-orange-700">Master Karyawan</button>
           <button onclick="tampilSection('histori-masuk-section')" class="bg-green-600 text-white px-5 py-3 rounded-xl hover:bg-green-700">Histori Masuk</button>
           <button onclick="tampilSection('histori-keluar-section')" class="bg-red-600 text-white px-5 py-3 rounded-xl hover:bg-red-700">Histori Keluar</button>
-          
+          <button onclick="tampilSection('laporan-departemen-section')" 
+class="bg-indigo-600 text-white px-5 py-3 rounded-xl hover:bg-indigo-700">
+  Laporan Departemen
+</button>
         </div>
       </div>
     </div>
@@ -427,7 +430,7 @@ async function loadBarangDariSupabase() {
 }
 
 async function loadHistoriKeluarDariSupabase() {
-  const { data, error } = await supabaseClient
+    const { data, error } = await supabaseClient
     .from('histori_keluar')
     .select('*')
     .order('tanggal', { ascending: false });
@@ -449,6 +452,9 @@ async function loadHistoriKeluarDariSupabase() {
     tampilkanHistoriKeluar();
     renderGrafikPengeluaran();
     updateDepartemenTerbanyak();
+
+    isiFilterDepartemen();
+  tampilkanLaporanDepartemen();
   }
 }
       async function simpanBarang() {
@@ -1335,7 +1341,63 @@ options: {
 }
     });
 }
+function tampilkanLaporanDepartemen() {
+  const tbody = document.getElementById('tabelLaporanDepartemen');
+  const filterDept = document.getElementById('filterDepartemen').value;
+  const keyword = document.getElementById('searchBarangDepartemen').value.toLowerCase();
 
+  tbody.innerHTML = '';
+
+  const data = {};
+
+  historiKeluar.forEach(item => {
+    if (filterDept && item.departemen !== filterDept) return;
+
+    const key = item.departemen + '|' + item.namaBarang;
+
+    if (!data[key]) {
+      data[key] = {
+        departemen: item.departemen,
+        namaBarang: item.namaBarang,
+        total: 0
+      };
+    }
+
+    data[key].total += Number(item.jumlahKeluar || 0);
+  });
+
+  let hasil = Object.values(data);
+
+  // 🔥 TERBANYAK DI ATAS
+  hasil.sort((a, b) => b.total - a.total);
+
+  let nomor = 1;
+
+  hasil.forEach(item => {
+    if (!item.namaBarang.toLowerCase().includes(keyword)) return;
+
+    tbody.innerHTML += `
+      <tr>
+        <td class="p-3">${nomor++}</td>
+        <td class="p-3">${item.departemen}</td>
+        <td class="p-3">${item.namaBarang}</td>
+        <td class="p-3 font-bold text-blue-600">${item.total}</td>
+      </tr>
+    `;
+  });
+}
+
+function isiFilterDepartemen() {
+  const select = document.getElementById('filterDepartemen');
+
+  const unik = [...new Set(historiKeluar.map(item => item.departemen))];
+
+  select.innerHTML = '<option value="">Semua Departemen</option>';
+
+  unik.forEach(dep => {
+    select.innerHTML += `<option value="${dep}">${dep}</option>`;
+  });
+}
 function updateDepartemenTerbanyak() {
   const departemenCount = {};
   let totalSemua = 0;
@@ -1525,7 +1587,34 @@ updateAtkTerbanyak();
         </table>
       </div>
     </div>
+<div id="laporan-departemen-section" class="bg-white rounded-3xl shadow-lg p-8 mt-10 hidden">
+  <h3 class="text-2xl font-bold text-indigo-700 mb-6">
+    List Pengambilan per Departemen
+  </h3>
 
+  <div class="flex gap-3 mb-6">
+    <select id="filterDepartemen" class="border rounded-xl px-4 py-3" onchange="tampilkanLaporanDepartemen()">
+      <option value="">Semua Departemen</option>
+    </select>
+
+    <input type="text" id="searchBarangDepartemen" placeholder="Cari barang"
+      class="border rounded-xl px-4 py-3" onkeyup="tampilkanLaporanDepartemen()">
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="w-full border rounded-xl">
+      <thead class="bg-slate-200">
+        <tr>
+          <th class="p-3">No</th>
+          <th class="p-3">Departemen</th>
+          <th class="p-3">Nama Barang</th>
+          <th class="p-3">Total</th>
+        </tr>
+      </thead>
+      <tbody id="tabelLaporanDepartemen"></tbody>
+    </table>
+  </div>
+</div>
     <div id="histori-keluar-section" class="bg-white rounded-3xl shadow-lg p-8 mt-10 scroll-mt-28 hidden">
       <span id="histori-keluar"></span>
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">

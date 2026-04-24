@@ -249,7 +249,7 @@ const supabaseKey = 'sb_publishable_lycr_Pk_EfTZxPmUJ3xsag_isf7AEwS';
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
     function ambilKodeBarang(namaInput) {
   const barang = barangList.find(item =>
-    item.nama.trim().toLowerCase() === namaInput.trim().toLowerCase()
+    item.nama.toLowerCase().includes(namaInput.toLowerCase())
   );
 
   return barang ? barang.kode : null;
@@ -1490,9 +1490,6 @@ function updateDepartemenTerbanyak() {
     const namaFix = row.querySelector('.namaBarangKeluar');
 const jumlahFix = row.querySelector('.jumlahBarangKeluar');
 
-if (namaFix.dataset.listener === "true") return;
-namaFix.dataset.listener = "true";
-jumlahFix.dataset.listener = "true";
     function hitung() {
   const nama = namaFix.value.trim();
   const jumlah = parseInt(jumlahFix.value) || 0;
@@ -1501,7 +1498,23 @@ jumlahFix.dataset.listener = "true";
   return;
 }
       if (!jumlahFix.value) {
+    const kode = ambilKodeBarang(nama);
+if (!kode) {
   sisaInput.value = '-';
+  return;
+}
+
+const barang = barangList.find(item => item.kode === kode);
+if (!barang) {
+  sisaInput.value = '-';
+  return;
+}
+
+  if (barang) {
+    sisaInput.value = barang.sisaStok + " (stok awal)";
+  } else {
+    sisaInput.value = '-';
+  }
   return;
 }
 
@@ -1543,14 +1556,14 @@ const barang = barangList.find(item =>
       }
     }
 
-namaFix.addEventListener('input', hitung);
-namaFix.addEventListener('change', hitung);
-namaFix.addEventListener('blur', hitung);
-namaFix.addEventListener('keyup', hitung);
+namaFix.oninput = hitung;
+namaFix.onchange = hitung;
+namaFix.onblur = hitung;
+namaFix.onkeyup = hitung;
 
-jumlahFix.addEventListener('input', hitung);
-jumlahFix.addEventListener('change', hitung);
-jumlahFix.addEventListener('keyup', hitung);
+jumlahFix.oninput = hitung;
+jumlahFix.onchange = hitung;
+jumlahFix.onkeyup = hitung;
     hitung();
   });
 }

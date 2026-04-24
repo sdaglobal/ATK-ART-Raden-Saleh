@@ -248,10 +248,11 @@ const supabaseUrl = 'https://wlnibcoqspxwmylkyolk.supabase.co';
 const supabaseKey = 'sb_publishable_lycr_Pk_EfTZxPmUJ3xsag_isf7AEwS';
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
     function ambilKodeBarang(namaInput) {
-  const option = [...document.querySelectorAll('#masterBarangList option')]
-    .find(opt => opt.value.toLowerCase() === namaInput.toLowerCase());
+  const barang = barangList.find(item =>
+    item.nama.trim().toLowerCase() === namaInput.trim().toLowerCase()
+  );
 
-  return option ? option.dataset.kode : null;
+  return barang ? barang.kode : null;
 }
     async function simpanKaryawanKeSupabase(karyawan) {
   const { error } = await supabaseClient
@@ -742,11 +743,9 @@ simpanHistoriMasukKeSupabase(dataMasuk);
         input.value = departemenInput.value;
       });
     }
-
-    function tambahBarisPengeluaran() {
-      const container = document.getElementById('listPengeluaranBarang');
-
-      const wrapper = document.createElement('div');
+function tambahBarisPengeluaran() {
+  const container = document.getElementById('listPengeluaranBarang');
+          const wrapper = document.createElement('div');
       wrapper.className = 'grid md:grid-cols-[2fr_1fr_1fr_auto] gap-4 border rounded-2xl p-4 bg-slate-50 pengeluaran-item';
       wrapper.innerHTML = `
         <input list="masterBarangList" type="text" class="namaBarangKeluar w-full min-w-[220px] border rounded-xl p-3" placeholder="Cari atau pilih barang">
@@ -762,7 +761,7 @@ simpanHistoriMasukKeSupabase(dataMasuk);
       `;
 
       container.appendChild(wrapper);
-setTimeout(updateSisaStokRealtime, 100);
+requestAnimationFrame(updateSisaStokRealtime);
     }
 
     function hapusBarisPengeluaran(button) {
@@ -1488,14 +1487,12 @@ function updateDepartemenTerbanyak() {
     const jumlahInput = row.querySelector('.jumlahBarangKeluar');
     const sisaInput = row.querySelector('.sisaStokRealtime');
     
-    const namaBaru = namaInput.cloneNode(true);
-    const jumlahBaru = jumlahInput.cloneNode(true);
-
-    namaInput.replaceWith(namaBaru);
-    jumlahInput.replaceWith(jumlahBaru);
-
     const namaFix = row.querySelector('.namaBarangKeluar');
-    const jumlahFix = row.querySelector('.jumlahBarangKeluar');
+const jumlahFix = row.querySelector('.jumlahBarangKeluar');
+
+if (namaFix.dataset.listener === "true") return;
+namaFix.dataset.listener = "true";
+jumlahFix.dataset.listener = "true";
     function hitung() {
   const nama = namaFix.value.trim();
   const jumlah = parseInt(jumlahFix.value) || 0;
@@ -1516,6 +1513,10 @@ if (!nama) {
     sisaInput.value = '-';
     return;
   }
+      if (!barangList || barangList.length === 0) {
+  sisaInput.value = '-';
+  return;
+}
       const kode = ambilKodeBarang(nama);
       if (!kode) {
   sisaInput.value = '-';
@@ -1662,6 +1663,7 @@ Promise.all([
   loadHistoriKeluarDariSupabase()
 ]).then(() => {
   loadBarangDariSupabase();
+  updateSisaStokRealtime();
 });
 
 setTimeout(() => {
@@ -1674,7 +1676,6 @@ tampilkanHistoriKeluar();
 renderGrafikPengeluaran();
 updateDepartemenTerbanyak();
 updateAtkTerbanyak();
-updateSisaStokRealtime();
 }
   </script>
   <section class="max-w-7xl mx-auto px-6 pb-10">

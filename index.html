@@ -1517,13 +1517,13 @@ function tampilkanLaporanDepartemen() {
     if (!item.namaBarang.toLowerCase().includes(keyword)) return;
 
     tbody.innerHTML += `
-      <tr>
-        <td class="p-3">${nomor++}</td>
-        <td class="p-3">${item.departemen}</td>
-        <td class="p-3">${item.namaBarang}</td>
-        <td class="p-3 font-bold text-blue-600">${item.total}</td>
-      </tr>
-    `;
+  <tr class="border-b hover:bg-slate-50">
+    <td class="p-3">${nomor++}</td>
+    <td class="p-3 truncate max-w-[200px]">${item.departemen}</td>
+    <td class="p-3 truncate max-w-[200px]">${item.namaBarang}</td>
+    <td class="p-3 font-bold text-blue-600 text-right">${item.total}</td>
+  </tr>
+`;
   });
 }
 
@@ -1848,15 +1848,15 @@ updateAtkTerbanyak();
   </div>
 
   <div class="overflow-x-auto">
-    <table class="w-full border rounded-xl">
-      <thead class="bg-slate-200">
-        <tr>
-          <th class="p-3">No</th>
-          <th class="p-3">Departemen</th>
-          <th class="p-3">Nama Barang</th>
-          <th class="p-3">Total</th>
-        </tr>
-      </thead>
+    <table class="w-full border rounded-xl table-fixed text-sm">
+     <thead class="bg-slate-200">
+  <tr>
+    <th class="p-3 w-[60px]">No</th>
+    <th class="p-3 w-[220px]">Departemen</th>
+    <th class="p-3">Nama Barang</th>
+    <th class="p-3 w-[100px] text-right">Total</th>
+  </tr>
+</thead>
       <tbody id="tabelLaporanDepartemen"></tbody>
     </table>
   </div>

@@ -244,10 +244,10 @@ class="bg-indigo-600 text-white px-5 py-3 rounded-xl hover:bg-indigo-700">
   </section>
 
   <script>
-    let barangList = JSON.parse(localStorage.getItem('masterBarang')) || [];
-let karyawanList = JSON.parse(localStorage.getItem('masterKaryawan')) || [];
-let historiMasuk = JSON.parse(localStorage.getItem('historiMasuk')) || [];
-let historiKeluar = JSON.parse(localStorage.getItem('historiKeluar')) || [];
+let barangList = [];
+let karyawanList = [];
+let historiMasuk = [];
+let historiKeluar = [];
 
 const supabaseUrl = 'https://wlnibcoqspxwmylkyolk.supabase.co';
 const supabaseKey = 'sb_publishable_lycr_Pk_EfTZxPmUJ3xsag_isf7AEwS';
@@ -350,8 +350,7 @@ async function loadKaryawanDariSupabase() {
       departemen: item.departemen
     }));
 
-    localStorage.setItem('masterKaryawan', JSON.stringify(karyawanList));
-
+    
     tampilkanKaryawan();
     updateDatalistKaryawan();
     isiDepartemenOtomatis();
@@ -404,12 +403,6 @@ async function loadBarangDariSupabase() {
     };
   });
 
-  for (const barang of barangList) {
-    await updateBarangKeSupabase(barang);
-  }
-
-  localStorage.setItem('masterBarang', JSON.stringify(barangList));
-
   tampilkanBarang();
   updateSelectBarang();
   updateAtkTerbanyak();
@@ -433,7 +426,6 @@ async function loadBarangDariSupabase() {
   nomorBTB: item.nomor_btb || '-'
 }));
 
-    localStorage.setItem('historiMasuk', JSON.stringify(historiMasuk));
     tampilkanHistoriMasuk();
   }
 }
@@ -455,8 +447,6 @@ async function loadHistoriKeluarDariSupabase() {
       pengambil: item.pengambil,
       departemen: item.departemen
     }));
-
-    localStorage.setItem('historiKeluar', JSON.stringify(historiKeluar));
 
     tampilkanHistoriKeluar();
     renderGrafikPengeluaran();
@@ -532,8 +522,7 @@ XLSX.writeFile(workbook, `laporan-departemen-${tanggal}.xlsx`);
   };
 
   barangList.push(barangBaru);
-  localStorage.setItem('masterBarang', JSON.stringify(barangList));
-
+  
   await simpanBarangKeSupabase(barangBaru);
   await loadBarangDariSupabase();
 
@@ -560,7 +549,6 @@ XLSX.writeFile(workbook, `laporan-departemen-${tanggal}.xlsx`);
       };
 
       karyawanList.push(dataKaryawan);
-localStorage.setItem('masterKaryawan', JSON.stringify(karyawanList));
 
 await simpanKaryawanKeSupabase(dataKaryawan);
 
@@ -620,7 +608,6 @@ await simpanKaryawanKeSupabase(dataKaryawan);
           const importedData = XLSX.utils.sheet_to_json(worksheet);
 
           karyawanList = importedData;
-localStorage.setItem('masterKaryawan', JSON.stringify(karyawanList));
 
 for (const karyawan of karyawanList) {
   await simpanKaryawanKeSupabase({
@@ -754,9 +741,7 @@ alert('Master karyawan berhasil diimport');
     return;
   }
 
-  localStorage.setItem('masterBarang', JSON.stringify(barangList));
-
-  // RESET FORM
+    // RESET FORM
   document.getElementById('listPemasukanBarang').innerHTML = `
     <div class="grid md:grid-cols-2 gap-4 border rounded-2xl p-4 bg-slate-50 pemasukan-item">
       <div>
@@ -929,8 +914,7 @@ await updateBarangKeSupabase(barang);
 historiKeluar.push(dataKeluar);
 await simpanHistoriKeluarKeSupabase(dataKeluar);
 
-        localStorage.setItem('historiKeluar', JSON.stringify(historiKeluar));
-        berhasil = true;
+                berhasil = true;
       }
 
       if (!berhasil) {
@@ -938,8 +922,7 @@ await simpanHistoriKeluarKeSupabase(dataKeluar);
         return;
       }
 
-      localStorage.setItem('masterBarang', JSON.stringify(barangList));
-      tampilkanBarang();
+     tampilkanBarang();
 
       document.getElementById('listPengeluaranBarang').innerHTML = `
           <div class="grid md:grid-cols-[2fr_1fr_1fr_auto] gap-4 border rounded-2xl p-4 bg-slate-50 pengeluaran-item">
@@ -1046,7 +1029,6 @@ totalPengambilan.textContent = totalKeluar + ' Item';
           const importedData = XLSX.utils.sheet_to_json(worksheet);
 
           barangList = importedData;
-localStorage.setItem('masterBarang', JSON.stringify(barangList));
 
 for (const barang of barangList) {
   await simpanBarangKeSupabase({
@@ -1083,9 +1065,6 @@ barangList.forEach(barang => {
     });
   }
 });
-
-localStorage.setItem('historiMasuk', JSON.stringify(historiMasuk));
-localStorage.setItem('historiKeluar', JSON.stringify(historiKeluar));
 
 tampilkanBarang();
 tampilkanHistoriMasuk();
@@ -1159,7 +1138,7 @@ async function hapusHistoriMasuk(index) {
       });
 
     historiMasuk.splice(index, 1);
-    localStorage.setItem('historiMasuk', JSON.stringify(historiMasuk));
+   
 
     await loadHistoriMasukDariSupabase();
     await new Promise(resolve => setTimeout(resolve, 300));
@@ -1254,8 +1233,7 @@ async function hapusHistoriKeluar(index) {
       });
 
     historiKeluar.splice(index, 1);
-    localStorage.setItem('historiKeluar', JSON.stringify(historiKeluar));
-
+    
     await loadHistoriKeluarDariSupabase();
     await new Promise(resolve => setTimeout(resolve, 300));
     await loadBarangDariSupabase();
@@ -1740,8 +1718,7 @@ function loadMasterBarangDariExcel() {
       const importedData = XLSX.utils.sheet_to_json(worksheet);
 
       barangList = importedData;
-      localStorage.setItem('masterBarang', JSON.stringify(barangList));
-
+      
       tampilkanBarang();
       updateSelectBarang();
       renderGrafikPengeluaran();
@@ -1769,7 +1746,6 @@ function loadMasterKaryawanDariExcel() {
       const importedData = XLSX.utils.sheet_to_json(worksheet);
 
       karyawanList = importedData;
-localStorage.setItem('masterKaryawan', JSON.stringify(karyawanList));
 
 tampilkanKaryawan();
 updateDatalistKaryawan();

@@ -2083,6 +2083,9 @@ jumlahFix.onkeyup = hitung;
 
   const kode = ambilKodeBarang(namaInput.value);
 
+console.log('nama =', namaInput.value);
+console.log('kode =', kode);
+
   if (!kode) {
     satuanInput.value = '';
     return;
@@ -2116,6 +2119,9 @@ namaInput.onblur = isiSatuan;
     const isiSatuan = () => {
 
   const kode = ambilKodeBarang(namaInput.value);
+
+console.log('nama =', namaInput.value);
+console.log('kode =', kode);
 
   if (!kode) {
     satuanInput.value = '';

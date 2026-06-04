@@ -740,7 +740,7 @@ alert('Master karyawan berhasil diimport');
   <button type="button"
           onclick="hapusBarisPemasukan(this)"
           class="bg-red-600 text-white px-4 rounded-xl hover:bg-red-700">
-    Hapus
+    🗑️
   </button>
 </div>
 `;
@@ -1067,16 +1067,17 @@ await simpanHistoriKeluarKeSupabase(dataKeluar);
          placeholder="Sisa Stok"
          readonly>
 
-  <div class="flex gap-2">
-    <input type="hidden" class="pengambilKeluar">
+  <div class="flex items-center justify-center">
+  <input type="hidden" class="pengambilKeluar">
 
-    <button type="button"
-            onclick="hapusBarisPengeluaran(this)"
-            class="bg-red-600 text-white px-4 rounded-xl hover:bg-red-700">
-      Hapus
-    </button>
-  </div>
-
+  <button type="button"
+          onclick="hapusBarisPengeluaran(this)"
+          class="w-12 h-12 flex items-center justify-center
+                 border border-red-200 rounded-xl
+                 text-red-600 hover:bg-red-50 hover:border-red-400
+                 transition">
+    🗑️
+  </button>
 </div>
 `;
 

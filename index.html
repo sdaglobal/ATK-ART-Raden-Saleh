@@ -491,7 +491,10 @@ async function loadBarangDariSupabase() {
 
   tampilkanBarang();
 updateSelectBarang();
+
 updateSatuanOtomatis();
+updateSisaStokRealtime();
+
 updateAtkTerbanyak();
 }
 }
@@ -2083,7 +2086,9 @@ jumlahFix.onkeyup = hitung;
     };
 
     namaInput.oninput = isiSatuan;
-    namaInput.onchange = isiSatuan;
+namaInput.onkeyup = isiSatuan;
+namaInput.onchange = isiSatuan;
+namaInput.onblur = isiSatuan;
 
     isiSatuan();
   });
@@ -2105,7 +2110,9 @@ jumlahFix.onkeyup = hitung;
     };
 
     namaInput.oninput = isiSatuan;
-    namaInput.onchange = isiSatuan;
+namaInput.onkeyup = isiSatuan;
+namaInput.onchange = isiSatuan;
+namaInput.onblur = isiSatuan;
 
     isiSatuan();
   });

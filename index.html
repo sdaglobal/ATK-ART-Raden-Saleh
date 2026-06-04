@@ -2130,6 +2130,13 @@ namaInput.onblur = isiSatuan;
 
     isiSatuan();
   });
+      document.querySelectorAll('.namaBarangMasuk').forEach(input => {
+  input.dispatchEvent(new Event('input'));
+});
+
+document.querySelectorAll('.namaBarangKeluar').forEach(input => {
+  input.dispatchEvent(new Event('input'));
+});
 
 }
   function updateAtkTerbanyak() {

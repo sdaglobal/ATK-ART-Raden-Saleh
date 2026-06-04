@@ -2092,7 +2092,10 @@ jumlahFix.onkeyup = hitung;
     item.kode === kode
   );
 
-  satuanInput.value = barang ? barang.satuan : '';
+  console.log('satuanInput =', satuanInput);
+console.log('satuan barang =', barang?.satuan);
+
+satuanInput.value = barang ? barang.satuan : '';
 };
 
     namaInput.oninput = isiSatuan;
@@ -2123,7 +2126,10 @@ namaInput.onblur = isiSatuan;
     item.kode === kode
   );
 
-  satuanInput.value = barang ? barang.satuan : '';
+  console.log('satuanInput =', satuanInput);
+console.log('satuan barang =', barang?.satuan);
+
+satuanInput.value = barang ? barang.satuan : '';
 };
 
     namaInput.oninput = isiSatuan;

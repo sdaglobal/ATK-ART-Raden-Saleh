@@ -188,18 +188,27 @@ class="bg-indigo-600 text-white px-5 py-3 rounded-xl hover:bg-indigo-700">
 
             <div id="listPemasukanBarang" class="space-y-4">
               <datalist id="masterBarangList"></datalist>
-              <div class="grid md:grid-cols-2 gap-4 border rounded-2xl p-4 bg-slate-50 pemasukan-item">
-                <div>
-                  <input list="masterBarangList" type="text" class="namaBarangMasuk w-full border rounded-xl p-3" placeholder="Cari atau pilih barang">
-                </div>
-                <div>
-                  <input type="number" class="jumlahBarangMasuk w-full border rounded-xl p-3" placeholder="Jumlah Masuk">
-                </div>
-              </div>
-            </div>
+              <div class="grid md:grid-cols-3 gap-4 border rounded-2xl p-4 bg-slate-50 pemasukan-item">
+  <div>
+    <input list="masterBarangList" type="text"
+      class="namaBarangMasuk w-full border rounded-xl p-3"
+      placeholder="Cari atau pilih barang">
+  </div>
 
-            
+  <div>
+    <input type="number"
+      class="jumlahBarangMasuk w-full border rounded-xl p-3"
+      placeholder="Jumlah Masuk">
+  </div>
 
+  <div>
+    <input type="text"
+      class="satuanBarangMasuk w-full border rounded-xl p-3 bg-slate-100"
+      placeholder="Satuan"
+      readonly>
+  </div>
+</div>
+        
             <button onclick="tambahBarisPemasukan()" class="w-full bg-slate-600 text-white py-3 rounded-xl hover:bg-slate-700">
               Tambah Barang Lagi
             </button>
@@ -223,9 +232,13 @@ class="bg-indigo-600 text-white px-5 py-3 rounded-xl hover:bg-indigo-700">
             <datalist id="masterKaryawanList"></datalist>
 
             <div id="listPengeluaranBarang" class="space-y-4">
-              <div class="grid md:grid-cols-[2fr_1fr_1fr_auto] gap-4 border rounded-2xl p-4 bg-slate-50 pengeluaran-item">
+              <div class="grid md:grid-cols-[2fr_1fr_1fr_1fr_auto] gap-4 border rounded-2xl p-4 bg-slate-50 pengeluaran-item">
                 <input list="masterBarangList" type="text" class="namaBarangKeluar w-full min-w-[220px] border rounded-xl p-3" placeholder="Cari atau pilih barang">
                 <input type="number" min="1" class="jumlahBarangKeluar w-full border rounded-xl p-3" placeholder="Jumlah Keluar">
+                <input type="text"
+  class="satuanBarangKeluar w-full border rounded-xl p-3 bg-slate-100"
+  placeholder="Satuan"
+  readonly>
                 <input type="text" class="sisaStokRealtime w-full border rounded-xl p-3 bg-slate-100" placeholder="Sisa Stok" readonly>
                 <input type="hidden" class="departemenKeluar">
                 <div class="flex gap-2">
@@ -710,20 +723,37 @@ alert('Master karyawan berhasil diimport');
       const container = document.getElementById('listPemasukanBarang');
 
       const wrapper = document.createElement('div');
-      wrapper.className = 'grid md:grid-cols-2 gap-4 border rounded-2xl p-4 bg-slate-50 pemasukan-item';
-      wrapper.innerHTML = `
-        <div>
-          <input list="masterBarangList" type="text" class="namaBarangMasuk w-full border rounded-xl p-3" placeholder="Cari atau pilih barang">
-        </div>
-        <div class="flex gap-2">
-          <input type="number" class="jumlahBarangMasuk w-full border rounded-xl p-3" placeholder="Jumlah Masuk">
-          <button type="button" onclick="hapusBarisPemasukan(this)" class="bg-red-600 text-white px-4 rounded-xl hover:bg-red-700">
-            Hapus
-          </button>
-        </div>
-      `;
+      wrapper.className = 'grid md:grid-cols-3 gap-4 border rounded-2xl p-4 bg-slate-50 pemasukan-item';
+
+wrapper.innerHTML = `
+<div>
+  <input list="masterBarangList" type="text"
+    class="namaBarangMasuk w-full border rounded-xl p-3"
+    placeholder="Cari atau pilih barang">
+</div>
+
+<div>
+  <input type="number"
+    class="jumlahBarangMasuk w-full border rounded-xl p-3"
+    placeholder="Jumlah Masuk">
+</div>
+
+<div class="flex gap-2">
+  <input type="text"
+    class="satuanBarangMasuk w-full border rounded-xl p-3 bg-slate-100"
+    placeholder="Satuan"
+    readonly>
+
+  <button type="button"
+    onclick="hapusBarisPemasukan(this)"
+    class="bg-red-600 text-white px-4 rounded-xl">
+    Hapus
+  </button>
+</div>
+`;
 
       container.appendChild(wrapper);
+      updateSatuanBarang();
     }
       function updateSelectBarang() {
       let datalist = document.getElementById('masterBarangList');
@@ -821,15 +851,29 @@ alert('Master karyawan berhasil diimport');
 
     // RESET FORM
   document.getElementById('listPemasukanBarang').innerHTML = `
-    <div class="grid md:grid-cols-2 gap-4 border rounded-2xl p-4 bg-slate-50 pemasukan-item">
-      <div>
-        <input list="masterBarangList" type="text" class="namaBarangMasuk w-full border rounded-xl p-3" placeholder="Cari atau pilih barang">
-      </div>
-      <div>
-        <input type="number" class="jumlahBarangMasuk w-full border rounded-xl p-3" placeholder="Jumlah Masuk">
-      </div>
-    </div>
-  `;
+<div class="grid md:grid-cols-3 gap-4 border rounded-2xl p-4 bg-slate-50 pemasukan-item">
+
+  <div>
+    <input list="masterBarangList" type="text"
+      class="namaBarangMasuk w-full border rounded-xl p-3"
+      placeholder="Cari atau pilih barang">
+  </div>
+
+  <div>
+    <input type="number"
+      class="jumlahBarangMasuk w-full border rounded-xl p-3"
+      placeholder="Jumlah Masuk">
+  </div>
+
+  <div>
+    <input type="text"
+      class="satuanBarangMasuk w-full border rounded-xl p-3 bg-slate-100"
+      placeholder="Satuan"
+      readonly>
+  </div>
+
+</div>
+`;
 
   document.getElementById('tanggalMasuk').value = '';
   document.getElementById('namaSupplier').value = '';
@@ -884,21 +928,43 @@ updateAtkTerbanyak();
 function tambahBarisPengeluaran() {
   const container = document.getElementById('listPengeluaranBarang');
           const wrapper = document.createElement('div');
-      wrapper.className = 'grid md:grid-cols-[2fr_1fr_1fr_auto] gap-4 border rounded-2xl p-4 bg-slate-50 pengeluaran-item';
+      wrapper.className =
+'grid md:grid-cols-[2fr_1fr_1fr_1fr_auto] gap-4 border rounded-2xl p-4 bg-slate-50 pengeluaran-item';
       wrapper.innerHTML = `
-        <input list="masterBarangList" type="text" class="namaBarangKeluar w-full min-w-[220px] border rounded-xl p-3" placeholder="Cari atau pilih barang">
-        <input type="number" min="1" class="jumlahBarangKeluar w-full border rounded-xl p-3" placeholder="Jumlah Keluar">
-        <input type="text" class="sisaStokRealtime w-full border rounded-xl p-3 bg-slate-100" placeholder="Sisa Stok" readonly>
-        <input type="hidden" class="departemenKeluar">
-                <div class="flex gap-2">
-                  <input type="hidden" class="pengambilKeluar">
-          <button type="button" onclick="hapusBarisPengeluaran(this)" class="bg-red-600 text-white px-4 rounded-xl hover:bg-red-700">
-            Hapus
-          </button>
-        </div>
-      `;
+<input list="masterBarangList" type="text"
+  class="namaBarangKeluar w-full min-w-[220px] border rounded-xl p-3"
+  placeholder="Cari atau pilih barang">
+
+<input type="number" min="1"
+  class="jumlahBarangKeluar w-full border rounded-xl p-3"
+  placeholder="Jumlah Keluar">
+
+<input type="text"
+  class="satuanBarangKeluar w-full border rounded-xl p-3 bg-slate-100"
+  placeholder="Satuan"
+  readonly>
+
+<input type="text"
+  class="sisaStokRealtime w-full border rounded-xl p-3 bg-slate-100"
+  placeholder="Sisa Stok"
+  readonly>
+
+<input type="hidden" class="departemenKeluar">
+
+<div class="flex gap-2">
+  <input type="hidden" class="pengambilKeluar">
+
+  <button type="button"
+    onclick="hapusBarisPengeluaran(this)"
+    class="bg-red-600 text-white px-4 rounded-xl">
+    Hapus
+  </button>
+</div>
+`;
 
       container.appendChild(wrapper);
+
+updateSatuanBarang();
 requestAnimationFrame(updateSisaStokRealtime);
     }
 
@@ -1005,19 +1071,40 @@ await simpanHistoriKeluarKeSupabase(dataKeluar);
      tampilkanBarang();
 
       document.getElementById('listPengeluaranBarang').innerHTML = `
-          <div class="grid md:grid-cols-[2fr_1fr_1fr_auto] gap-4 border rounded-2xl p-4 bg-slate-50 pengeluaran-item">
-          <input list="masterBarangList" type="text" class="namaBarangKeluar w-full min-w-[220px] border rounded-xl p-3" placeholder="Cari atau pilih barang">
-          <input type="number" min="1" class="jumlahBarangKeluar w-full border rounded-xl p-3" placeholder="Jumlah Keluar">
-          <input type="text" class="sisaStokRealtime w-full border rounded-xl p-3 bg-slate-100" readonly>
-          <input type="hidden" class="departemenKeluar">
-                <div class="flex gap-2">
-                  <input type="hidden" class="pengambilKeluar">
-            <button type="button" onclick="hapusBarisPengeluaran(this)" class="bg-red-600 text-white px-4 rounded-xl hover:bg-red-700">
-              Hapus
-            </button>
-          </div>
-        </div>
-      `;
+<div class="grid md:grid-cols-[2fr_1fr_1fr_1fr_auto] gap-4 border rounded-2xl p-4 bg-slate-50 pengeluaran-item">
+
+<input list="masterBarangList" type="text"
+  class="namaBarangKeluar w-full min-w-[220px] border rounded-xl p-3"
+  placeholder="Cari atau pilih barang">
+
+<input type="number" min="1"
+  class="jumlahBarangKeluar w-full border rounded-xl p-3"
+  placeholder="Jumlah Keluar">
+
+<input type="text"
+  class="satuanBarangKeluar w-full border rounded-xl p-3 bg-slate-100"
+  placeholder="Satuan"
+  readonly>
+
+<input type="text"
+  class="sisaStokRealtime w-full border rounded-xl p-3 bg-slate-100"
+  placeholder="Sisa Stok"
+  readonly>
+
+<input type="hidden" class="departemenKeluar">
+
+<div class="flex gap-2">
+  <input type="hidden" class="pengambilKeluar">
+
+  <button type="button"
+    onclick="hapusBarisPengeluaran(this)"
+    class="bg-red-600 text-white px-4 rounded-xl hover:bg-red-700">
+    Hapus
+  </button>
+</div>
+
+</div>
+`;
 requestAnimationFrame(updateSisaStokRealtime);
      document.getElementById('tanggalKeluar').value = '';
      document.getElementById('namaPengambilGlobal').value = '';
@@ -1359,6 +1446,7 @@ async function hapusHistoriKeluar(index) {
     await loadHistoriKeluarDariSupabase();
     await new Promise(resolve => setTimeout(resolve, 300));
     await loadBarangDariSupabase();
+    updateSatuanBarang();
 
     alert("Data berhasil dihapus");
 
@@ -1987,7 +2075,63 @@ const barang = barangList.find(item =>
         jumlahFix.classList.remove('border-red-500');
       }
     }
+     namaInput.oninput = hitung;
+namaInput.onchange = hitung;
+jumlahInput.oninput = hitung;
 
+hitung();
+
+    });
+}
+    
+    function updateSatuanBarang() {
+
+  document.querySelectorAll('.pemasukan-item').forEach(row => {
+    const namaInput = row.querySelector('.namaBarangMasuk');
+    const satuanInput = row.querySelector('.satuanBarangMasuk');
+
+    if (!namaInput || !satuanInput) return;
+
+    const update = () => {
+      const nama = namaInput.value.trim().toLowerCase();
+
+      const barang = barangList.find(item =>
+        item.nama.trim().toLowerCase() === nama
+      );
+
+      satuanInput.value = barang ? barang.satuan : '';
+    };
+
+    namaInput.oninput = update;
+    namaInput.onchange = update;
+
+    update();
+  });
+
+  document.querySelectorAll('.pengeluaran-item').forEach(row => {
+    const namaInput = row.querySelector('.namaBarangKeluar');
+    const satuanInput = row.querySelector('.satuanBarangKeluar');
+
+    if (!namaInput || !satuanInput) return;
+
+    const update = () => {
+      const nama = namaInput.value.trim().toLowerCase();
+
+      const barang = barangList.find(item =>
+        item.nama.trim().toLowerCase() === nama
+      );
+
+      satuanInput.value = barang ? barang.satuan : '';
+    };
+
+    namaInput.oninput = update;
+    namaInput.onchange = update;
+
+    update();
+  });
+
+}
+    
 namaFix.oninput = hitung;
 namaFix.onchange = hitung;
 namaFix.onblur = hitung;

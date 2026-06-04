@@ -343,6 +343,9 @@ const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
     item.nama.trim().toLowerCase() === namaInput.trim().toLowerCase()
   );
 
+      console.log('Nama Input:', namaInput);
+console.log('Barang Ketemu:', barang);
+      
   return barang ? barang.kode : null;
 }
     async function simpanKaryawanKeSupabase(karyawan) {

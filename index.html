@@ -2077,13 +2077,20 @@ jumlahFix.onkeyup = hitung;
     if (!namaInput || !satuanInput) return;
 
     const isiSatuan = () => {
-      const barang = barangList.find(item =>
-        item.nama.trim().toLowerCase() ===
-        namaInput.value.trim().toLowerCase()
-      );
 
-      satuanInput.value = barang ? barang.satuan : '';
-    };
+  const kode = ambilKodeBarang(namaInput.value);
+
+  if (!kode) {
+    satuanInput.value = '';
+    return;
+  }
+
+  const barang = barangList.find(item =>
+    item.kode === kode
+  );
+
+  satuanInput.value = barang ? barang.satuan : '';
+};
 
     namaInput.oninput = isiSatuan;
 namaInput.onkeyup = isiSatuan;
@@ -2101,13 +2108,20 @@ namaInput.onblur = isiSatuan;
     if (!namaInput || !satuanInput) return;
 
     const isiSatuan = () => {
-      const barang = barangList.find(item =>
-        item.nama.trim().toLowerCase() ===
-        namaInput.value.trim().toLowerCase()
-      );
 
-      satuanInput.value = barang ? barang.satuan : '';
-    };
+  const kode = ambilKodeBarang(namaInput.value);
+
+  if (!kode) {
+    satuanInput.value = '';
+    return;
+  }
+
+  const barang = barangList.find(item =>
+    item.kode === kode
+  );
+
+  satuanInput.value = barang ? barang.satuan : '';
+};
 
     namaInput.oninput = isiSatuan;
 namaInput.onkeyup = isiSatuan;

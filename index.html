@@ -2272,9 +2272,12 @@ renderGrafikBarangDepartemen();
 updateDepartemenTerbanyak();
 updateAtkTerbanyak();
 
-    requestAnimationFrame(() => {
-      updateSisaStokRealtime();
-    });
+updateSatuanOtomatis();
+updateSisaStokRealtime();
+
+requestAnimationFrame(() => {
+  updateSisaStokRealtime();
+});
 
   } catch (err) {
     console.log('ERROR LOAD:', err);

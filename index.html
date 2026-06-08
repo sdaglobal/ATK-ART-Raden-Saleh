@@ -1419,10 +1419,15 @@ setTimeout(async () => {
   modal.classList.add('hidden');
   modal.classList.remove('flex');
 }
-    function simpanEditHistoriMasuk() {
+    async function simpanEditHistoriMasuk() {
 
   const index =
     Number(document.getElementById('editIndexMasuk').value);
+      const dataLama = {
+  tanggal: historiMasuk[index].tanggal,
+  namaBarang: historiMasuk[index].namaBarang,
+  jumlahMasuk: historiMasuk[index].jumlahMasuk
+};
 
   historiMasuk[index].tanggal =
     document.getElementById('editTanggalMasuk').value;
@@ -1436,6 +1441,25 @@ setTimeout(async () => {
   historiMasuk[index].nomorBTB =
     document.getElementById('editNomorBTBMasuk').value;
 
+      const { error } = await supabaseClient
+  .from('histori_masuk')
+  .update({
+    tanggal: document.getElementById('editTanggalMasuk').value,
+    jumlah_masuk: Number(document.getElementById('editJumlahMasuk').value),
+    supplier: document.getElementById('editSupplierMasuk').value,
+    nomor_btb: document.getElementById('editNomorBTBMasuk').value
+  })
+  .match({
+    tanggal: dataLama.tanggal,
+    nama_barang: dataLama.namaBarang,
+    jumlah_masuk: dataLama.jumlahMasuk
+  });
+
+console.log('UPDATE ERROR:', error);
+
+      await loadHistoriMasukDariSupabase();
+await loadBarangDariSupabase();
+      
   tampilkanHistoriMasuk();
 
   tutupModalEditMasuk();

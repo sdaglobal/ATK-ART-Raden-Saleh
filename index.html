@@ -584,7 +584,7 @@ updateAtkTerbanyak();
   const { data, error } = await supabaseClient
     .from('histori_masuk')
     .select('*')
-    .order('tanggal', { ascending: false });
+    .order('id', { ascending: false });
 
   console.log('Histori masuk:', data);
   console.log('Error histori masuk:', error);
@@ -604,9 +604,9 @@ updateAtkTerbanyak();
 
 async function loadHistoriKeluarDariSupabase() {
     const { data, error } = await supabaseClient
-    .from('histori_keluar')
-    .select('*')
-    .order('tanggal', { ascending: false });
+  .from('histori_keluar')
+  .select('*')
+  .order('id', { ascending: false });
 
   console.log('Histori keluar:', data);
   console.log('Error histori keluar:', error);
@@ -1354,7 +1354,6 @@ setTimeout(async () => {
       tbody.innerHTML = '';
 
       [...historiMasuk]
-        .sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal))
         .forEach((item, index) => {
         const cocokKeyword = item.namaBarang.toLowerCase().includes(keyword);
         const cocokBulan = !bulan || item.tanggal.startsWith(bulan);
@@ -1524,7 +1523,6 @@ updateAtkTerbanyak();
       tbody.innerHTML = '';
 
       [...historiKeluar]
-        .sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal))
         .forEach((item, index) => {
         const cocokKeyword =
           item.namaBarang.toLowerCase().includes(keyword) ||

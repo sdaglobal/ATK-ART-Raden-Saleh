@@ -1317,16 +1317,59 @@ setTimeout(async () => {
   }
 </td>
   <td class="p-3">
-    <button onclick="hapusHistoriMasuk(${index})"
+  <div class="flex gap-2">
+    <button
+      onclick="editHistoriMasuk(${index})"
+      class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">
+      Edit
+    </button>
+
+    <button
+      onclick="hapusHistoriMasuk(${index})"
       class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">
       Hapus
     </button>
-  </td>
+  </div>
+</td>
 </tr>
 `;
       });
     }
+    function editHistoriMasuk(index) {
+
+  const data = historiMasuk[index];
+
+  const tanggalBaru =
+    prompt('Tanggal:', data.tanggal);
+
+  if (tanggalBaru === null) return;
+
+  const supplierBaru =
+    prompt('Supplier:', data.supplier || '');
+
+  if (supplierBaru === null) return;
+
+  const nomorBTBBaru =
+    prompt('Nomor BTB:', data.nomorBTB || '');
+
+  if (nomorBTBBaru === null) return;
+
+  const jumlahBaru =
+    prompt('Jumlah Masuk:', data.jumlahMasuk);
+
+  if (jumlahBaru === null) return;
+
+  data.tanggal = tanggalBaru;
+  data.supplier = supplierBaru;
+  data.nomorBTB = nomorBTBBaru;
+  data.jumlahMasuk = Number(jumlahBaru);
+
+  tampilkanHistoriMasuk();
+
+  alert('Data berhasil diperbarui');
+}
 async function hapusHistoriMasuk(index) {
+  
   if (!confirm("Yakin ingin menghapus data ini?")) return;
 
   const data = historiMasuk[index];

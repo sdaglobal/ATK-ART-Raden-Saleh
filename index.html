@@ -323,6 +323,68 @@ class="bg-indigo-600 text-white px-5 py-3 rounded-xl hover:bg-indigo-700">
     </div>
   </section>
 
+  <!-- MODAL EDIT HISTORI MASUK -->
+<div id="modalEditMasuk"
+     class="fixed inset-0 bg-black/50 hidden z-50 items-center justify-center">
+
+  <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-xl mx-4">
+
+    <h3 class="text-2xl font-bold text-green-700 mb-6">
+      Edit Histori Pemasukan
+    </h3>
+
+    <input type="hidden" id="editIndexMasuk">
+
+    <div class="space-y-4">
+
+      <div>
+        <label class="block mb-2 font-semibold">Tanggal</label>
+        <input type="date"
+               id="editTanggalMasuk"
+               class="w-full border rounded-xl p-3">
+      </div>
+
+      <div>
+        <label class="block mb-2 font-semibold">Jumlah Masuk</label>
+        <input type="number"
+               id="editJumlahMasuk"
+               class="w-full border rounded-xl p-3">
+      </div>
+
+      <div>
+        <label class="block mb-2 font-semibold">Supplier</label>
+        <input type="text"
+               id="editSupplierMasuk"
+               class="w-full border rounded-xl p-3">
+      </div>
+
+      <div>
+        <label class="block mb-2 font-semibold">Nomor BTB</label>
+        <input type="text"
+               id="editNomorBTBMasuk"
+               class="w-full border rounded-xl p-3">
+      </div>
+
+    </div>
+
+    <div class="flex justify-end gap-3 mt-6">
+
+      <button
+        onclick="tutupModalEditMasuk()"
+        class="px-5 py-3 bg-slate-500 text-white rounded-xl hover:bg-slate-600">
+        Batal
+      </button>
+
+      <button
+        onclick="simpanEditHistoriMasuk()"
+        class="px-5 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700">
+        Simpan Perubahan
+      </button>
+
+    </div>
+
+  </div>
+</div>
   <script>
     let currentSlide = 0;
 
@@ -1339,32 +1401,44 @@ setTimeout(async () => {
 
   const data = historiMasuk[index];
 
-  const tanggalBaru =
-    prompt('Tanggal:', data.tanggal);
+  document.getElementById('editIndexMasuk').value = index;
+  document.getElementById('editTanggalMasuk').value = data.tanggal;
+  document.getElementById('editJumlahMasuk').value = data.jumlahMasuk;
+  document.getElementById('editSupplierMasuk').value = data.supplier || '';
+  document.getElementById('editNomorBTBMasuk').value = data.nomorBTB || '';
 
-  if (tanggalBaru === null) return;
+  const modal = document.getElementById('modalEditMasuk');
 
-  const supplierBaru =
-    prompt('Supplier:', data.supplier || '');
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+}
+    function tutupModalEditMasuk() {
 
-  if (supplierBaru === null) return;
+  const modal = document.getElementById('modalEditMasuk');
 
-  const nomorBTBBaru =
-    prompt('Nomor BTB:', data.nomorBTB || '');
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+}
+    function simpanEditHistoriMasuk() {
 
-  if (nomorBTBBaru === null) return;
+  const index =
+    Number(document.getElementById('editIndexMasuk').value);
 
-  const jumlahBaru =
-    prompt('Jumlah Masuk:', data.jumlahMasuk);
+  historiMasuk[index].tanggal =
+    document.getElementById('editTanggalMasuk').value;
 
-  if (jumlahBaru === null) return;
+  historiMasuk[index].jumlahMasuk =
+    Number(document.getElementById('editJumlahMasuk').value);
 
-  data.tanggal = tanggalBaru;
-  data.supplier = supplierBaru;
-  data.nomorBTB = nomorBTBBaru;
-  data.jumlahMasuk = Number(jumlahBaru);
+  historiMasuk[index].supplier =
+    document.getElementById('editSupplierMasuk').value;
+
+  historiMasuk[index].nomorBTB =
+    document.getElementById('editNomorBTBMasuk').value;
 
   tampilkanHistoriMasuk();
+
+  tutupModalEditMasuk();
 
   alert('Data berhasil diperbarui');
 }

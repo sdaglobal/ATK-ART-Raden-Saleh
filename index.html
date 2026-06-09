@@ -586,6 +586,14 @@ updateSelectBarang();
 updateSatuanOtomatis();
 updateSisaStokRealtime();
 
+document.querySelectorAll('.namaBarangMasuk').forEach(input => {
+  input.dispatchEvent(new Event('input'));
+});
+
+document.querySelectorAll('.namaBarangKeluar').forEach(input => {
+  input.dispatchEvent(new Event('input'));
+});
+
 updateAtkTerbanyak();
 }
 }
@@ -2275,30 +2283,24 @@ jumlahFix.onkeyup = hitung;
 
     const isiSatuan = () => {
 
-  const kode = ambilKodeBarang(namaInput.value);
+      const kode = ambilKodeBarang(namaInput.value);
 
-console.log('nama =', namaInput.value);
-console.log('kode =', kode);
+      if (!kode) {
+        satuanInput.value = '';
+        return;
+      }
 
-  if (!kode) {
-    satuanInput.value = '';
-    return;
-  }
+      const barang = barangList.find(item =>
+        item.kode === kode
+      );
 
-  const barang = barangList.find(item =>
-    item.kode === kode
-  );
-
-  console.log('satuanInput =', satuanInput);
-console.log('satuan barang =', barang?.satuan);
-
-satuanInput.value = barang ? barang.satuan : '';
-};
+      satuanInput.value = barang ? barang.satuan : '';
+    };
 
     namaInput.oninput = isiSatuan;
-namaInput.onkeyup = isiSatuan;
-namaInput.onchange = isiSatuan;
-namaInput.onblur = isiSatuan;
+    namaInput.onkeyup = isiSatuan;
+    namaInput.onchange = isiSatuan;
+    namaInput.onblur = isiSatuan;
 
     isiSatuan();
   });
@@ -2312,41 +2314,35 @@ namaInput.onblur = isiSatuan;
 
     const isiSatuan = () => {
 
-  const kode = ambilKodeBarang(namaInput.value);
+      const kode = ambilKodeBarang(namaInput.value);
 
-console.log('nama =', namaInput.value);
-console.log('kode =', kode);
+      if (!kode) {
+        satuanInput.value = '';
+        return;
+      }
 
-  if (!kode) {
-    satuanInput.value = '';
-    return;
-  }
+      const barang = barangList.find(item =>
+        item.kode === kode
+      );
 
-  const barang = barangList.find(item =>
-    item.kode === kode
-  );
-
-  console.log('satuanInput =', satuanInput);
-console.log('satuan barang =', barang?.satuan);
-
-satuanInput.value = barang ? barang.satuan : '';
-};
+      satuanInput.value = barang ? barang.satuan : '';
+    };
 
     namaInput.oninput = isiSatuan;
-namaInput.onkeyup = isiSatuan;
-namaInput.onchange = isiSatuan;
-namaInput.onblur = isiSatuan;
+    namaInput.onkeyup = isiSatuan;
+    namaInput.onchange = isiSatuan;
+    namaInput.onblur = isiSatuan;
 
     isiSatuan();
   });
-      document.querySelectorAll('.namaBarangMasuk').forEach(input => {
-  input.dispatchEvent(new Event('input'));
-});
 
-document.querySelectorAll('.namaBarangKeluar').forEach(input => {
-  input.dispatchEvent(new Event('input'));
-});
+  document.querySelectorAll('.namaBarangMasuk').forEach(input => {
+    input.dispatchEvent(new Event('input'));
+  });
 
+  document.querySelectorAll('.namaBarangKeluar').forEach(input => {
+    input.dispatchEvent(new Event('input'));
+  });
 }
   function updateAtkTerbanyak() {
   const atkCount = {};
@@ -2468,6 +2464,14 @@ updateAtkTerbanyak();
 
 updateSatuanOtomatis();
 updateSisaStokRealtime();
+
+    document.querySelectorAll('.namaBarangKeluar').forEach(input => {
+  input.dispatchEvent(new Event('input'));
+});
+
+document.querySelectorAll('.namaBarangMasuk').forEach(input => {
+  input.dispatchEvent(new Event('input'));
+});
 
 requestAnimationFrame(() => {
   updateSisaStokRealtime();

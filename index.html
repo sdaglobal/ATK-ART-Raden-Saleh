@@ -387,6 +387,13 @@ class="bg-indigo-600 text-white px-5 py-3 rounded-xl hover:bg-indigo-700">
                id="editNomorBTBMasuk"
                class="w-full border rounded-xl p-3">
       </div>
+      <div>
+  <label class="block mb-2 font-semibold">Keterangan</label>
+  <textarea
+    id="editKeteranganMasuk"
+    class="w-full border rounded-xl p-3"
+    rows="3"></textarea>
+</div>
 
     </div>
 
@@ -1481,6 +1488,8 @@ setTimeout(async () => {
   document.getElementById('editJumlahMasuk').value = data.jumlahMasuk;
   document.getElementById('editSupplierMasuk').value = data.supplier || '';
   document.getElementById('editNomorBTBMasuk').value = data.nomorBTB || '';
+      document.getElementById('editKeteranganMasuk').value =
+  data.keterangan || '';
 
   const modal = document.getElementById('modalEditMasuk');
 
@@ -1516,14 +1525,18 @@ setTimeout(async () => {
   historiMasuk[index].nomorBTB =
     document.getElementById('editNomorBTBMasuk').value;
 
+      historiMasuk[index].keterangan =
+  document.getElementById('editKeteranganMasuk').value;
+
       const { error } = await supabaseClient
   .from('histori_masuk')
   .update({
-    tanggal: document.getElementById('editTanggalMasuk').value,
-    jumlah_masuk: Number(document.getElementById('editJumlahMasuk').value),
-    supplier: document.getElementById('editSupplierMasuk').value,
-    nomor_btb: document.getElementById('editNomorBTBMasuk').value
-  })
+  tanggal: document.getElementById('editTanggalMasuk').value,
+  jumlah_masuk: Number(document.getElementById('editJumlahMasuk').value),
+  supplier: document.getElementById('editSupplierMasuk').value,
+  nomor_btb: document.getElementById('editNomorBTBMasuk').value,
+  keterangan: document.getElementById('editKeteranganMasuk').value
+})
   .match({
     tanggal: dataLama.tanggal,
     nama_barang: dataLama.namaBarang,

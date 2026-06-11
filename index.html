@@ -202,6 +202,13 @@ class="bg-indigo-600 text-white px-5 py-3 rounded-xl hover:bg-indigo-700">
   <input type="text" id="namaSupplier" placeholder="Nama Supplier" class="w-full border rounded-xl p-3">
   <input type="text" id="nomorBTB" placeholder="Nomor BTB" class="w-full border rounded-xl p-3">
 </div>
+            <div>
+  <textarea
+    id="keteranganMasuk"
+    placeholder="Keterangan Pemasukan"
+    class="w-full border rounded-xl p-3"
+    rows="3"></textarea>
+</div>
 
             <div id="listPemasukanBarang" class="space-y-4">
               <datalist id="masterBarangList"></datalist>
@@ -242,6 +249,13 @@ class="bg-indigo-600 text-white px-5 py-3 rounded-xl hover:bg-indigo-700">
               <input list="masterKaryawanList" type="text" id="namaPengambilGlobal" placeholder="Cari Nama Pengambil / Karyawan" class="w-full border rounded-xl p-3" oninput="isiDepartemenOtomatis()">
               <input type="text" id="departemenGlobal" placeholder="Departemen" class="w-full border rounded-xl p-3 bg-slate-100" readonly>
             </div>
+            <div>
+  <textarea
+    id="keteranganKeluar"
+    placeholder="Keterangan Pengeluaran / Tujuan Penggunaan"
+    class="w-full border rounded-xl p-3"
+    rows="3"></textarea>
+</div>
 
             <datalist id="masterKaryawanList"></datalist>
 
@@ -453,12 +467,13 @@ async function simpanHistoriMasukKeSupabase(data) {
   const { error } = await supabaseClient
     .from('histori_masuk')
     .insert([{
-      tanggal: data.tanggal,
-      nama_barang: data.namaBarang,
-      jumlah_masuk: data.jumlahMasuk,
-      supplier: data.supplier,
-      nomor_btb: data.nomorBTB
-    }]);
+  tanggal: data.tanggal,
+  nama_barang: data.namaBarang,
+  jumlah_masuk: data.jumlahMasuk,
+  supplier: data.supplier,
+  nomor_btb: data.nomorBTB,
+  keterangan: data.keterangan
+}]);
 
   if (error) {
     console.log('Gagal simpan histori masuk:', error);
@@ -469,12 +484,13 @@ async function simpanHistoriKeluarKeSupabase(data) {
   const { error } = await supabaseClient
     .from('histori_keluar')
     .insert([{
-      tanggal: data.tanggal,
-      nama_barang: data.namaBarang,
-      jumlah_keluar: data.jumlahKeluar,
-      pengambil: data.pengambil,
-      departemen: data.departemen
-    }]);
+  tanggal: data.tanggal,
+  nama_barang: data.namaBarang,
+  jumlah_keluar: data.jumlahKeluar,
+  pengambil: data.pengambil,
+  departemen: data.departemen,
+  keterangan: data.keterangan
+}]);
 
   if (error) {
     console.log('Gagal simpan histori keluar:', error);
@@ -612,7 +628,8 @@ updateAtkTerbanyak();
   namaBarang: item.nama_barang,
   jumlahMasuk: item.jumlah_masuk,
   supplier: item.supplier || '-',
-  nomorBTB: item.nomor_btb || '-'
+  nomorBTB: item.nomor_btb || '-',
+  keterangan: item.keterangan || '-'
 }));
 
     tampilkanHistoriMasuk();
@@ -630,12 +647,13 @@ async function loadHistoriKeluarDariSupabase() {
 
   if (!error && data) {
     historiKeluar = data.map(item => ({
-      tanggal: item.tanggal,
-      namaBarang: item.nama_barang,
-      jumlahKeluar: item.jumlah_keluar,
-      pengambil: item.pengambil,
-      departemen: item.departemen
-    }));
+  tanggal: item.tanggal,
+  namaBarang: item.nama_barang,
+  jumlahKeluar: item.jumlah_keluar,
+  pengambil: item.pengambil,
+  departemen: item.departemen,
+  keterangan: item.keterangan || '-'
+}));
 
     tampilkanHistoriKeluar();
     renderGrafikPengeluaran();
@@ -888,6 +906,8 @@ updateSatuanOtomatis();
   const supplier = document.getElementById('namaSupplier').value.trim();
   const nomorBTB = document.getElementById('nomorBTB').value.trim();
   const tanggal = document.getElementById('tanggalMasuk').value;
+      const keteranganMasuk =
+  document.getElementById('keteranganMasuk').value.trim();
 
   if (!tanggal) {
     alert("Tanggal wajib diisi!");
@@ -927,12 +947,13 @@ updateSatuanOtomatis();
 
     // 🔥 DATA FINAL MASUK
     const dataMasuk = {
-      tanggal: tanggal,
-      namaBarang: barang.nama,
-      jumlahMasuk,
-      supplier: supplier || '-',
-      nomorBTB: nomorBTB || '-'
-    };
+  tanggal: tanggal,
+  namaBarang: barang.nama,
+  jumlahMasuk,
+  supplier: supplier || '-',
+  nomorBTB: nomorBTB || '-',
+  keterangan: keteranganMasuk || '-'
+};
 
     historiMasuk.push(dataMasuk);
     await simpanHistoriMasukKeSupabase(dataMasuk);
@@ -968,6 +989,7 @@ updateSatuanOtomatis();
   document.getElementById('tanggalMasuk').value = '';
   document.getElementById('namaSupplier').value = '';
   document.getElementById('nomorBTB').value = '';
+  document.getElementById('keteranganMasuk').value = '';
 
 updateSelectBarang();
 updateSatuanOtomatis();
@@ -1065,6 +1087,8 @@ requestAnimationFrame(updateSisaStokRealtime);
     async function simpanPengeluaran() {
       const namaBarangInputs = document.querySelectorAll('.namaBarangKeluar');
       const jumlahBarangInputs = document.querySelectorAll('.jumlahBarangKeluar');
+      const keteranganKeluar =
+  document.getElementById('keteranganKeluar').value.trim();
 
       let berhasil = false;
       for (let index = 0; index < namaBarangInputs.length; index++) {
@@ -1136,7 +1160,8 @@ await updateBarangKeSupabase(barang);
   namaBarang: barang.nama,
   jumlahKeluar,
   pengambil: document.getElementById('namaPengambilGlobal').value,
-  departemen: document.getElementById('departemenGlobal').value
+  departemen: document.getElementById('departemenGlobal').value,
+  keterangan: keteranganKeluar || '-'
 };
 
 historiKeluar.push(dataKeluar);
@@ -1195,6 +1220,7 @@ requestAnimationFrame(updateSisaStokRealtime);
 document.getElementById('tanggalKeluar').value = '';
      document.getElementById('namaPengambilGlobal').value = '';
      document.getElementById('departemenGlobal').value = '';
+      document.getElementById('keteranganKeluar').value = '';
 
 tampilkanHistoriKeluar();
 await loadHistoriKeluarDariSupabase();

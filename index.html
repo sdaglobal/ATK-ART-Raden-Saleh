@@ -27,7 +27,6 @@
       --amber-light: #FFFBEB;
       --slate-bg: #F1F5F9;
       --sidebar-bg: #0F172A;
-      --sidebar-active: #1E293B;
       --card-border: rgba(0,0,0,0.06);
     }
 
@@ -45,400 +44,147 @@
       flex-direction: column;
       transition: transform 0.3s ease;
     }
-
-    .sidebar-logo {
-      padding: 24px 20px 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-    }
-
-    .sidebar-logo h1 {
-      font-size: 15px;
-      font-weight: 700;
-      color: #fff;
-      line-height: 1.3;
-    }
-
-    .sidebar-logo p {
-      font-size: 11px;
-      color: #64748B;
-      margin-top: 4px;
-    }
-
+    .sidebar-logo { padding: 24px 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .sidebar-logo h1 { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.3; }
+    .sidebar-logo p { font-size: 11px; color: #64748B; margin-top: 4px; }
     .sidebar-logo .logo-icon {
-      width: 36px; height: 36px;
-      background: var(--indigo);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-      margin-bottom: 12px;
+      width: 36px; height: 36px; background: var(--indigo); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 12px;
     }
-
     .nav-section-label {
-      font-size: 10px;
-      font-weight: 600;
-      color: #475569;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 16px 20px 6px;
+      font-size: 10px; font-weight: 600; color: #475569;
+      text-transform: uppercase; letter-spacing: 0.08em; padding: 16px 20px 6px;
     }
-
     .nav-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 16px;
-      margin: 2px 10px;
-      border-radius: 10px;
-      font-size: 13.5px;
-      font-weight: 500;
-      color: #94A3B8;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      border: none;
-      background: none;
-      width: calc(100% - 20px);
-      text-align: left;
+      display: flex; align-items: center; gap: 10px; padding: 10px 16px;
+      margin: 2px 10px; border-radius: 10px; font-size: 13.5px; font-weight: 500;
+      color: #94A3B8; cursor: pointer; transition: all 0.15s ease;
+      border: none; background: none; width: calc(100% - 20px); text-align: left;
     }
-
-    .nav-btn:hover {
-      background: rgba(255,255,255,0.06);
-      color: #E2E8F0;
-    }
-
-    .nav-btn.active {
-      background: var(--indigo);
-      color: #fff;
-    }
-
+    .nav-btn:hover { background: rgba(255,255,255,0.06); color: #E2E8F0; }
+    .nav-btn.active { background: var(--indigo); color: #fff; }
     .nav-btn .nav-icon {
-      width: 32px; height: 32px;
-      border-radius: 8px;
+      width: 32px; height: 32px; border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 15px;
-      background: rgba(255,255,255,0.07);
-      flex-shrink: 0;
+      font-size: 15px; background: rgba(255,255,255,0.07); flex-shrink: 0;
     }
+    .nav-btn.active .nav-icon { background: rgba(255,255,255,0.2); }
 
-    .nav-btn.active .nav-icon {
-      background: rgba(255,255,255,0.2);
-    }
-
-    /* MAIN CONTENT */
-    #main {
-      margin-left: 260px;
-      min-height: 100vh;
-      padding: 0;
-    }
-
-    /* TOP BAR */
+    /* MAIN */
+    #main { margin-left: 260px; min-height: 100vh; }
     .topbar {
-      background: #fff;
-      border-bottom: 1px solid var(--card-border);
-      padding: 14px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 50;
+      background: #fff; border-bottom: 1px solid var(--card-border);
+      padding: 14px 32px; display: flex; align-items: center;
+      justify-content: space-between; position: sticky; top: 0; z-index: 50;
     }
-
-    .topbar-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #0F172A;
-    }
-
-    .topbar-sub {
-      font-size: 12px;
-      color: #94A3B8;
-      margin-top: 1px;
-    }
-
-    .topbar-badge {
-      background: var(--indigo-light);
-      color: var(--indigo);
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 20px;
-    }
+    .topbar-title { font-size: 16px; font-weight: 700; color: #0F172A; }
+    .topbar-sub { font-size: 12px; color: #94A3B8; margin-top: 1px; }
+    .topbar-badge { background: var(--indigo-light); color: var(--indigo); font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
 
     /* CARDS */
     .stat-card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 22px 24px;
-      border: 1px solid var(--card-border);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      background: #fff; border-radius: 16px; padding: 22px 24px;
+      border: 1px solid var(--card-border); box-shadow: 0 1px 3px rgba(0,0,0,0.04);
       transition: box-shadow 0.2s;
     }
-
-    .stat-card:hover {
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    }
-
-    .stat-icon {
-      width: 44px; height: 44px;
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px;
-      margin-bottom: 14px;
-    }
-
-    .stat-label {
-      font-size: 11.5px;
-      font-weight: 600;
-      color: #94A3B8;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 6px;
-    }
-
-    .stat-value {
-      font-size: 26px;
-      font-weight: 800;
-      line-height: 1.1;
-      color: #0F172A;
-    }
-
-    .stat-sub {
-      font-size: 12px;
-      color: #94A3B8;
-      margin-top: 4px;
-    }
+    .stat-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+    .stat-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 14px; }
+    .stat-label { font-size: 11.5px; font-weight: 600; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+    .stat-value { font-size: 26px; font-weight: 800; line-height: 1.1; color: #0F172A; }
+    .stat-sub { font-size: 12px; color: #94A3B8; margin-top: 4px; }
 
     /* CONTENT CARD */
     .content-card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 28px 32px;
-      border: 1px solid var(--card-border);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      background: #fff; border-radius: 16px; padding: 28px 32px;
+      border: 1px solid var(--card-border); box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }
+    .section-title { font-size: 18px; font-weight: 700; color: #0F172A; margin-bottom: 4px; }
+    .section-sub { font-size: 13px; color: #94A3B8; margin-bottom: 24px; }
 
-    .section-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: #0F172A;
-      margin-bottom: 4px;
-    }
-
-    .section-sub {
-      font-size: 13px;
-      color: #94A3B8;
-      margin-bottom: 24px;
-    }
-
-    /* FORM INPUTS */
+    /* FORM */
     .form-input {
-      width: 100%;
-      border: 1.5px solid #E2E8F0;
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-size: 13.5px;
-      color: #0F172A;
-      background: #fff;
-      transition: border-color 0.15s, box-shadow 0.15s;
-      outline: none;
+      width: 100%; border: 1.5px solid #E2E8F0; border-radius: 10px;
+      padding: 10px 14px; font-size: 13.5px; color: #0F172A; background: #fff;
+      transition: border-color 0.15s, box-shadow 0.15s; outline: none;
     }
-
-    .form-input:focus {
-      border-color: var(--indigo);
-      box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
-    }
-
+    .form-input:focus { border-color: var(--indigo); box-shadow: 0 0 0 3px rgba(79,70,229,0.1); }
     .form-input::placeholder { color: #CBD5E1; }
     .form-input[readonly] { background: #F8FAFC; color: #64748B; }
-
-    .form-label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      color: #475569;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
+    .form-label { display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
 
     /* BUTTONS */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 9px 18px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      border: none;
-    }
-
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s ease; border: none; }
     .btn-primary { background: var(--indigo); color: #fff; }
     .btn-primary:hover { background: var(--indigo-dark); transform: translateY(-1px); }
-
     .btn-success { background: var(--emerald); color: #fff; }
     .btn-success:hover { background: #059669; transform: translateY(-1px); }
-
     .btn-danger { background: var(--red); color: #fff; }
     .btn-danger:hover { background: #DC2626; transform: translateY(-1px); }
-
-    .btn-ghost {
-      background: #F1F5F9;
-      color: #475569;
-      border: 1.5px solid #E2E8F0;
-    }
+    .btn-ghost { background: #F1F5F9; color: #475569; border: 1.5px solid #E2E8F0; }
     .btn-ghost:hover { background: #E2E8F0; }
-
     .btn-sm { padding: 5px 12px; font-size: 12px; border-radius: 7px; }
 
     /* TABLES */
     .data-table { width: 100%; border-collapse: collapse; }
-
-    .data-table thead tr {
-      background: #F8FAFC;
-      border-bottom: 2px solid #E2E8F0;
-    }
-
-    .data-table th {
-      padding: 10px 14px;
-      text-align: left;
-      font-size: 11px;
-      font-weight: 700;
-      color: #64748B;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .data-table tbody tr {
-      border-bottom: 1px solid #F1F5F9;
-      transition: background 0.1s;
-    }
-
+    .data-table thead tr { background: #F8FAFC; border-bottom: 2px solid #E2E8F0; }
+    .data-table th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 0.06em; }
+    .data-table tbody tr { border-bottom: 1px solid #F1F5F9; transition: background 0.1s; }
     .data-table tbody tr:hover { background: #FAFBFF; }
-
-    .data-table td {
-      padding: 11px 14px;
-      font-size: 13px;
-      color: #334155;
-    }
+    .data-table td { padding: 11px 14px; font-size: 13px; color: #334155; }
 
     /* BADGES */
-    .badge {
-      display: inline-flex; align-items: center;
-      padding: 3px 9px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 600;
-    }
+    .badge { display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 600; }
     .badge-green { background: var(--emerald-light); color: #059669; }
     .badge-red { background: var(--red-light); color: #DC2626; }
     .badge-amber { background: var(--amber-light); color: #D97706; }
 
-    /* CHART SLIDER */
+    /* GRAFIK SLIDER */
     #grafikSlider::-webkit-scrollbar { display: none; }
     #grafikSlider { -ms-overflow-style: none; scrollbar-width: none; }
-
     .chart-nav-btn {
-      position: absolute;
-      top: 50%; transform: translateY(-50%);
-      z-index: 20;
-      width: 40px; height: 40px;
-      background: rgba(255,255,255,0.9);
-      border: 1.5px solid #E2E8F0;
-      border-radius: 10px;
-      cursor: pointer;
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 20;
+      width: 40px; height: 40px; background: rgba(255,255,255,0.9);
+      border: 1.5px solid #E2E8F0; border-radius: 10px; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      font-size: 14px;
-      color: #475569;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      font-size: 14px; color: #475569; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       transition: all 0.15s;
     }
-    .chart-nav-btn:hover {
-      background: var(--indigo);
-      color: #fff;
-      border-color: var(--indigo);
-    }
+    .chart-nav-btn:hover { background: var(--indigo); color: #fff; border-color: var(--indigo); }
 
     /* MODAL */
-    .modal-overlay {
-      position: fixed; inset: 0;
-      background: rgba(15, 23, 42, 0.5);
-      backdrop-filter: blur(4px);
-      z-index: 500;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.5); backdrop-filter: blur(4px); z-index: 500; display: none; align-items: center; justify-content: center; }
     .modal-overlay.open { display: flex; }
-    .modal-box {
-      background: #fff;
-      border-radius: 20px;
-      padding: 32px;
-      width: 100%;
-      max-width: 480px;
-      margin: 16px;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.2);
-    }
+    .modal-box { background: #fff; border-radius: 20px; padding: 32px; width: 100%; max-width: 480px; margin: 16px; box-shadow: 0 24px 64px rgba(0,0,0,0.2); }
 
-    /* DIVIDER */
+    /* MULTI-MONTH FILTER */
+    .month-filter-container {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    }
+    .month-checkbox-label {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 5px 12px; border-radius: 8px; cursor: pointer;
+      font-size: 12px; font-weight: 500; color: #475569;
+      background: #F1F5F9; border: 1.5px solid #E2E8F0;
+      transition: all 0.15s; user-select: none;
+    }
+    .month-checkbox-label:hover { background: #E2E8F0; }
+    .month-checkbox-label input[type=checkbox] { display: none; }
+    .month-checkbox-label.selected { background: var(--indigo-light); border-color: var(--indigo); color: var(--indigo); font-weight: 600; }
+
+    /* ITEM ROWS */
     .divider { height: 1px; background: #F1F5F9; margin: 20px 0; }
-
-    /* SECTION GRID FORM */
     .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .form-grid-3 { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 12px; }
-
-    /* STOK ITEM ROW */
-    .item-row {
-      background: #F8FAFC;
-      border: 1.5px solid #E2E8F0;
-      border-radius: 12px;
-      padding: 14px 16px;
-      display: grid;
-      gap: 12px;
-      align-items: center;
-    }
-
+    .item-row { background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 12px; padding: 14px 16px; display: grid; gap: 12px; align-items: center; }
     .item-row-masuk { grid-template-columns: 2fr 1fr 1fr; }
     .item-row-keluar { grid-template-columns: 2fr 1fr 1fr 1fr 40px; }
-
-    .icon-btn-del {
-      width: 36px; height: 36px;
-      border-radius: 8px;
-      border: 1.5px solid #FCA5A5;
-      background: #FEF2F2;
-      color: #EF4444;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px;
-      transition: all 0.15s;
-    }
+    .icon-btn-del { width: 36px; height: 36px; border-radius: 8px; border: 1.5px solid #FCA5A5; background: #FEF2F2; color: #EF4444; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.15s; }
     .icon-btn-del:hover { background: #EF4444; color: #fff; border-color: #EF4444; }
 
-    /* FILTER BAR */
-    .filter-bar {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
+    .filter-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+    .filter-bar .form-input { width: auto; min-width: 200px; }
 
-    .filter-bar .form-input {
-      width: auto;
-      min-width: 200px;
-    }
-
-    /* STOK COLOR */
-    .stok-aman { color: #059669; font-weight: 700; }
-    .stok-menipis { color: #D97706; font-weight: 700; }
-    .stok-habis { color: #DC2626; font-weight: 700; }
-
-    /* HIDDEN */
     .hidden { display: none !important; }
 
-    /* RESPONSIVE */
     @media (max-width: 768px) {
       #sidebar { transform: translateX(-260px); }
       #sidebar.open { transform: translateX(0); }
@@ -447,7 +193,6 @@
       .item-row-keluar { grid-template-columns: 1fr 1fr; }
     }
 
-    /* scrollbar nice */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
@@ -455,14 +200,13 @@
 </head>
 <body>
 
-<!-- ═══════════════════════ SIDEBAR ═══════════════════════ -->
+<!-- SIDEBAR -->
 <nav id="sidebar">
   <div class="sidebar-logo">
     <div class="logo-icon">📦</div>
     <h1>ATK Dashboard</h1>
     <p>Raden Saleh</p>
   </div>
-
   <div style="overflow-y:auto; flex:1; padding-bottom:20px;">
     <div class="nav-section-label">Utama</div>
     <button class="nav-btn active" onclick="tampilSection('stok-atk-section', this)">
@@ -471,7 +215,6 @@
     <button class="nav-btn" onclick="tampilSection('database-barang-section', this)">
       <span class="nav-icon">🗄️</span> Database Barang
     </button>
-
     <div class="nav-section-label">Master Data</div>
     <button class="nav-btn" onclick="tampilSection('master-barang-section', this)">
       <span class="nav-icon">📋</span> Master Barang
@@ -479,7 +222,6 @@
     <button class="nav-btn" onclick="tampilSection('master-karyawan-section', this)">
       <span class="nav-icon">👥</span> Master Karyawan
     </button>
-
     <div class="nav-section-label">Histori</div>
     <button class="nav-btn" onclick="tampilSection('histori-masuk-section', this)">
       <span class="nav-icon">📥</span> Histori Masuk
@@ -487,7 +229,6 @@
     <button class="nav-btn" onclick="tampilSection('histori-keluar-section', this)">
       <span class="nav-icon">📤</span> Histori Keluar
     </button>
-
     <div class="nav-section-label">Laporan</div>
     <button class="nav-btn" onclick="tampilSection('laporan-departemen-section', this)">
       <span class="nav-icon">📊</span> Laporan Departemen
@@ -495,10 +236,8 @@
   </div>
 </nav>
 
-<!-- ═══════════════════════ MAIN ═══════════════════════ -->
+<!-- MAIN -->
 <div id="main">
-
-  <!-- TOP BAR -->
   <div class="topbar">
     <div>
       <div class="topbar-title">Monitoring Pengambilan ATK/ART</div>
@@ -507,7 +246,6 @@
     <span class="topbar-badge">🟢 Live</span>
   </div>
 
-  <!-- CONTENT -->
   <div style="padding: 28px 32px; max-width: 1280px;">
 
     <!-- STAT CARDS -->
@@ -530,14 +268,12 @@
       </div>
     </div>
 
-    <!-- FILTER MONTH -->
+    <!-- MULTI-MONTH FILTER -->
     <div class="content-card" style="margin-bottom:24px; padding:18px 24px;">
-      <div style="display:flex; align-items:center; gap:14px;">
-        <span style="font-size:13px; font-weight:600; color:#475569;">📅 Filter Grafik:</span>
-        <input type="month" id="filterGrafikBulan" class="form-input" style="width:auto;"
-          onchange="renderGrafikPengeluaran(); renderGrafikBarangDepartemen();">
-        <button onclick="document.getElementById('filterGrafikBulan').value=''; renderGrafikPengeluaran(); renderGrafikBarangDepartemen();"
-          class="btn btn-ghost" style="font-size:12px; padding:7px 14px;">Reset</button>
+      <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+        <span style="font-size:13px; font-weight:600; color:#475569;">📅 Filter Grafik (Pilih Bulan):</span>
+        <div id="monthCheckboxes" class="month-filter-container"></div>
+        <button onclick="resetFilterBulan()" class="btn btn-ghost" style="font-size:12px; padding:7px 14px;">Reset</button>
       </div>
     </div>
 
@@ -546,19 +282,20 @@
       <button onclick="slideGrafik(-1)" class="chart-nav-btn" style="left:12px;">‹</button>
       <button onclick="slideGrafik(1)" class="chart-nav-btn" style="right:12px;">›</button>
       <div id="grafikSlider" style="display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;">
-        <div style="min-width:100%; scroll-snap-align:start; padding:28px 32px;">
+        <!-- Grafik Pertama: Per Departemen -->
+        <div class="grafik-slide-dept" style="min-width:100%; scroll-snap-align:start; padding:28px 32px;">
           <div style="font-size:15px; font-weight:700; color:#0F172A; margin-bottom:4px;">Pengeluaran per Departemen</div>
           <div style="font-size:13px; color:#94A3B8; margin-bottom:20px;">Total barang keluar berdasarkan departemen</div>
           <div style="height:400px;"><canvas id="grafikPengeluaran"></canvas></div>
         </div>
+        <!-- Grafik Barang akan di-inject di sini -->
       </div>
     </div>
 
-    <!-- ═══ STOK ATK ═══ -->
+    <!-- STOK ATK -->
     <div id="stok-atk-section" class="content-card" style="margin-bottom:24px;">
       <div class="section-title">Input Stok ATK</div>
       <div class="section-sub">Kelola pemasukan dan pengeluaran barang secara real-time</div>
-
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px;">
         <!-- MASUK -->
         <div>
@@ -566,27 +303,13 @@
             <div style="width:8px;height:8px;border-radius:50%;background:#10B981;"></div>
             <span style="font-size:14px; font-weight:700; color:#059669;">Pemasukan Stok</span>
           </div>
-
           <div style="display:grid; gap:14px;">
-            <div>
-              <label class="form-label">Tanggal</label>
-              <input type="date" id="tanggalMasuk" class="form-input">
-            </div>
+            <div><label class="form-label">Tanggal</label><input type="date" id="tanggalMasuk" class="form-input"></div>
             <div class="form-grid-2">
-              <div>
-                <label class="form-label">Supplier</label>
-                <input type="text" id="namaSupplier" placeholder="Nama supplier" class="form-input">
-              </div>
-              <div>
-                <label class="form-label">Nomor BTB</label>
-                <input type="text" id="nomorBTB" placeholder="No. BTB" class="form-input">
-              </div>
+              <div><label class="form-label">Supplier</label><input type="text" id="namaSupplier" placeholder="Nama supplier" class="form-input"></div>
+              <div><label class="form-label">Nomor BTB</label><input type="text" id="nomorBTB" placeholder="No. BTB" class="form-input"></div>
             </div>
-            <div>
-              <label class="form-label">Keterangan</label>
-              <textarea id="keteranganMasuk" placeholder="Keterangan pemasukan..." class="form-input" rows="2"></textarea>
-            </div>
-
+            <div><label class="form-label">Keterangan</label><textarea id="keteranganMasuk" placeholder="Keterangan pemasukan..." class="form-input" rows="2"></textarea></div>
             <div>
               <label class="form-label">Barang</label>
               <div id="listPemasukanBarang" style="display:flex; flex-direction:column; gap:10px;">
@@ -598,43 +321,29 @@
                 </div>
               </div>
             </div>
-
             <div style="display:flex; gap:10px;">
               <button onclick="tambahBarisPemasukan()" class="btn btn-ghost" style="flex:1;">+ Tambah Baris</button>
               <button onclick="simpanPemasukan()" class="btn btn-success" style="flex:1;">💾 Simpan Masuk</button>
             </div>
           </div>
         </div>
-
         <!-- KELUAR -->
         <div>
           <div style="display:flex; align-items:center; gap:8px; margin-bottom:18px;">
             <div style="width:8px;height:8px;border-radius:50%;background:#EF4444;"></div>
             <span style="font-size:14px; font-weight:700; color:#DC2626;">Pengeluaran Stok</span>
           </div>
-
           <div style="display:grid; gap:14px;">
-            <div>
-              <label class="form-label">Tanggal</label>
-              <input type="date" id="tanggalKeluar" class="form-input">
-            </div>
+            <div><label class="form-label">Tanggal</label><input type="date" id="tanggalKeluar" class="form-input"></div>
             <div class="form-grid-2">
               <div>
                 <label class="form-label">Nama Pengambil</label>
-                <input list="masterKaryawanList" type="text" id="namaPengambilGlobal"
-                  placeholder="Cari karyawan..." class="form-input" oninput="isiDepartemenOtomatis()">
+                <input list="masterKaryawanList" type="text" id="namaPengambilGlobal" placeholder="Cari karyawan..." class="form-input" oninput="isiDepartemenOtomatis()">
                 <datalist id="masterKaryawanList"></datalist>
               </div>
-              <div>
-                <label class="form-label">Departemen</label>
-                <input type="text" id="departemenGlobal" placeholder="Otomatis terisi" class="form-input" readonly>
-              </div>
+              <div><label class="form-label">Departemen</label><input type="text" id="departemenGlobal" placeholder="Otomatis terisi" class="form-input" readonly></div>
             </div>
-            <div>
-              <label class="form-label">Keterangan / Tujuan</label>
-              <textarea id="keteranganKeluar" placeholder="Tujuan penggunaan..." class="form-input" rows="2"></textarea>
-            </div>
-
+            <div><label class="form-label">Keterangan / Tujuan</label><textarea id="keteranganKeluar" placeholder="Tujuan penggunaan..." class="form-input" rows="2"></textarea></div>
             <div>
               <label class="form-label">Barang</label>
               <div id="listPengeluaranBarang" style="display:flex; flex-direction:column; gap:10px;">
@@ -649,7 +358,6 @@
                 </div>
               </div>
             </div>
-
             <div style="display:flex; gap:10px;">
               <button onclick="tambahBarisPengeluaran()" class="btn btn-ghost" style="flex:1;">+ Tambah Baris</button>
               <button onclick="simpanPengeluaran()" class="btn btn-danger" style="flex:1;">💾 Simpan Keluar</button>
@@ -659,7 +367,7 @@
       </div>
     </div>
 
-    <!-- ═══ DATABASE BARANG ═══ -->
+    <!-- DATABASE BARANG -->
     <div id="database-barang-section" class="content-card hidden" style="margin-bottom:24px;">
       <div class="section-title">Database Stok Barang</div>
       <div class="section-sub">Inventaris lengkap dengan kalkulasi stok otomatis</div>
@@ -675,42 +383,22 @@
       </div>
       <div style="overflow-x:auto; border-radius:12px; border:1.5px solid #E2E8F0;">
         <table class="data-table">
-          <thead>
-            <tr>
-              <th>No</th><th>Kode</th><th>Nama Barang</th><th>Kategori</th><th>Satuan</th>
-              <th>Stok Awal</th><th>Masuk</th><th>Keluar</th><th>Sisa Stok</th>
-            </tr>
-          </thead>
+          <thead><tr><th>No</th><th>Kode</th><th>Nama Barang</th><th>Kategori</th><th>Satuan</th><th>Stok Awal</th><th>Masuk</th><th>Keluar</th><th>Sisa Stok</th></tr></thead>
           <tbody id="tabelBarang"></tbody>
         </table>
       </div>
     </div>
 
-    <!-- ═══ MASTER BARANG ═══ -->
+    <!-- MASTER BARANG -->
     <div id="master-barang-section" class="content-card hidden" style="margin-bottom:24px;">
       <div class="section-title">Master Data Barang</div>
       <div class="section-sub">Tambah, impor, dan kelola daftar master barang</div>
       <div class="form-grid-2" style="gap:14px; margin-bottom:14px;">
-        <div>
-          <label class="form-label">Kode Barang</label>
-          <input type="text" id="kodeBarang" placeholder="ATK-001" class="form-input">
-        </div>
-        <div>
-          <label class="form-label">Nama Barang</label>
-          <input type="text" id="namaBarang" placeholder="Nama barang" class="form-input">
-        </div>
-        <div>
-          <label class="form-label">Kategori</label>
-          <input type="text" id="kategoriBarang" placeholder="ATK / ART / dll" class="form-input">
-        </div>
-        <div>
-          <label class="form-label">Satuan</label>
-          <input type="text" id="satuanBarang" placeholder="pcs / box / rim / pack" class="form-input">
-        </div>
-        <div>
-          <label class="form-label">Stok Awal</label>
-          <input type="number" id="stokAwal" placeholder="0" class="form-input">
-        </div>
+        <div><label class="form-label">Kode Barang</label><input type="text" id="kodeBarang" placeholder="ATK-001" class="form-input"></div>
+        <div><label class="form-label">Nama Barang</label><input type="text" id="namaBarang" placeholder="Nama barang" class="form-input"></div>
+        <div><label class="form-label">Kategori</label><input type="text" id="kategoriBarang" placeholder="ATK / ART / dll" class="form-input"></div>
+        <div><label class="form-label">Satuan</label><input type="text" id="satuanBarang" placeholder="pcs / box / rim / pack" class="form-input"></div>
+        <div><label class="form-label">Stok Awal</label><input type="number" id="stokAwal" placeholder="0" class="form-input"></div>
       </div>
       <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:20px;">
         <button onclick="simpanBarang()" class="btn btn-primary">💾 Simpan Barang</button>
@@ -720,19 +408,13 @@
       </div>
     </div>
 
-    <!-- ═══ MASTER KARYAWAN ═══ -->
+    <!-- MASTER KARYAWAN -->
     <div id="master-karyawan-section" class="content-card hidden" style="margin-bottom:24px;">
       <div class="section-title">Master Data Karyawan</div>
       <div class="section-sub">Kelola daftar karyawan dan departemennya</div>
       <div class="form-grid-2" style="gap:14px; margin-bottom:14px;">
-        <div>
-          <label class="form-label">Nama Karyawan</label>
-          <input type="text" id="namaKaryawan" placeholder="Nama lengkap" class="form-input">
-        </div>
-        <div>
-          <label class="form-label">Departemen</label>
-          <input type="text" id="departemenKaryawan" placeholder="Nama departemen" class="form-input">
-        </div>
+        <div><label class="form-label">Nama Karyawan</label><input type="text" id="namaKaryawan" placeholder="Nama lengkap" class="form-input"></div>
+        <div><label class="form-label">Departemen</label><input type="text" id="departemenKaryawan" placeholder="Nama departemen" class="form-input"></div>
       </div>
       <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:20px; margin-bottom:24px;">
         <button onclick="simpanKaryawan()" class="btn btn-primary">💾 Simpan Karyawan</button>
@@ -749,7 +431,7 @@
       </div>
     </div>
 
-    <!-- ═══ HISTORI MASUK ═══ -->
+    <!-- HISTORI MASUK -->
     <div id="histori-masuk-section" class="content-card hidden" style="margin-bottom:24px;">
       <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
         <div>
@@ -764,16 +446,13 @@
       </div>
       <div style="overflow-x:auto; border-radius:12px; border:1.5px solid #E2E8F0;">
         <table class="data-table">
-          <thead><tr>
-            <th>Tanggal</th><th>Nama Barang</th><th>Supplier</th>
-            <th>No. BTB</th><th>Jumlah</th><th>Keterangan</th><th>Aksi</th>
-          </tr></thead>
+          <thead><tr><th>Tanggal</th><th>Nama Barang</th><th>Supplier</th><th>No. BTB</th><th>Jumlah</th><th>Satuan</th><th>Keterangan</th><th>Aksi</th></tr></thead>
           <tbody id="tabelHistoriMasuk"></tbody>
         </table>
       </div>
     </div>
 
-    <!-- ═══ HISTORI KELUAR ═══ -->
+    <!-- HISTORI KELUAR -->
     <div id="histori-keluar-section" class="content-card hidden" style="margin-bottom:24px;">
       <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
         <div>
@@ -788,16 +467,13 @@
       </div>
       <div style="overflow-x:auto; border-radius:12px; border:1.5px solid #E2E8F0;">
         <table class="data-table">
-          <thead><tr>
-            <th>Tanggal</th><th>Nama Barang</th><th>Jumlah</th>
-            <th>Pengambil</th><th>Departemen</th><th>Keterangan</th><th>Hapus</th>
-          </tr></thead>
+          <thead><tr><th>Tanggal</th><th>Nama Barang</th><th>Jumlah</th><th>Satuan</th><th>Pengambil</th><th>Departemen</th><th>Keterangan</th><th>Hapus</th></tr></thead>
           <tbody id="tabelHistoriKeluar"></tbody>
         </table>
       </div>
     </div>
 
-    <!-- ═══ LAPORAN DEPARTEMEN ═══ -->
+    <!-- LAPORAN DEPARTEMEN -->
     <div id="laporan-departemen-section" class="content-card hidden" style="margin-bottom:24px;">
       <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
         <div>
@@ -814,46 +490,26 @@
       </div>
       <div style="overflow-x:auto; border-radius:12px; border:1.5px solid #E2E8F0;">
         <table class="data-table">
-          <thead><tr>
-            <th style="width:60px;">No</th>
-            <th>Departemen</th>
-            <th>Nama Barang</th>
-            <th style="text-align:right;">Total</th>
-          </tr></thead>
+          <thead><tr><th style="width:60px;">No</th><th>Departemen</th><th>Nama Barang</th><th style="text-align:right;">Total</th></tr></thead>
           <tbody id="tabelLaporanDepartemen"></tbody>
         </table>
       </div>
     </div>
 
-  </div><!-- /content -->
-</div><!-- /main -->
+  </div>
+</div>
 
-<!-- ═══ MODAL EDIT HISTORI MASUK ═══ -->
+<!-- MODAL EDIT HISTORI MASUK -->
 <div id="modalEditMasuk" class="modal-overlay">
   <div class="modal-box">
     <div style="font-size:17px; font-weight:700; color:#059669; margin-bottom:20px;">✏️ Edit Pemasukan</div>
     <input type="hidden" id="editIndexMasuk">
     <div style="display:grid; gap:14px;">
-      <div>
-        <label class="form-label">Tanggal</label>
-        <input type="date" id="editTanggalMasuk" class="form-input">
-      </div>
-      <div>
-        <label class="form-label">Jumlah Masuk</label>
-        <input type="number" id="editJumlahMasuk" class="form-input">
-      </div>
-      <div>
-        <label class="form-label">Supplier</label>
-        <input type="text" id="editSupplierMasuk" class="form-input">
-      </div>
-      <div>
-        <label class="form-label">Nomor BTB</label>
-        <input type="text" id="editNomorBTBMasuk" class="form-input">
-      </div>
-      <div>
-        <label class="form-label">Keterangan</label>
-        <textarea id="editKeteranganMasuk" class="form-input" rows="3"></textarea>
-      </div>
+      <div><label class="form-label">Tanggal</label><input type="date" id="editTanggalMasuk" class="form-input"></div>
+      <div><label class="form-label">Jumlah Masuk</label><input type="number" id="editJumlahMasuk" class="form-input"></div>
+      <div><label class="form-label">Supplier</label><input type="text" id="editSupplierMasuk" class="form-input"></div>
+      <div><label class="form-label">Nomor BTB</label><input type="text" id="editNomorBTBMasuk" class="form-input"></div>
+      <div><label class="form-label">Keterangan</label><textarea id="editKeteranganMasuk" class="form-input" rows="3"></textarea></div>
     </div>
     <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:24px;">
       <button onclick="tutupModalEditMasuk()" class="btn btn-ghost">Batal</button>
@@ -863,57 +519,90 @@
 </div>
 
 <script>
-/* ─── NAVIGATION ─── */
-let currentSlide = 0;
-
-function slideGrafik(direction) {
-  const slider = document.getElementById('grafikSlider');
-  const total = slider.querySelectorAll('[style*="scroll-snap-align:start"]').length ||
-                slider.querySelectorAll('.grafik-slide').length + 1;
-  currentSlide = (currentSlide + direction + total) % total;
-  slider.scrollTo({ left: (slider.clientWidth) * currentSlide, behavior: 'smooth' });
-}
-
-function tampilSection(sectionId, btn) {
-  const semuaSection = [
-    'stok-atk-section','database-barang-section','master-barang-section',
-    'master-karyawan-section','histori-masuk-section','histori-keluar-section',
-    'laporan-departemen-section'
-  ];
-  semuaSection.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.classList.add('hidden');
-  });
-  const target = document.getElementById(sectionId);
-  if (target) { target.classList.remove('hidden'); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-}
-
 /* ─── STATE ─── */
+let currentSlide = 0;
 let barangList = [], karyawanList = [], historiMasuk = [], historiKeluar = [];
+let selectedMonths = new Set(); // multi-month filter
 
 const supabaseUrl = 'https://wlnibcoqspxwmylkyolk.supabase.co';
 const supabaseKey = 'sb_publishable_lycr_Pk_EfTZxPmUJ3xsag_isf7AEwS';
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+const CHART_COLORS = ['#4F46E5','#10B981','#EF4444','#F59E0B','#3B82F6','#EC4899','#8B5CF6','#06B6D4','#84CC16','#F97316'];
+
+/* ─── NAVIGATION ─── */
+function slideGrafik(direction) {
+  const slider = document.getElementById('grafikSlider');
+  const slides = slider.querySelectorAll('[style*="scroll-snap-align:start"], [data-slide]');
+  const total = slider.children.length;
+  currentSlide = (currentSlide + direction + total) % total;
+  slider.scrollTo({ left: slider.clientWidth * currentSlide, behavior: 'smooth' });
+}
+
+function tampilSection(sectionId, btn) {
+  const ids = ['stok-atk-section','database-barang-section','master-barang-section',
+    'master-karyawan-section','histori-masuk-section','histori-keluar-section','laporan-departemen-section'];
+  ids.forEach(id => { const el = document.getElementById(id); if (el) el.classList.add('hidden'); });
+  const t = document.getElementById(sectionId);
+  if (t) { t.classList.remove('hidden'); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
+/* ─── MULTI MONTH FILTER ─── */
+function buildMonthCheckboxes() {
+  const months = new Set();
+  historiKeluar.forEach(item => { if (item.tanggal) months.add(item.tanggal.substring(0, 7)); });
+  historiMasuk.forEach(item => { if (item.tanggal) months.add(item.tanggal.substring(0, 7)); });
+  const sorted = [...months].sort().reverse();
+  const container = document.getElementById('monthCheckboxes');
+  container.innerHTML = '';
+  sorted.forEach(ym => {
+    const [y, m] = ym.split('-');
+    const label = new Date(y, m - 1).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
+    const lbl = document.createElement('label');
+    lbl.className = 'month-checkbox-label' + (selectedMonths.has(ym) ? ' selected' : '');
+    lbl.dataset.ym = ym;
+    lbl.innerHTML = `<input type="checkbox" value="${ym}" ${selectedMonths.has(ym) ? 'checked' : ''}>${label}`;
+    lbl.querySelector('input').addEventListener('change', function() {
+      if (this.checked) { selectedMonths.add(ym); lbl.classList.add('selected'); }
+      else { selectedMonths.delete(ym); lbl.classList.remove('selected'); }
+      renderGrafikPengeluaran();
+      renderGrafikBarangDepartemen();
+    });
+    container.appendChild(lbl);
+  });
+}
+
+function resetFilterBulan() {
+  selectedMonths.clear();
+  document.querySelectorAll('.month-checkbox-label').forEach(lbl => {
+    lbl.classList.remove('selected');
+    lbl.querySelector('input').checked = false;
+  });
+  renderGrafikPengeluaran();
+  renderGrafikBarangDepartemen();
+}
+
+function getFilteredKeluar() {
+  if (selectedMonths.size === 0) return historiKeluar;
+  return historiKeluar.filter(item => item.tanggal && selectedMonths.has(item.tanggal.substring(0, 7)));
+}
 
 /* ─── HELPERS ─── */
 function ambilKodeBarang(namaInput) {
   const b = barangList.find(item => item.nama.trim().toLowerCase() === namaInput.trim().toLowerCase());
   return b ? b.kode : null;
 }
-
 function formatTanggal(t) {
   return new Date(t).toLocaleDateString('id-ID', { day:'2-digit', month:'long', year:'numeric' });
 }
 
-/* ─── SUPABASE ─── */
+/* ─── SUPABASE FUNCTIONS ─── */
 async function simpanKaryawanKeSupabase(k) {
   const { error } = await supabaseClient.from('master_karyawan').insert([{ nama: k.nama, departemen: k.departemen }]);
   if (error) console.log('Gagal simpan karyawan:', error);
 }
-
 async function simpanHistoriMasukKeSupabase(data) {
   const { error } = await supabaseClient.from('histori_masuk').insert([{
     tanggal: data.tanggal, nama_barang: data.namaBarang, jumlah_masuk: data.jumlahMasuk,
@@ -921,7 +610,6 @@ async function simpanHistoriMasukKeSupabase(data) {
   }]);
   if (error) console.log('Gagal simpan histori masuk:', error);
 }
-
 async function simpanHistoriKeluarKeSupabase(data) {
   const { error } = await supabaseClient.from('histori_keluar').insert([{
     tanggal: data.tanggal, nama_barang: data.namaBarang, jumlah_keluar: data.jumlahKeluar,
@@ -929,7 +617,6 @@ async function simpanHistoriKeluarKeSupabase(data) {
   }]);
   if (error) console.log('Gagal simpan histori keluar:', error);
 }
-
 async function simpanBarangKeSupabase(barang) {
   const { error } = await supabaseClient.from('master_barang').insert([{
     kode: barang.kode, nama: barang.nama, kategori: barang.kategori, satuan: barang.satuan,
@@ -937,7 +624,6 @@ async function simpanBarangKeSupabase(barang) {
   }]);
   if (error) console.log('Gagal simpan barang:', error);
 }
-
 async function updateBarangKeSupabase(barang) {
   const { error } = await supabaseClient.from('master_barang').update({
     stok_masuk: barang.stokMasuk, stok_keluar: barang.stokKeluar, sisa_stok: barang.sisaStok
@@ -945,34 +631,31 @@ async function updateBarangKeSupabase(barang) {
   if (error) console.log('Gagal update barang:', error);
 }
 
+/* ─── LOAD FROM SUPABASE ─── */
 async function loadKaryawanDariSupabase() {
   const { data, error } = await supabaseClient.from('master_karyawan').select('*');
   if (!error && data) {
     karyawanList = data.map(item => ({ nama: item.nama, departemen: item.departemen }));
-    tampilkanKaryawan(); updateDatalistKaryawan(); isiDepartemenOtomatis();
+    tampilkanKaryawan(); updateDatalistKaryawan();
   }
 }
-
 async function loadBarangDariSupabase() {
   const { data, error } = await supabaseClient.from('master_barang').select('*').order('id', { ascending: true });
   if (!error && data) {
     barangList = data.map(item => {
-      const stokMasukAktual = historiMasuk.filter(h => h.namaBarang.trim().toLowerCase() === item.nama.trim().toLowerCase())
+      const sm = historiMasuk.filter(h => h.namaBarang.trim().toLowerCase() === item.nama.trim().toLowerCase())
         .reduce((t, h) => t + Number(h.jumlahMasuk || 0), 0);
-      const stokKeluarAktual = historiKeluar.filter(h => h.namaBarang.trim().toLowerCase() === item.nama.trim().toLowerCase())
+      const sk = historiKeluar.filter(h => h.namaBarang.trim().toLowerCase() === item.nama.trim().toLowerCase())
         .reduce((t, h) => t + Number(h.jumlahKeluar || 0), 0);
-      const sisaStokAktual = Number(item.stok_awal || 0) + stokMasukAktual - stokKeluarAktual;
       return {
         kode: item.kode, nama: item.nama, kategori: item.kategori, satuan: item.satuan,
-        stokAwal: Number(item.stok_awal || 0), stokMasuk: stokMasukAktual,
-        stokKeluar: stokKeluarAktual, sisaStok: sisaStokAktual
+        stokAwal: Number(item.stok_awal || 0), stokMasuk: sm, stokKeluar: sk,
+        sisaStok: Number(item.stok_awal || 0) + sm - sk
       };
     });
-    tampilkanBarang(); updateSelectBarang(); updateSatuanOtomatis(); updateSisaStokRealtime();
-    updateAtkTerbanyak();
+    tampilkanBarang(); updateSelectBarang(); updateSatuanOtomatis(); updateSisaStokRealtime(); updateAtkTerbanyak();
   }
 }
-
 async function loadHistoriMasukDariSupabase() {
   const { data, error } = await supabaseClient.from('histori_masuk').select('*').order('id', { ascending: false });
   if (!error && data) {
@@ -983,7 +666,6 @@ async function loadHistoriMasukDariSupabase() {
     tampilkanHistoriMasuk();
   }
 }
-
 async function loadHistoriKeluarDariSupabase() {
   const { data, error } = await supabaseClient.from('histori_keluar').select('*').order('id', { ascending: false });
   if (!error && data) {
@@ -991,7 +673,9 @@ async function loadHistoriKeluarDariSupabase() {
       tanggal: item.tanggal, namaBarang: item.nama_barang, jumlahKeluar: item.jumlah_keluar,
       pengambil: item.pengambil, departemen: item.departemen, keterangan: item.keterangan || '-'
     }));
-    tampilkanHistoriKeluar(); renderGrafikPengeluaran(); renderGrafikBarangDepartemen();
+    tampilkanHistoriKeluar();
+    buildMonthCheckboxes();
+    renderGrafikPengeluaran(); renderGrafikBarangDepartemen();
     updateDepartemenTerbanyak(); isiFilterDepartemen(); tampilkanLaporanDepartemen();
   }
 }
@@ -1004,64 +688,49 @@ async function simpanBarang() {
   const satuan = document.getElementById('satuanBarang').value;
   const stok = parseInt(document.getElementById('stokAwal').value);
   if (!kode || !nama || !kategori || !satuan || !stok) { alert('Semua data barang harus diisi'); return; }
-  const barangBaru = { kode, nama, kategori, satuan, stokAwal: stok, stokMasuk: 0, stokKeluar: 0, sisaStok: stok };
-  barangList.push(barangBaru);
-  await simpanBarangKeSupabase(barangBaru);
+  const b = { kode, nama, kategori, satuan, stokAwal: stok, stokMasuk: 0, stokKeluar: 0, sisaStok: stok };
+  barangList.push(b);
+  await simpanBarangKeSupabase(b);
   await loadBarangDariSupabase();
-  updateSisaStokRealtime(); tampilkanBarang(); updateSelectBarang(); resetFormBarang();
+  updateSisaStokRealtime(); tampilkanBarang(); updateSelectBarang();
+  ['kodeBarang','namaBarang','kategoriBarang','satuanBarang','stokAwal'].forEach(id => document.getElementById(id).value = '');
   alert('Master barang berhasil disimpan');
 }
-
-function resetFormBarang() {
-  ['kodeBarang','namaBarang','kategoriBarang','satuanBarang','stokAwal'].forEach(id => document.getElementById(id).value = '');
-}
-
 function exportBarang() {
   const ws = XLSX.utils.json_to_sheet(barangList);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Master Barang');
+  const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, 'Master Barang');
   XLSX.writeFile(wb, 'master-barang.xlsx');
 }
-
 function exportDatabaseBarang() {
-  const dataExport = barangList.map(item => ({
+  const d = barangList.map(item => ({
     Kode: item.kode, Nama_Barang: item.nama, Kategori: item.kategori, Satuan: item.satuan,
     Stok_Awal: item.stokAwal, Stok_Masuk: item.stokMasuk, Stok_Keluar: item.stokKeluar, Sisa_Stok: item.sisaStok
   }));
-  const ws = XLSX.utils.json_to_sheet(dataExport);
-  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.json_to_sheet(d); const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Database Stok');
   XLSX.writeFile(wb, `database-stok-${new Date().toISOString().split('T')[0]}.xlsx`);
 }
-
 async function importBarang(event) {
-  const file = event.target.files[0];
-  if (!file) return;
+  const file = event.target.files[0]; if (!file) return;
   const reader = new FileReader();
   reader.onload = async function(e) {
     try {
       document.body.style.cursor = 'wait';
       const data = new Uint8Array(e.target.result);
       const wb = XLSX.read(data, { type: 'array' });
-      const ws = wb.Sheets[wb.SheetNames[0]];
-      const importedData = XLSX.utils.sheet_to_json(ws);
+      const importedData = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
       barangList = importedData;
-      for (const b of barangList) {
-        await simpanBarangKeSupabase({
-          kode: b.kode, nama: b.nama, kategori: b.kategori, satuan: b.satuan,
-          stokAwal: Number(b.stokAwal || b.stok_awal || 0),
-          stokMasuk: Number(b.stokMasuk || b.stok_masuk || 0),
-          stokKeluar: Number(b.stokKeluar || b.stok_keluar || 0),
-          sisaStok: Number(b.sisaStok || b.sisa_stok || 0)
-        });
-      }
+      for (const b of barangList) await simpanBarangKeSupabase({
+        kode: b.kode, nama: b.nama, kategori: b.kategori, satuan: b.satuan,
+        stokAwal: Number(b.stokAwal || b.stok_awal || 0), stokMasuk: Number(b.stokMasuk || b.stok_masuk || 0),
+        stokKeluar: Number(b.stokKeluar || b.stok_keluar || 0), sisaStok: Number(b.sisaStok || b.sisa_stok || 0)
+      });
       tampilkanBarang(); updateSelectBarang(); updateDepartemenTerbanyak(); updateAtkTerbanyak();
       setTimeout(() => { document.body.style.cursor = 'default'; alert('Master barang berhasil diimport'); }, 1000);
     } catch(err) { document.body.style.cursor = 'default'; alert('File gagal dibaca'); }
   };
   reader.readAsArrayBuffer(file);
 }
-
 function tampilkanBarang() {
   const tbody = document.getElementById('tabelBarang');
   const keyword = (document.getElementById('searchBarang')?.value || '').toLowerCase();
@@ -1075,27 +744,22 @@ function tampilkanBarang() {
     if (filterStok === 'habis' && b.sisaStok !== 0) return;
     if (filterStok === 'menipis' && b.sisaStok > 5) return;
     if (filterStok === 'tersedia' && b.sisaStok <= 5) return;
-
-    let badgeClass = 'badge-green', badgeText = 'Aman';
-    if (b.sisaStok === 0) { badgeClass = 'badge-red'; badgeText = 'Habis'; }
-    else if (b.sisaStok <= 5) { badgeClass = 'badge-amber'; badgeText = 'Menipis'; }
-
-    tbody.innerHTML += `
-      <tr>
-        <td>${n++}</td>
-        <td><span style="font-size:11px;font-weight:600;color:#6366F1;background:#EEF2FF;padding:2px 8px;border-radius:6px;">${b.kode}</span></td>
-        <td style="font-weight:600;">${b.nama}</td>
-        <td>${b.kategori}</td>
-        <td><span style="font-size:11px;background:#F1F5F9;padding:2px 7px;border-radius:6px;color:#475569;">${b.satuan}</span></td>
-        <td style="color:#10B981;font-weight:700;">${b.stokAwal}</td>
-        <td style="color:#3B82F6;font-weight:700;">+${b.stokMasuk}</td>
-        <td style="color:#EF4444;font-weight:700;">-${b.stokKeluar}</td>
-        <td><span class="badge ${badgeClass}">${b.sisaStok} ${b.satuan}</span></td>
-      </tr>`;
+    let bc = 'badge-green', bt = 'Aman';
+    if (b.sisaStok === 0) { bc = 'badge-red'; bt = 'Habis'; }
+    else if (b.sisaStok <= 5) { bc = 'badge-amber'; bt = 'Menipis'; }
+    tbody.innerHTML += `<tr>
+      <td>${n++}</td>
+      <td><span style="font-size:11px;font-weight:600;color:#6366F1;background:#EEF2FF;padding:2px 8px;border-radius:6px;">${b.kode}</span></td>
+      <td style="font-weight:600;">${b.nama}</td><td>${b.kategori}</td>
+      <td><span style="font-size:11px;background:#F1F5F9;padding:2px 7px;border-radius:6px;color:#475569;">${b.satuan}</span></td>
+      <td style="color:#10B981;font-weight:700;">${b.stokAwal}</td>
+      <td style="color:#3B82F6;font-weight:700;">${b.stokMasuk}</td>
+      <td style="color:#EF4444;font-weight:700;">${b.stokKeluar}</td>
+      <td><span class="badge ${bc}">${b.sisaStok} ${b.satuan}</span></td>
+    </tr>`;
   });
-  const totalKeluar = historiKeluar.reduce((t, i) => t + Number(i.jumlahKeluar || 0), 0);
-  const el = document.getElementById('totalPengambilan');
-  if (el) el.textContent = totalKeluar.toLocaleString('id-ID');
+  const total = historiKeluar.reduce((t, i) => t + Number(i.jumlahKeluar || 0), 0);
+  const el = document.getElementById('totalPengambilan'); if (el) el.textContent = total.toLocaleString('id-ID');
 }
 
 /* ─── MASTER KARYAWAN ─── */
@@ -1103,64 +767,50 @@ async function simpanKaryawan() {
   const nama = document.getElementById('namaKaryawan').value;
   const departemen = document.getElementById('departemenKaryawan').value;
   if (!nama || !departemen) { alert('Nama dan departemen harus diisi'); return; }
-  const data = { nama, departemen };
-  karyawanList.push(data);
-  await simpanKaryawanKeSupabase(data);
-  document.getElementById('namaKaryawan').value = '';
-  document.getElementById('departemenKaryawan').value = '';
+  karyawanList.push({ nama, departemen });
+  await simpanKaryawanKeSupabase({ nama, departemen });
+  document.getElementById('namaKaryawan').value = ''; document.getElementById('departemenKaryawan').value = '';
   tampilkanKaryawan(); alert('Karyawan berhasil disimpan');
 }
-
 function tampilkanKaryawan() {
   const tbody = document.getElementById('tabelKaryawan');
   const keyword = (document.getElementById('searchKaryawan')?.value || '').toLowerCase();
-  tbody.innerHTML = '';
-  let n = 1;
+  tbody.innerHTML = ''; let n = 1;
   karyawanList.forEach(k => {
     if (!k.nama.toLowerCase().includes(keyword) && !k.departemen.toLowerCase().includes(keyword)) return;
     tbody.innerHTML += `<tr><td>${n++}</td><td style="font-weight:500;">${k.nama}</td><td>${k.departemen}</td></tr>`;
   });
 }
-
 function exportKaryawan() {
-  const ws = XLSX.utils.json_to_sheet(karyawanList);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Master Karyawan');
-  XLSX.writeFile(wb, 'master-karyawan.xlsx');
+  const ws = XLSX.utils.json_to_sheet(karyawanList); const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Master Karyawan'); XLSX.writeFile(wb, 'master-karyawan.xlsx');
 }
-
 async function importKaryawan(event) {
-  const file = event.target.files[0];
-  if (!file) return;
+  const file = event.target.files[0]; if (!file) return;
   const reader = new FileReader();
   reader.onload = async function(e) {
     try {
       const data = new Uint8Array(e.target.result);
       const wb = XLSX.read(data, { type: 'array' });
-      const ws = wb.Sheets[wb.SheetNames[0]];
-      karyawanList = XLSX.utils.sheet_to_json(ws);
+      karyawanList = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
       for (const k of karyawanList) await simpanKaryawanKeSupabase({ nama: k.nama, departemen: k.departemen });
-      tampilkanKaryawan(); updateDatalistKaryawan();
-      alert('Karyawan berhasil diimport');
+      tampilkanKaryawan(); updateDatalistKaryawan(); alert('Karyawan berhasil diimport');
     } catch(err) { alert('File gagal dibaca'); }
   };
   reader.readAsArrayBuffer(file);
 }
-
 function updateDatalistKaryawan() {
-  const dl = document.getElementById('masterKaryawanList');
-  if (!dl) return;
+  const dl = document.getElementById('masterKaryawanList'); if (!dl) return;
   dl.innerHTML = '';
   karyawanList.forEach(k => { dl.innerHTML += `<option value="${k.nama}">${k.nama}</option>`; });
 }
-
 function isiDepartemenOtomatis() {
   const nama = document.getElementById('namaPengambilGlobal').value.trim().toLowerCase();
-  const departemenInput = document.getElementById('departemenGlobal');
+  const dInput = document.getElementById('departemenGlobal');
   const k = karyawanList.find(item => item.nama.trim().toLowerCase() === nama);
-  departemenInput.value = k ? k.departemen : '';
+  dInput.value = k ? k.departemen : '';
   document.querySelectorAll('.pengambilKeluar').forEach(i => { i.value = document.getElementById('namaPengambilGlobal').value; });
-  document.querySelectorAll('.departemenKeluar').forEach(i => { i.value = departemenInput.value; });
+  document.querySelectorAll('.departemenKeluar').forEach(i => { i.value = dInput.value; });
 }
 
 /* ─── STOK INPUT ─── */
@@ -1170,27 +820,23 @@ function updateSelectBarang() {
   dl.innerHTML = '';
   barangList.forEach(b => { dl.innerHTML += `<option value="${b.nama}">${b.nama} (${b.satuan})</option>`; });
 }
-
 function tambahBarisPemasukan() {
-  const container = document.getElementById('listPemasukanBarang');
-  const wrapper = document.createElement('div');
-  wrapper.className = 'item-row item-row-masuk pemasukan-item';
-  wrapper.innerHTML = `
+  const c = document.getElementById('listPemasukanBarang');
+  const w = document.createElement('div');
+  w.className = 'item-row item-row-masuk pemasukan-item';
+  w.innerHTML = `
     <input list="masterBarangList" type="text" class="namaBarangMasuk form-input" placeholder="Cari barang...">
     <input type="number" class="jumlahBarangMasuk form-input" placeholder="Jumlah">
     <div style="display:flex;gap:8px;align-items:center;">
       <input type="text" class="satuanBarangMasuk form-input" placeholder="Satuan" readonly>
       <button type="button" onclick="hapusBarisPemasukan(this)" class="icon-btn-del">🗑</button>
     </div>`;
-  container.appendChild(wrapper);
-  updateSatuanOtomatis();
+  c.appendChild(w); updateSatuanOtomatis();
 }
-
 function hapusBarisPemasukan(btn) {
   if (document.querySelectorAll('.pemasukan-item').length <= 1) { alert('Minimal 1 baris'); return; }
   btn.closest('.pemasukan-item').remove();
 }
-
 async function simpanPemasukan() {
   const tanggal = document.getElementById('tanggalMasuk').value;
   const supplier = document.getElementById('namaSupplier').value.trim();
@@ -1206,15 +852,12 @@ async function simpanPemasukan() {
     if (!nama || isNaN(jumlah) || jumlah <= 0) continue;
     const kode = ambilKodeBarang(nama);
     if (!kode) { alert('Pilih barang dari daftar!'); return; }
-    const barang = barangList.find(b => b.kode === kode);
-    if (!barang) continue;
+    const barang = barangList.find(b => b.kode === kode); if (!barang) continue;
     barang.stokMasuk = Number(barang.stokMasuk || 0) + jumlah;
     barang.sisaStok = Number(barang.sisaStok || 0) + jumlah;
     await updateBarangKeSupabase(barang);
-    const dataMasuk = { tanggal, namaBarang: barang.nama, jumlahMasuk: jumlah, supplier: supplier || '-', nomorBTB: nomorBTB || '-', keterangan: keterangan || '-' };
-    historiMasuk.push(dataMasuk);
-    await simpanHistoriMasukKeSupabase(dataMasuk);
-    berhasil = true;
+    const dm = { tanggal, namaBarang: barang.nama, jumlahMasuk: jumlah, supplier: supplier || '-', nomorBTB: nomorBTB || '-', keterangan: keterangan || '-' };
+    historiMasuk.push(dm); await simpanHistoriMasukKeSupabase(dm); berhasil = true;
   }
   if (!berhasil) { alert('Tidak ada data pemasukan yang valid'); return; }
   document.getElementById('listPemasukanBarang').innerHTML = `
@@ -1226,15 +869,14 @@ async function simpanPemasukan() {
   ['tanggalMasuk','namaSupplier','nomorBTB','keteranganMasuk'].forEach(id => document.getElementById(id).value = '');
   updateSelectBarang(); updateSatuanOtomatis();
   await loadHistoriMasukDariSupabase(); await loadBarangDariSupabase();
-  renderGrafikPengeluaran(); renderGrafikBarangDepartemen(); updateDepartemenTerbanyak(); updateAtkTerbanyak();
+  buildMonthCheckboxes(); renderGrafikPengeluaran(); renderGrafikBarangDepartemen(); updateDepartemenTerbanyak(); updateAtkTerbanyak();
   alert('Pemasukan berhasil disimpan');
 }
-
 function tambahBarisPengeluaran() {
-  const container = document.getElementById('listPengeluaranBarang');
-  const wrapper = document.createElement('div');
-  wrapper.className = 'item-row item-row-keluar pengeluaran-item';
-  wrapper.innerHTML = `
+  const c = document.getElementById('listPengeluaranBarang');
+  const w = document.createElement('div');
+  w.className = 'item-row item-row-keluar pengeluaran-item';
+  w.innerHTML = `
     <input list="masterBarangList" type="text" class="namaBarangKeluar form-input" placeholder="Cari barang...">
     <input type="number" min="1" class="jumlahBarangKeluar form-input" placeholder="Jumlah">
     <input type="text" class="satuanBarangKeluar form-input" placeholder="Satuan" readonly>
@@ -1242,54 +884,40 @@ function tambahBarisPengeluaran() {
     <input type="hidden" class="departemenKeluar">
     <input type="hidden" class="pengambilKeluar">
     <button type="button" onclick="hapusBarisPengeluaran(this)" class="icon-btn-del">🗑</button>`;
-  container.appendChild(wrapper);
-  updateSatuanOtomatis(); requestAnimationFrame(updateSisaStokRealtime);
+  c.appendChild(w); updateSatuanOtomatis(); requestAnimationFrame(updateSisaStokRealtime);
 }
-
 function hapusBarisPengeluaran(btn) {
   if (document.querySelectorAll('.pengeluaran-item').length <= 1) { alert('Minimal 1 baris'); return; }
   btn.closest('.pengeluaran-item').remove();
 }
-
 async function simpanPengeluaran() {
   const namaInputs = document.querySelectorAll('.namaBarangKeluar');
   const jumlahInputs = document.querySelectorAll('.jumlahBarangKeluar');
   const keterangan = document.getElementById('keteranganKeluar').value.trim();
   let berhasil = false;
-
   for (let i = 0; i < namaInputs.length; i++) {
-    const nama = namaInputs[i].value.trim();
-    const jumlah = parseInt(jumlahInputs[i].value);
+    const nama = namaInputs[i].value.trim(); const jumlah = parseInt(jumlahInputs[i].value);
     if (!nama || isNaN(jumlah) || jumlah <= 0) { alert('Jumlah tidak boleh 0 atau kosong!'); return; }
-    const kode = ambilKodeBarang(nama);
-    if (!kode) { alert('Pilih barang dari daftar!'); return; }
+    const kode = ambilKodeBarang(nama); if (!kode) { alert('Pilih barang dari daftar!'); return; }
     const barang = barangList.find(b => b.kode === kode);
     if (!barang) { alert(`Barang tidak ditemukan`); return; }
     if (Number(barang.sisaStok || 0) < jumlah) { alert(`❌ Stok tidak cukup!\nBarang: ${barang.nama}\nSisa: ${barang.sisaStok}\nDiminta: ${jumlah}`); return; }
   }
-
   for (let i = 0; i < namaInputs.length; i++) {
-    const nama = namaInputs[i].value.trim();
-    const jumlah = parseInt(jumlahInputs[i].value);
+    const nama = namaInputs[i].value.trim(); const jumlah = parseInt(jumlahInputs[i].value);
     if (!nama || isNaN(jumlah) || jumlah <= 0) continue;
-    const kode = ambilKodeBarang(nama);
-    const barang = barangList.find(b => b.kode === kode);
+    const kode = ambilKodeBarang(nama); const barang = barangList.find(b => b.kode === kode);
     if (!barang || Number(barang.sisaStok || 0) < jumlah) continue;
     barang.stokKeluar = Number(barang.stokKeluar || 0) + jumlah;
     barang.sisaStok = Number(barang.sisaStok || 0) - jumlah;
     await updateBarangKeSupabase(barang);
-    const dataKeluar = {
-      tanggal: document.getElementById('tanggalKeluar').value,
-      namaBarang: barang.nama, jumlahKeluar: jumlah,
+    const dk = {
+      tanggal: document.getElementById('tanggalKeluar').value, namaBarang: barang.nama, jumlahKeluar: jumlah,
       pengambil: document.getElementById('namaPengambilGlobal').value,
-      departemen: document.getElementById('departemenGlobal').value,
-      keterangan: keterangan || '-'
+      departemen: document.getElementById('departemenGlobal').value, keterangan: keterangan || '-'
     };
-    historiKeluar.push(dataKeluar);
-    await simpanHistoriKeluarKeSupabase(dataKeluar);
-    berhasil = true;
+    historiKeluar.push(dk); await simpanHistoriKeluarKeSupabase(dk); berhasil = true;
   }
-
   if (!berhasil) { alert('Tidak ada data yang valid'); return; }
   document.getElementById('listPengeluaranBarang').innerHTML = `
     <div class="item-row item-row-keluar pengeluaran-item">
@@ -1304,14 +932,13 @@ async function simpanPengeluaran() {
   ['tanggalKeluar','namaPengambilGlobal','departemenGlobal','keteranganKeluar'].forEach(id => document.getElementById(id).value = '');
   updateSatuanOtomatis(); requestAnimationFrame(updateSisaStokRealtime);
   await loadHistoriKeluarDariSupabase(); await loadBarangDariSupabase();
-  renderGrafikPengeluaran(); renderGrafikBarangDepartemen(); updateDepartemenTerbanyak(); updateAtkTerbanyak();
+  buildMonthCheckboxes(); renderGrafikPengeluaran(); renderGrafikBarangDepartemen(); updateDepartemenTerbanyak(); updateAtkTerbanyak();
   alert('Pengeluaran berhasil disimpan');
 }
 
 /* ─── HISTORI MASUK ─── */
 function tampilkanHistoriMasuk() {
-  const tbody = document.getElementById('tabelHistoriMasuk');
-  if (!tbody) return;
+  const tbody = document.getElementById('tabelHistoriMasuk'); if (!tbody) return;
   const keyword = (document.getElementById('searchHistoriMasuk')?.value || '').toLowerCase();
   const bulan = document.getElementById('filterHistoriMasuk')?.value || '';
   tbody.innerHTML = '';
@@ -1319,24 +946,23 @@ function tampilkanHistoriMasuk() {
     if (!item.namaBarang.toLowerCase().includes(keyword)) return;
     if (bulan && !item.tanggal.startsWith(bulan)) return;
     const satuan = barangList.find(b => b.nama === item.namaBarang)?.satuan || '';
-    tbody.innerHTML += `
-      <tr>
-        <td>${formatTanggal(item.tanggal)}</td>
-        <td style="font-weight:600;">${item.namaBarang}</td>
-        <td>${item.supplier || '-'}</td>
-        <td>${item.nomorBTB || '-'}</td>
-        <td><span class="badge badge-green">+${item.jumlahMasuk} ${satuan}</span></td>
-        <td style="color:#64748B;">${item.keterangan || '-'}</td>
-        <td>
-          <div style="display:flex;gap:6px;">
-            <button onclick="editHistoriMasuk(${index})" class="btn btn-sm btn-primary">Edit</button>
-            <button onclick="hapusHistoriMasuk(${index})" class="btn btn-sm btn-danger">Hapus</button>
-          </div>
-        </td>
-      </tr>`;
+    tbody.innerHTML += `<tr>
+      <td>${formatTanggal(item.tanggal)}</td>
+      <td style="font-weight:600;">${item.namaBarang}</td>
+      <td>${item.supplier || '-'}</td>
+      <td>${item.nomorBTB || '-'}</td>
+      <td style="font-weight:600;">${item.jumlahMasuk}</td>
+      <td>${satuan}</td>
+      <td style="color:#64748B;">${item.keterangan || '-'}</td>
+      <td>
+        <div style="display:flex;gap:6px;">
+          <button onclick="editHistoriMasuk(${index})" class="btn btn-sm btn-primary">Edit</button>
+          <button onclick="hapusHistoriMasuk(${index})" class="btn btn-sm btn-danger">Hapus</button>
+        </div>
+      </td>
+    </tr>`;
   });
 }
-
 function editHistoriMasuk(index) {
   const data = historiMasuk[index];
   document.getElementById('editIndexMasuk').value = index;
@@ -1347,11 +973,7 @@ function editHistoriMasuk(index) {
   document.getElementById('editKeteranganMasuk').value = data.keterangan || '';
   document.getElementById('modalEditMasuk').classList.add('open');
 }
-
-function tutupModalEditMasuk() {
-  document.getElementById('modalEditMasuk').classList.remove('open');
-}
-
+function tutupModalEditMasuk() { document.getElementById('modalEditMasuk').classList.remove('open'); }
 async function simpanEditHistoriMasuk() {
   const index = Number(document.getElementById('editIndexMasuk').value);
   const dataLama = { tanggal: historiMasuk[index].tanggal, namaBarang: historiMasuk[index].namaBarang, jumlahMasuk: historiMasuk[index].jumlahMasuk };
@@ -1370,7 +992,6 @@ async function simpanEditHistoriMasuk() {
   await loadHistoriMasukDariSupabase(); await loadBarangDariSupabase();
   tampilkanHistoriMasuk(); tutupModalEditMasuk(); alert('Data berhasil diperbarui');
 }
-
 async function hapusHistoriMasuk(index) {
   if (!confirm('Yakin ingin menghapus data ini?')) return;
   const data = historiMasuk[index];
@@ -1379,23 +1000,20 @@ async function hapusHistoriMasuk(index) {
     historiMasuk.splice(index, 1);
     await loadHistoriMasukDariSupabase(); await new Promise(r => setTimeout(r, 300)); await loadBarangDariSupabase();
     tampilkanHistoriMasuk(); tampilkanBarang();
-    renderGrafikPengeluaran(); renderGrafikBarangDepartemen(); updateDepartemenTerbanyak(); updateAtkTerbanyak();
+    buildMonthCheckboxes(); renderGrafikPengeluaran(); renderGrafikBarangDepartemen(); updateDepartemenTerbanyak(); updateAtkTerbanyak();
     alert('Data berhasil dihapus');
   } catch(err) { alert('Gagal hapus data'); }
 }
-
 function exportHistoriMasuk() {
   const bulan = document.getElementById('filterHistoriMasuk').value;
   const ws = XLSX.utils.json_to_sheet(historiMasuk.filter(i => !bulan || i.tanggal.startsWith(bulan)));
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Histori Pemasukan');
+  const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, 'Histori Pemasukan');
   XLSX.writeFile(wb, 'histori-pemasukan.xlsx');
 }
 
 /* ─── HISTORI KELUAR ─── */
 function tampilkanHistoriKeluar() {
-  const tbody = document.getElementById('tabelHistoriKeluar');
-  if (!tbody) return;
+  const tbody = document.getElementById('tabelHistoriKeluar'); if (!tbody) return;
   const keyword = (document.getElementById('searchHistoriKeluar')?.value || '').toLowerCase();
   const bulan = document.getElementById('filterHistoriKeluar')?.value || '';
   tbody.innerHTML = '';
@@ -1403,27 +1021,24 @@ function tampilkanHistoriKeluar() {
     const cocok = item.namaBarang.toLowerCase().includes(keyword) || item.pengambil.toLowerCase().includes(keyword);
     if (!cocok || (bulan && !item.tanggal.startsWith(bulan))) return;
     const satuan = barangList.find(b => b.nama === item.namaBarang)?.satuan || '';
-    tbody.innerHTML += `
-      <tr>
-        <td>${formatTanggal(item.tanggal)}</td>
-        <td style="font-weight:600;">${item.namaBarang}</td>
-        <td><span class="badge badge-red">-${item.jumlahKeluar} ${satuan}</span></td>
-        <td>${item.pengambil}</td>
-        <td><span style="font-size:11px;background:#EEF2FF;color:#4F46E5;padding:2px 8px;border-radius:6px;font-weight:600;">${item.departemen}</span></td>
-        <td style="color:#64748B;">${item.keterangan || '-'}</td>
-        <td><button onclick="hapusHistoriKeluar(${index})" class="btn btn-sm btn-danger">Hapus</button></td>
-      </tr>`;
+    tbody.innerHTML += `<tr>
+      <td>${formatTanggal(item.tanggal)}</td>
+      <td style="font-weight:600;">${item.namaBarang}</td>
+      <td style="font-weight:600;">${item.jumlahKeluar}</td>
+      <td>${satuan}</td>
+      <td>${item.pengambil}</td>
+      <td><span style="font-size:11px;background:#EEF2FF;color:#4F46E5;padding:2px 8px;border-radius:6px;font-weight:600;">${item.departemen}</span></td>
+      <td style="color:#64748B;">${item.keterangan || '-'}</td>
+      <td><button onclick="hapusHistoriKeluar(${index})" class="btn btn-sm btn-danger">Hapus</button></td>
+    </tr>`;
   });
 }
-
 function exportHistoriKeluar() {
   const bulan = document.getElementById('filterHistoriKeluar').value;
   const ws = XLSX.utils.json_to_sheet(historiKeluar.filter(i => !bulan || i.tanggal.startsWith(bulan)));
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Histori Pengeluaran');
+  const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, 'Histori Pengeluaran');
   XLSX.writeFile(wb, 'histori-pengeluaran.xlsx');
 }
-
 async function hapusHistoriKeluar(index) {
   if (!confirm('Yakin ingin menghapus?')) return;
   const data = historiKeluar[index];
@@ -1432,7 +1047,7 @@ async function hapusHistoriKeluar(index) {
     historiKeluar.splice(index, 1);
     await loadHistoriKeluarDariSupabase(); await new Promise(r => setTimeout(r, 300)); await loadBarangDariSupabase();
     tampilkanBarang(); tampilkanHistoriKeluar();
-    renderGrafikPengeluaran(); renderGrafikBarangDepartemen(); updateDepartemenTerbanyak(); updateAtkTerbanyak();
+    buildMonthCheckboxes(); renderGrafikPengeluaran(); renderGrafikBarangDepartemen(); updateDepartemenTerbanyak(); updateAtkTerbanyak();
     alert('Data berhasil dihapus');
   } catch(err) { alert('Gagal hapus data'); }
 }
@@ -1444,7 +1059,6 @@ function isiFilterDepartemen() {
   select.innerHTML = '<option value="">Semua Departemen</option>';
   unik.forEach(d => { select.innerHTML += `<option value="${d}">${d}</option>`; });
 }
-
 function tampilkanLaporanDepartemen() {
   const tbody = document.getElementById('tabelLaporanDepartemen');
   const filterDept = document.getElementById('filterDepartemen').value;
@@ -1461,16 +1075,14 @@ function tampilkanLaporanDepartemen() {
   let n = 1;
   hasil.forEach(item => {
     if (!item.namaBarang.toLowerCase().includes(keyword)) return;
-    tbody.innerHTML += `
-      <tr>
-        <td>${n++}</td>
-        <td><span style="font-size:11px;background:#EEF2FF;color:#4F46E5;padding:2px 8px;border-radius:6px;font-weight:600;">${item.departemen}</span></td>
-        <td style="font-weight:500;">${item.namaBarang}</td>
-        <td style="text-align:right;font-weight:700;color:#4F46E5;">${item.total}</td>
-      </tr>`;
+    tbody.innerHTML += `<tr>
+      <td>${n++}</td>
+      <td><span style="font-size:11px;background:#EEF2FF;color:#4F46E5;padding:2px 8px;border-radius:6px;font-weight:600;">${item.departemen}</span></td>
+      <td style="font-weight:500;">${item.namaBarang}</td>
+      <td style="text-align:right;font-weight:700;color:#4F46E5;">${item.total}</td>
+    </tr>`;
   });
 }
-
 function exportLaporanDepartemen() {
   const filterDept = document.getElementById('filterDepartemen').value;
   const keyword = document.getElementById('searchBarangDepartemen').value.toLowerCase();
@@ -1481,58 +1093,51 @@ function exportLaporanDepartemen() {
     if (!data[key]) data[key] = { Departemen: item.departemen, Nama_Barang: item.namaBarang, Total: 0 };
     data[key].Total += Number(item.jumlahKeluar || 0);
   });
-  let hasil = Object.values(data).filter(i => i.Nama_Barang.toLowerCase().includes(keyword)).sort((a,b) => b.Total-a.Total);
-  const ws = XLSX.utils.json_to_sheet(hasil);
-  const wb = XLSX.utils.book_new();
+  let hasil = Object.values(data).filter(i => i.Nama_Barang.toLowerCase().includes(keyword)).sort((a, b) => b.Total - a.Total);
+  const ws = XLSX.utils.json_to_sheet(hasil); const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Laporan Departemen');
   XLSX.writeFile(wb, `laporan-departemen-${new Date().toISOString().split('T')[0]}.xlsx`);
 }
 
 /* ─── GRAFIK ─── */
-const CHART_COLORS = ['#4F46E5','#10B981','#EF4444','#F59E0B','#3B82F6','#EC4899','#8B5CF6','#06B6D4','#84CC16'];
-
 function renderGrafikPengeluaran() {
-  const canvas = document.getElementById('grafikPengeluaran');
-  if (!canvas) return;
+  const canvas = document.getElementById('grafikPengeluaran'); if (!canvas) return;
   const daftarDepartemen = ['Fin, Acc & Tax','HCS','Information & Technology','Procurement','Purchasing','QAQC','Sales & Marketing','Technical & Machining','Warehouse & Logistic'];
   const dataDepartemen = {};
   daftarDepartemen.forEach(d => { dataDepartemen[d] = 0; });
-  const bulanFilter = document.getElementById('filterGrafikBulan')?.value || '';
-  historiKeluar.filter(item => !bulanFilter || item.tanggal.startsWith(bulanFilter)).forEach(item => {
+  const filtered = getFilteredKeluar();
+  filtered.forEach(item => {
     const dept = item.departemen || 'Lainnya';
     const jumlah = Number(item.jumlahKeluar || 0);
     if (!dataDepartemen.hasOwnProperty(dept)) dataDepartemen[dept] = 0;
     dataDepartemen[dept] += jumlah;
   });
-
   const labels = Object.keys(dataDepartemen);
   const values = Object.values(dataDepartemen);
 
-  // update stat cards
-  const bulanFiltered = historiKeluar.filter(item => !bulanFilter || item.tanggal.startsWith(bulanFilter));
-  const totalKeluar = bulanFiltered.reduce((t, i) => t + Number(i.jumlahKeluar || 0), 0);
+  // Update stat cards
+  const totalKeluar = filtered.reduce((t, i) => t + Number(i.jumlahKeluar || 0), 0);
   const totalEl = document.getElementById('totalPengambilan');
   if (totalEl) totalEl.textContent = totalKeluar.toLocaleString('id-ID');
 
   const deptCount = {};
-  bulanFiltered.forEach(item => {
+  filtered.forEach(item => {
     const d = item.departemen || 'Lainnya';
     deptCount[d] = (deptCount[d] || 0) + Number(item.jumlahKeluar || 0);
   });
-  const topDept = Object.entries(deptCount).sort((a,b) => b[1]-a[1])[0];
+  const topDept = Object.entries(deptCount).sort((a, b) => b[1] - a[1])[0];
   const deptEl = document.getElementById('departemenTerbanyak');
   if (deptEl && topDept) {
-    const persen = totalKeluar > 0 ? ((topDept[1]/totalKeluar)*100).toFixed(1) : 0;
-    deptEl.innerHTML = `${topDept[0]}<br><span style="font-size:14px;color:#94A3B8;font-weight:400;">${persen}%</span>`;
+    const p = totalKeluar > 0 ? ((topDept[1] / totalKeluar) * 100).toFixed(1) : 0;
+    deptEl.innerHTML = `${topDept[0]}<br><span style="font-size:14px;color:#94A3B8;font-weight:400;">${p}%</span>`;
   }
-
   const atkCount = {};
-  bulanFiltered.forEach(item => { atkCount[item.namaBarang] = (atkCount[item.namaBarang] || 0) + Number(item.jumlahKeluar || 0); });
-  const topAtk = Object.entries(atkCount).sort((a,b) => b[1]-a[1])[0];
+  filtered.forEach(item => { atkCount[item.namaBarang] = (atkCount[item.namaBarang] || 0) + Number(item.jumlahKeluar || 0); });
+  const topAtk = Object.entries(atkCount).sort((a, b) => b[1] - a[1])[0];
   const atkEl = document.getElementById('atkTerbanyak');
   if (atkEl && topAtk) {
-    const persen = totalKeluar > 0 ? ((topAtk[1]/totalKeluar)*100).toFixed(1) : 0;
-    atkEl.innerHTML = `${topAtk[0]}<br><span style="font-size:14px;color:#94A3B8;font-weight:400;">${persen}%</span>`;
+    const p = totalKeluar > 0 ? ((topAtk[1] / totalKeluar) * 100).toFixed(1) : 0;
+    atkEl.innerHTML = `${topAtk[0]}<br><span style="font-size:14px;color:#94A3B8;font-weight:400;">${p}%</span>`;
   }
 
   if (window.grafikPengeluaranChart) window.grafikPengeluaranChart.destroy();
@@ -1541,24 +1146,14 @@ function renderGrafikPengeluaran() {
     type: 'bar',
     data: {
       labels,
-      datasets: [{
-        label: 'Jumlah Pengeluaran',
-        data: values,
-        backgroundColor: CHART_COLORS,
-        borderRadius: 8,
-        borderSkipped: false
-      }]
+      datasets: [{ label: 'Jumlah Pengeluaran', data: values, backgroundColor: CHART_COLORS, borderRadius: 8, borderSkipped: false }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: {
         legend: { display: false },
-        tooltip: { callbacks: { label: ctx => { const t = ctx.dataset.data.reduce((a,b)=>a+b,0); return `${ctx.raw} item (${t>0?((ctx.raw/t)*100).toFixed(1):0}%)`; } } },
-        datalabels: {
-          anchor: 'end', align: 'end', offset: -8,
-          color: '#0F172A', font: { weight: '700', size: 12 },
-          formatter: (v, ctx) => { const t = ctx.dataset.data.reduce((a,b)=>a+b,0); return v === 0 ? '' : ((v/t)*100).toFixed(1)+'%'; }
-        }
+        tooltip: { callbacks: { label: ctx => { const t = ctx.dataset.data.reduce((a, b) => a + b, 0); return `${ctx.raw} item (${t > 0 ? ((ctx.raw / t) * 100).toFixed(1) : 0}%)`; } } },
+        datalabels: { anchor: 'end', align: 'end', offset: -8, color: '#0F172A', font: { weight: '700', size: 12 }, formatter: (v, ctx) => { const t = ctx.dataset.data.reduce((a, b) => a + b, 0); return v === 0 ? '' : ((v / t) * 100).toFixed(1) + '%'; } }
       },
       scales: { y: { beginAtZero: true, ticks: { precision: 0 }, grid: { color: '#F1F5F9' } }, x: { grid: { display: false } } }
     }
@@ -1567,10 +1162,12 @@ function renderGrafikPengeluaran() {
 
 function renderGrafikBarangDepartemen() {
   const slider = document.getElementById('grafikSlider');
-  slider.querySelectorAll('.grafik-slide').forEach(el => el.remove());
+  // Hapus slide barang lama (bukan slide dept utama)
+  slider.querySelectorAll('.grafik-slide-barang').forEach(el => el.remove());
+
   const dataBarang = {};
-  const bulanFilter = document.getElementById('filterGrafikBulan')?.value || '';
-  historiKeluar.filter(item => !bulanFilter || item.tanggal.startsWith(bulanFilter)).forEach(item => {
+  const filtered = getFilteredKeluar();
+  filtered.forEach(item => {
     const barang = item.namaBarang || '-';
     const dept = item.departemen || 'Lainnya';
     const jumlah = Number(item.jumlahKeluar || 0);
@@ -1578,26 +1175,30 @@ function renderGrafikBarangDepartemen() {
     dataBarang[barang].total += jumlah;
     dataBarang[barang].departemen[dept] = (dataBarang[barang].departemen[dept] || 0) + jumlah;
   });
-  const semuaData = Object.entries(dataBarang).sort((a,b) => b[1].total - a[1].total);
+
+  const semuaData = Object.entries(dataBarang).sort((a, b) => b[1].total - a[1].total);
   const chunkSize = 20;
   const chunks = [];
-  for (let i = 0; i < semuaData.length; i += chunkSize) chunks.push(semuaData.slice(i, i+chunkSize));
+  for (let i = 0; i < semuaData.length; i += chunkSize) chunks.push(semuaData.slice(i, i + chunkSize));
+
   chunks.forEach((chunk, pi) => {
     const wrapper = document.createElement('div');
-    wrapper.className = 'grafik-slide';
+    wrapper.className = 'grafik-slide-barang';
     wrapper.style.cssText = 'min-width:100%;scroll-snap-align:start;padding:28px 32px;';
     wrapper.innerHTML = `
-      <div style="font-size:15px;font-weight:700;color:#0F172A;margin-bottom:4px;">Barang Paling Banyak Diambil (${pi+1}/${chunks.length})</div>
+      <div style="font-size:15px;font-weight:700;color:#0F172A;margin-bottom:4px;">Barang Paling Banyak Diambil (${pi + 1}/${chunks.length})</div>
       <div style="font-size:13px;color:#94A3B8;margin-bottom:20px;">Maksimal 20 barang per grafik</div>
       <div style="height:400px;"><canvas id="grafikBarang${pi}"></canvas></div>`;
     slider.appendChild(wrapper);
+
     const labels = [], values = [], warna = [], tooltipDept = [];
     chunk.forEach(([barang, data], i) => {
-      const topDept = Object.entries(data.departemen).sort((a,b)=>b[1]-a[1])[0] || ['-',0];
+      const topDept = Object.entries(data.departemen).sort((a, b) => b[1] - a[1])[0] || ['-', 0];
       labels.push(barang); values.push(data.total);
       warna.push(CHART_COLORS[i % CHART_COLORS.length]);
       tooltipDept.push(`${topDept[0]} (${topDept[1]} item)`);
     });
+
     new Chart(document.getElementById(`grafikBarang${pi}`), {
       plugins: [ChartDataLabels], type: 'bar',
       data: { labels, datasets: [{ label: 'Total', data: values, backgroundColor: warna, borderRadius: 8, borderSkipped: false }] },
@@ -1614,36 +1215,21 @@ function renderGrafikBarangDepartemen() {
   });
 }
 
-/* ─── SATUAN & STOK REALTIME ─── */
+/* ─── SATUAN & REALTIME ─── */
 function updateSatuanOtomatis() {
-  const bindSatuan = (namaClass, satuanClass) => {
-    document.querySelectorAll(`.${namaClass}`).forEach(row => {
-      const namaInput = row.closest('[class*="item"]')?.querySelector(`.${namaClass}`) || row;
-      const satuanInput = row.closest('[class*="item"]')?.querySelector(`.${satuanClass}`) || null;
-      if (!satuanInput) return;
-      const isi = () => {
-        const kode = ambilKodeBarang(namaInput.value);
-        const barang = kode ? barangList.find(b => b.kode === kode) : null;
-        satuanInput.value = barang ? barang.satuan : '';
-      };
-      ['input','keyup','change','blur'].forEach(ev => namaInput.addEventListener(ev, isi));
-      isi();
-    });
-  };
   document.querySelectorAll('.pemasukan-item').forEach(row => {
     const n = row.querySelector('.namaBarangMasuk'), s = row.querySelector('.satuanBarangMasuk');
     if (!n || !s) return;
-    const isi = () => { const k = ambilKodeBarang(n.value); s.value = k ? (barangList.find(b=>b.kode===k)?.satuan || '') : ''; };
+    const isi = () => { const k = ambilKodeBarang(n.value); s.value = k ? (barangList.find(b => b.kode === k)?.satuan || '') : ''; };
     ['input','keyup','change','blur'].forEach(ev => n.addEventListener(ev, isi)); isi();
   });
   document.querySelectorAll('.pengeluaran-item').forEach(row => {
     const n = row.querySelector('.namaBarangKeluar'), s = row.querySelector('.satuanBarangKeluar');
     if (!n || !s) return;
-    const isi = () => { const k = ambilKodeBarang(n.value); s.value = k ? (barangList.find(b=>b.kode===k)?.satuan || '') : ''; };
+    const isi = () => { const k = ambilKodeBarang(n.value); s.value = k ? (barangList.find(b => b.kode === k)?.satuan || '') : ''; };
     ['input','keyup','change','blur'].forEach(ev => n.addEventListener(ev, isi)); isi();
   });
 }
-
 function updateSisaStokRealtime() {
   document.querySelectorAll('.pengeluaran-item').forEach(row => {
     const n = row.querySelector('.namaBarangKeluar');
@@ -1662,43 +1248,30 @@ function updateSisaStokRealtime() {
       if (sisa < 0) { s.value = '⚠ Kurang!'; j.style.borderColor = '#EF4444'; }
       else { s.value = sisa; j.style.borderColor = ''; }
     };
-    ['input','keyup','change','blur'].forEach(ev => { n.addEventListener(ev, hitung); j.addEventListener(ev, hitung); });
-    hitung();
+    ['input','keyup','change','blur'].forEach(ev => { n.addEventListener(ev, hitung); j.addEventListener(ev, hitung); }); hitung();
   });
 }
-
 function updateDepartemenTerbanyak() {
-  const count = {};
-  let total = 0;
-  historiKeluar.forEach(item => {
-    const d = item.departemen || 'Lainnya';
-    count[d] = (count[d] || 0) + Number(item.jumlahKeluar || 0);
-    total += Number(item.jumlahKeluar || 0);
-  });
-  const top = Object.entries(count).sort((a,b) => b[1]-a[1])[0];
+  const count = {}; let total = 0;
+  historiKeluar.forEach(item => { const d = item.departemen || 'Lainnya'; count[d] = (count[d] || 0) + Number(item.jumlahKeluar || 0); total += Number(item.jumlahKeluar || 0); });
+  const top = Object.entries(count).sort((a, b) => b[1] - a[1])[0];
   const el = document.getElementById('departemenTerbanyak');
-  if (el && top) {
-    const p = total > 0 ? ((top[1]/total)*100).toFixed(1) : 0;
-    el.innerHTML = `${top[0]}<br><span style="font-size:14px;color:#94A3B8;font-weight:400;">${p}%</span>`;
-  }
+  if (el && top) { const p = total > 0 ? ((top[1] / total) * 100).toFixed(1) : 0; el.innerHTML = `${top[0]}<br><span style="font-size:14px;color:#94A3B8;font-weight:400;">${p}%</span>`; }
 }
-
 function updateAtkTerbanyak() {
   const count = {};
   historiKeluar.forEach(item => { count[item.namaBarang] = (count[item.namaBarang] || 0) + Number(item.jumlahKeluar || 0); });
-  const top = Object.entries(count).sort((a,b) => b[1]-a[1])[0];
-  const el = document.getElementById('atkTerbanyak');
-  if (el && top) el.textContent = top[0];
+  const top = Object.entries(count).sort((a, b) => b[1] - a[1])[0];
+  const el = document.getElementById('atkTerbanyak'); if (el && top) el.textContent = top[0];
 }
 
 /* ─── INIT ─── */
 window.onload = async function() {
-  // hide all sections except stok-atk
-  ['database-barang-section','master-barang-section','master-karyawan-section','histori-masuk-section','histori-keluar-section','laporan-departemen-section'].forEach(id => {
+  ['database-barang-section','master-barang-section','master-karyawan-section',
+   'histori-masuk-section','histori-keluar-section','laporan-departemen-section'].forEach(id => {
     const el = document.getElementById(id); if (el) el.classList.add('hidden');
   });
   document.getElementById('stok-atk-section').classList.remove('hidden');
-
   try {
     await loadHistoriMasukDariSupabase();
     await loadHistoriKeluarDariSupabase();
@@ -1707,6 +1280,7 @@ window.onload = async function() {
     tampilkanBarang(); tampilkanKaryawan();
     updateSelectBarang(); updateDatalistKaryawan();
     tampilkanHistoriMasuk(); tampilkanHistoriKeluar();
+    buildMonthCheckboxes();
     renderGrafikPengeluaran(); renderGrafikBarangDepartemen();
     updateDepartemenTerbanyak(); updateAtkTerbanyak();
     updateSatuanOtomatis(); requestAnimationFrame(updateSisaStokRealtime);

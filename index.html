@@ -156,20 +156,13 @@
     .modal-overlay.open { display: flex; }
     .modal-box { background: #fff; border-radius: 20px; padding: 32px; width: 100%; max-width: 480px; margin: 16px; box-shadow: 0 24px 64px rgba(0,0,0,0.2); }
 
-    /* MULTI-MONTH FILTER */
-    .month-filter-container {
-      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    /* RANGE MONTH FILTER */
+    .range-filter-wrap {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
     }
-    .month-checkbox-label {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 5px 12px; border-radius: 8px; cursor: pointer;
-      font-size: 12px; font-weight: 500; color: #475569;
-      background: #F1F5F9; border: 1.5px solid #E2E8F0;
-      transition: all 0.15s; user-select: none;
+    .range-sep {
+      font-size: 13px; font-weight: 600; color: #64748B;
     }
-    .month-checkbox-label:hover { background: #E2E8F0; }
-    .month-checkbox-label input[type=checkbox] { display: none; }
-    .month-checkbox-label.selected { background: var(--indigo-light); border-color: var(--indigo); color: var(--indigo); font-weight: 600; }
 
     /* ITEM ROWS */
     .divider { height: 1px; background: #F1F5F9; margin: 20px 0; }
@@ -268,12 +261,15 @@
       </div>
     </div>
 
-    <!-- MULTI-MONTH FILTER -->
+    <!-- RANGE MONTH FILTER -->
     <div class="content-card" style="margin-bottom:24px; padding:18px 24px;">
-      <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
-        <span style="font-size:13px; font-weight:600; color:#475569;">📅 Filter Grafik (Pilih Bulan):</span>
-        <div id="monthCheckboxes" class="month-filter-container"></div>
+      <div class="range-filter-wrap">
+        <span style="font-size:13px; font-weight:600; color:#475569;">📅 Filter Rentang Bulan Grafik:</span>
+        <input type="month" id="filterDari" class="form-input" style="width:170px;" onchange="onRangeChange()">
+        <span class="range-sep">s/d</span>
+        <input type="month" id="filterSampai" class="form-input" style="width:170px;" onchange="onRangeChange()">
         <button onclick="resetFilterBulan()" class="btn btn-ghost" style="font-size:12px; padding:7px 14px;">Reset</button>
+        <span id="filterRangeInfo" style="font-size:12px; color:#6366F1; font-weight:600;"></span>
       </div>
     </div>
 
@@ -522,7 +518,8 @@
 /* ─── STATE ─── */
 let currentSlide = 0;
 let barangList = [], karyawanList = [], historiMasuk = [], historiKeluar = [];
-let selectedMonths = new Set(); // multi-month filter
+let filterDariVal = ''; // range filter start YYYY-MM
+let filterSampaiVal = ''; // range filter end YYYY-MM
 
 const supabaseUrl = 'https://wlnibcoqspxwmylkyolk.supabase.co';
 const supabaseKey = 'sb_publishable_lycr_Pk_EfTZxPmUJ3xsag_isf7AEwS';
@@ -551,42 +548,65 @@ function tampilSection(sectionId, btn) {
 
 /* ─── MULTI MONTH FILTER ─── */
 function buildMonthCheckboxes() {
+  // Range filter: auto-set min/max from data if not yet set
   const months = new Set();
   historiKeluar.forEach(item => { if (item.tanggal) months.add(item.tanggal.substring(0, 7)); });
   historiMasuk.forEach(item => { if (item.tanggal) months.add(item.tanggal.substring(0, 7)); });
-  const sorted = [...months].sort().reverse();
-  const container = document.getElementById('monthCheckboxes');
-  container.innerHTML = '';
-  sorted.forEach(ym => {
-    const [y, m] = ym.split('-');
-    const label = new Date(y, m - 1).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
-    const lbl = document.createElement('label');
-    lbl.className = 'month-checkbox-label' + (selectedMonths.has(ym) ? ' selected' : '');
-    lbl.dataset.ym = ym;
-    lbl.innerHTML = `<input type="checkbox" value="${ym}" ${selectedMonths.has(ym) ? 'checked' : ''}>${label}`;
-    lbl.querySelector('input').addEventListener('change', function() {
-      if (this.checked) { selectedMonths.add(ym); lbl.classList.add('selected'); }
-      else { selectedMonths.delete(ym); lbl.classList.remove('selected'); }
-      renderGrafikPengeluaran();
-      renderGrafikBarangDepartemen();
-    });
-    container.appendChild(lbl);
-  });
+  if (months.size === 0) return;
+  const sorted = [...months].sort();
+  const minM = sorted[0], maxM = sorted[sorted.length - 1];
+  const dariEl = document.getElementById('filterDari');
+  const sampaiEl = document.getElementById('filterSampai');
+  if (dariEl) { dariEl.min = minM; dariEl.max = maxM; }
+  if (sampaiEl) { sampaiEl.min = minM; sampaiEl.max = maxM; }
+}
+
+function onRangeChange() {
+  filterDariVal = document.getElementById('filterDari').value || '';
+  filterSampaiVal = document.getElementById('filterSampai').value || '';
+  const info = document.getElementById('filterRangeInfo');
+  if (filterDariVal && filterSampaiVal) {
+    const [dy, dm] = filterDariVal.split('-');
+    const [sy, sm] = filterSampaiVal.split('-');
+    const labelD = new Date(dy, dm-1).toLocaleDateString('id-ID', {month:'long',year:'numeric'});
+    const labelS = new Date(sy, sm-1).toLocaleDateString('id-ID', {month:'long',year:'numeric'});
+    if (info) info.textContent = labelD + ' — ' + labelS;
+  } else if (filterDariVal) {
+    const [dy, dm] = filterDariVal.split('-');
+    const labelD = new Date(dy, dm-1).toLocaleDateString('id-ID', {month:'long',year:'numeric'});
+    if (info) info.textContent = 'Dari ' + labelD;
+  } else if (filterSampaiVal) {
+    const [sy, sm] = filterSampaiVal.split('-');
+    const labelS = new Date(sy, sm-1).toLocaleDateString('id-ID', {month:'long',year:'numeric'});
+    if (info) info.textContent = 'S/d ' + labelS;
+  } else {
+    if (info) info.textContent = '';
+  }
+  renderGrafikPengeluaran();
+  renderGrafikBarangDepartemen();
 }
 
 function resetFilterBulan() {
-  selectedMonths.clear();
-  document.querySelectorAll('.month-checkbox-label').forEach(lbl => {
-    lbl.classList.remove('selected');
-    lbl.querySelector('input').checked = false;
-  });
+  filterDariVal = ''; filterSampaiVal = '';
+  const dariEl = document.getElementById('filterDari');
+  const sampaiEl = document.getElementById('filterSampai');
+  if (dariEl) dariEl.value = '';
+  if (sampaiEl) sampaiEl.value = '';
+  const info = document.getElementById('filterRangeInfo');
+  if (info) info.textContent = '';
   renderGrafikPengeluaran();
   renderGrafikBarangDepartemen();
 }
 
 function getFilteredKeluar() {
-  if (selectedMonths.size === 0) return historiKeluar;
-  return historiKeluar.filter(item => item.tanggal && selectedMonths.has(item.tanggal.substring(0, 7)));
+  if (!filterDariVal && !filterSampaiVal) return historiKeluar;
+  return historiKeluar.filter(item => {
+    if (!item.tanggal) return false;
+    const ym = item.tanggal.substring(0, 7);
+    if (filterDariVal && ym < filterDariVal) return false;
+    if (filterSampaiVal && ym > filterSampaiVal) return false;
+    return true;
+  });
 }
 
 /* ─── HELPERS ─── */
@@ -674,7 +694,6 @@ async function loadHistoriKeluarDariSupabase() {
       pengambil: item.pengambil, departemen: item.departemen, keterangan: item.keterangan || '-'
     }));
     tampilkanHistoriKeluar();
-    buildMonthCheckboxes();
     renderGrafikPengeluaran(); renderGrafikBarangDepartemen();
     updateDepartemenTerbanyak(); isiFilterDepartemen(); tampilkanLaporanDepartemen();
   }
@@ -869,7 +888,7 @@ async function simpanPemasukan() {
   ['tanggalMasuk','namaSupplier','nomorBTB','keteranganMasuk'].forEach(id => document.getElementById(id).value = '');
   updateSelectBarang(); updateSatuanOtomatis();
   await loadHistoriMasukDariSupabase(); await loadBarangDariSupabase();
-  buildMonthCheckboxes(); renderGrafikPengeluaran(); renderGrafikBarangDepartemen(); updateDepartemenTerbanyak(); updateAtkTerbanyak();
+  renderGrafikPengeluaran(); renderGrafikBarangDepartemen(); updateDepartemenTerbanyak(); updateAtkTerbanyak();
   alert('Pemasukan berhasil disimpan');
 }
 function tambahBarisPengeluaran() {
@@ -932,7 +951,7 @@ async function simpanPengeluaran() {
   ['tanggalKeluar','namaPengambilGlobal','departemenGlobal','keteranganKeluar'].forEach(id => document.getElementById(id).value = '');
   updateSatuanOtomatis(); requestAnimationFrame(updateSisaStokRealtime);
   await loadHistoriKeluarDariSupabase(); await loadBarangDariSupabase();
-  buildMonthCheckboxes(); renderGrafikPengeluaran(); renderGrafikBarangDepartemen(); updateDepartemenTerbanyak(); updateAtkTerbanyak();
+  renderGrafikPengeluaran(); renderGrafikBarangDepartemen(); updateDepartemenTerbanyak(); updateAtkTerbanyak();
   alert('Pengeluaran berhasil disimpan');
 }
 
@@ -1000,7 +1019,7 @@ async function hapusHistoriMasuk(index) {
     historiMasuk.splice(index, 1);
     await loadHistoriMasukDariSupabase(); await new Promise(r => setTimeout(r, 300)); await loadBarangDariSupabase();
     tampilkanHistoriMasuk(); tampilkanBarang();
-    buildMonthCheckboxes(); renderGrafikPengeluaran(); renderGrafikBarangDepartemen(); updateDepartemenTerbanyak(); updateAtkTerbanyak();
+    renderGrafikPengeluaran(); renderGrafikBarangDepartemen(); updateDepartemenTerbanyak(); updateAtkTerbanyak();
     alert('Data berhasil dihapus');
   } catch(err) { alert('Gagal hapus data'); }
 }
@@ -1047,7 +1066,7 @@ async function hapusHistoriKeluar(index) {
     historiKeluar.splice(index, 1);
     await loadHistoriKeluarDariSupabase(); await new Promise(r => setTimeout(r, 300)); await loadBarangDariSupabase();
     tampilkanBarang(); tampilkanHistoriKeluar();
-    buildMonthCheckboxes(); renderGrafikPengeluaran(); renderGrafikBarangDepartemen(); updateDepartemenTerbanyak(); updateAtkTerbanyak();
+    renderGrafikPengeluaran(); renderGrafikBarangDepartemen(); updateDepartemenTerbanyak(); updateAtkTerbanyak();
     alert('Data berhasil dihapus');
   } catch(err) { alert('Gagal hapus data'); }
 }

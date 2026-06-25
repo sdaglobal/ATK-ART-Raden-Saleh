@@ -4,10 +4,9 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Transfer Barang</title>
+<title>Transfer Barang ATK</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -23,12 +22,171 @@
 
 <body>
 
-<div id="app">
+<div class="container">
+
+    <div class="header">
+
+        <div>
+
+            <h1>📦 Transfer Barang Antar Site</h1>
+
+            <p>
+                Sistem Transfer Barang
+                Raden Saleh ↔ Margomulyo
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="content">
+
+        <!-- PANEL KIRI -->
+
+        <div class="left-panel">
+
+            <h2>Transfer Baru</h2>
+
+            <div class="form-group">
+
+                <label>Site Asal</label>
+
+                <select id="siteAsal">
+
+                    <option value="Raden Saleh">
+                        Raden Saleh
+                    </option>
+
+                    <option value="Margomulyo">
+                        Margomulyo
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Site Tujuan</label>
+
+                <select id="siteTujuan">
+
+                    <option value="Margomulyo">
+                        Margomulyo
+                    </option>
+
+                    <option value="Raden Saleh">
+                        Raden Saleh
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Barang</label>
+
+                <select id="barang">
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Qty</label>
+
+                <input
+                    type="number"
+                    id="qty"
+                    min="1">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Catatan</label>
+
+                <textarea
+                    id="catatan"
+                    rows="4"></textarea>
+
+            </div>
+
+            <button
+                class="btn-primary"
+                onclick="simpanTransfer()">
+
+                💾 Simpan Transfer
+
+            </button>
+
+        </div>
+
+        <!-- PANEL KANAN -->
+
+        <div class="right-panel">
+
+            <div class="table-header">
+
+                <h2>Daftar Transfer</h2>
+
+                <button
+                    class="btn-refresh"
+                    onclick="loadTransfer()">
+
+                    Refresh
+
+                </button>
+
+            </div>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>No</th>
+
+                        <th>No Transfer</th>
+
+                        <th>Asal</th>
+
+                        <th>Tujuan</th>
+
+                        <th>Status</th>
+
+                        <th>Aksi</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="transferList">
+
+                    <tr>
+
+                        <td colspan="6">
+
+                            Belum ada data
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
 
 </div>
 
 <script src="transfer.js"></script>
 
 </body>
-
 </html>

@@ -16,7 +16,7 @@ const RADEN_URL =
 "https://wlnibcoqspxwmylkyolk.supabase.co";
 
 const RADEN_KEY =
-"ISI_PUBLISHABLE_KEY_RADEN";
+"sb_publishable_lycr_Pk_EfTZxPmUJ3xsag_isf7AEwS";
 
 /* ==========================
    MARGOMULYO
@@ -26,7 +26,7 @@ const MARGO_URL =
 "https://jihscriziqgeelgguhuf.supabase.co";
 
 const MARGO_KEY =
-"ISI_PUBLISHABLE_KEY_MARGO";
+"sb_publishable_MPe-jCU14P6QrCz5t6XXbg_OpOfqQm8";
 
 /* ==========================
    TRANSFER CENTER
@@ -36,7 +36,7 @@ const TRANSFER_URL =
 "https://zrftcvymxhqoevgmvmep.supabase.co";
 
 const TRANSFER_KEY =
-"ISI_PUBLISHABLE_KEY_TRANSFER";
+"sb_publishable_aztUvAoVtFAg5J_gB3mmQg_SjWTFNcR";
 
 
 /* ===========================================================

@@ -179,6 +179,196 @@ href="style.css">
 
     </div>
 
+    <!-- =======================================================
+     MODAL TRANSFER BARU
+======================================================= -->
+
+<div id="modalTransfer" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>
+
+                📦 Transfer Barang
+
+            </h2>
+
+            <button
+            class="btn-close"
+            onclick="closeTransferModal()">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+        <div class="form-grid">
+
+            <div>
+
+                <label>
+
+                    Site Asal
+
+                </label>
+
+                <select
+                id="siteAsal">
+
+                    <option value="Raden Saleh">
+
+                        Raden Saleh
+
+                    </option>
+
+                    <option value="Margomulyo">
+
+                        Margomulyo
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>
+
+                    Site Tujuan
+
+                </label>
+
+                <select
+                id="siteTujuan">
+
+                    <option value="Margomulyo">
+
+                        Margomulyo
+
+                    </option>
+
+                    <option value="Raden Saleh">
+
+                        Raden Saleh
+
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <br>
+
+        <label>
+
+            Barang
+
+        </label>
+
+        <select id="barangSelect">
+
+        </select>
+
+        <br><br>
+
+        <label>
+
+            Jumlah
+
+        </label>
+
+        <input
+        type="number"
+        id="qtyBarang"
+        min="1"
+        value="1">
+
+        <br><br>
+
+        <button
+        class="btn-primary"
+        onclick="tambahBarang()">
+
+            Tambah Barang
+
+        </button>
+
+        <br><br>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Barang</th>
+
+                    <th>Qty</th>
+
+                    <th>Satuan</th>
+
+                    <th>Hapus</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody
+            id="detailTransfer">
+
+            </tbody>
+
+        </table>
+
+        <br>
+
+        <label>
+
+            Catatan
+
+        </label>
+
+        <textarea
+        id="catatan"
+        rows="3"></textarea>
+
+        <br><br>
+
+        <div
+        style="display:flex;
+               justify-content:flex-end;
+               gap:10px;">
+
+            <button
+            class="btn-secondary"
+            onclick="closeTransferModal()">
+
+                Batal
+
+            </button>
+
+            <button
+            class="btn-primary"
+            onclick="simpanTransfer()">
+
+                Simpan Transfer
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
 <script src="config.js"></script>
 
 <script src="utils.js"></script>

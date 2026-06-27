@@ -88,7 +88,7 @@
     .item-row { background:#F8FAFC; border:1.5px solid #E2E8F0; border-radius:12px; padding:14px 16px; display:grid; gap:12px; align-items:center; }
     .item-row-masuk { grid-template-columns:2fr 1fr 1fr; }
     .item-row-keluar { grid-template-columns:2fr 1fr 1fr 1fr 40px; }
-    .item-row-transfer { grid-template-columns:2fr 1fr 1fr 40px; }
+    .item-row-transfer { grid-template-columns:2fr 1fr 1fr 1fr 40px; }
     .icon-btn-del { width:36px; height:36px; border-radius:8px; border:1.5px solid #FCA5A5; background:#FEF2F2; color:#EF4444; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; transition:all 0.15s; }
     .icon-btn-del:hover { background:#EF4444; color:#fff; border-color:#EF4444; }
     .filter-bar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:20px; }
@@ -263,36 +263,39 @@
       <div class="transfer-banner">
         <div class="t-icon">🔄</div>
         <div>
-          <h3>Transfer Barang antar Gudang</h3>
-          <p>Raden Saleh ↔ Margomulyo · Stok otomatis disesuaikan di kedua gudang</p>
+          <h3>Transfer Barang — Raden Saleh ke Margomulyo</h3>
+          <p>Buat pengajuan transfer · Stok RS langsung berkurang · Margomulyo approve untuk konfirmasi penerimaan</p>
         </div>
       </div>
 
-      <!-- KIRIM KE MARGOMULYO -->
+      <!-- BUAT PENGAJUAN TRANSFER -->
       <div style="margin-bottom:28px;">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
-          <div style="background:#7C3AED;color:#fff;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;">📤 KIRIM</div>
+          <div style="background:#7C3AED;color:#fff;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;">📤 BUAT TRANSFER</div>
           <span style="font-size:15px;font-weight:700;color:#0F172A;">Raden Saleh → Margomulyo</span>
+          <span style="font-size:12px;color:#94A3B8;">Stok RS langsung berkurang saat pengajuan dibuat</span>
         </div>
         <div style="display:grid;gap:14px;">
           <div class="form-grid-2">
             <div><label class="form-label">Tanggal Transfer</label><input type="date" id="tanggalTransferKirim" class="form-input"></div>
-            <div><label class="form-label">Keterangan</label><input type="text" id="keteranganTransferKirim" placeholder="Alasan transfer..." class="form-input"></div>
+            <div><label class="form-label">Keterangan / Alasan</label><input type="text" id="keteranganTransferKirim" placeholder="Alasan transfer ke Margomulyo..." class="form-input"></div>
           </div>
           <div>
             <label class="form-label">Barang yang Dikirim</label>
+            <div style="font-size:11px;color:#94A3B8;margin-bottom:8px;">💡 Setiap barang akan dibuat 1 nomor transfer terpisah</div>
             <div id="listTransferKirim" style="display:flex;flex-direction:column;gap:10px;">
               <div class="item-row item-row-transfer transfer-kirim-item">
                 <input list="masterBarangList" type="text" class="namaBarangTransferKirim form-input" placeholder="Cari barang...">
                 <input type="number" min="1" class="jumlahTransferKirim form-input" placeholder="Jumlah">
+                <input type="text" class="satuanTransferKirim form-input" placeholder="Satuan" readonly>
                 <input type="text" class="sisaTransferKirim form-input" placeholder="Sisa Stok RS" readonly>
                 <button type="button" onclick="hapusBarisTransferKirim(this)" class="icon-btn-del">🗑</button>
               </div>
             </div>
           </div>
-          <div style="display:flex;gap:10px;align-items:center;">
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
             <button onclick="tambahBarisTransferKirim()" class="btn btn-ghost">+ Tambah Baris</button>
-            <button onclick="prosesTransferKirim()" class="btn btn-violet">🔄 Kirim ke Margomulyo</button>
+            <button onclick="buatPengajuanTransfer()" class="btn btn-violet">📤 Ajukan Transfer ke Margomulyo</button>
             <span id="statusTransferKirim" style="font-size:12px;color:#7C3AED;font-weight:600;"></span>
           </div>
         </div>
@@ -300,49 +303,45 @@
 
       <div style="height:1px;background:linear-gradient(to right,transparent,#E2E8F0,transparent);margin:8px 0 28px;"></div>
 
-      <!-- TERIMA DARI MARGOMULYO -->
+      <!-- DAFTAR TRANSFER PENDING (dari MG ke RS) -->
       <div style="margin-bottom:28px;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
-          <div style="background:#10B981;color:#fff;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;">📥 TERIMA</div>
-          <span style="font-size:15px;font-weight:700;color:#0F172A;">Margomulyo → Raden Saleh</span>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="background:#F59E0B;color:#fff;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;">⏳ PENDING MASUK</div>
+            <span style="font-size:15px;font-weight:700;color:#0F172A;">Transfer dari Margomulyo</span>
+          </div>
+          <button onclick="loadTransferPendingMasuk()" class="btn btn-ghost" style="font-size:12px;">🔄 Refresh</button>
         </div>
-        <div style="display:grid;gap:14px;">
-          <div class="form-grid-2">
-            <div><label class="form-label">Tanggal Penerimaan</label><input type="date" id="tanggalTransferTerima" class="form-input"></div>
-            <div><label class="form-label">Keterangan</label><input type="text" id="keteranganTransferTerima" placeholder="Alasan transfer..." class="form-input"></div>
-          </div>
-          <div>
-            <label class="form-label">Barang yang Diterima</label>
-            <div id="listTransferTerima" style="display:flex;flex-direction:column;gap:10px;">
-              <div class="item-row item-row-transfer transfer-terima-item">
-                <input list="masterBarangList" type="text" class="namaBarangTransferTerima form-input" placeholder="Cari barang...">
-                <input type="number" min="1" class="jumlahTransferTerima form-input" placeholder="Jumlah">
-                <input type="text" class="sisaTransferTerima form-input" placeholder="Stok Setelah Terima" readonly>
-                <button type="button" onclick="hapusBarisTransferTerima(this)" class="icon-btn-del">🗑</button>
-              </div>
-            </div>
-          </div>
-          <div style="display:flex;gap:10px;align-items:center;">
-            <button onclick="tambahBarisTransferTerima()" class="btn btn-ghost">+ Tambah Baris</button>
-            <button onclick="prosesTransferTerima()" class="btn btn-success">✅ Terima dari Margomulyo</button>
-            <span id="statusTransferTerima" style="font-size:12px;color:#059669;font-weight:600;"></span>
-          </div>
+        <div style="font-size:12px;color:#94A3B8;margin-bottom:12px;">Transfer yang dikirim Margomulyo dan menunggu approval dari Raden Saleh</div>
+        <div style="overflow-x:auto;border-radius:12px;border:1.5px solid #E2E8F0;">
+          <table class="data-table">
+            <thead><tr><th>No. Transfer</th><th>Tanggal</th><th>Nama Barang</th><th>Jumlah</th><th>Satuan</th><th>Keterangan</th><th>Status</th><th>Aksi</th></tr></thead>
+            <tbody id="tabelTransferPendingMasuk"></tbody>
+          </table>
         </div>
       </div>
 
       <div style="height:1px;background:linear-gradient(to right,transparent,#E2E8F0,transparent);margin:8px 0 28px;"></div>
 
-      <!-- HISTORI TRANSFER -->
+      <!-- HISTORI SEMUA TRANSFER RS -->
       <div>
-        <div style="font-size:15px;font-weight:700;color:#0F172A;margin-bottom:4px;">Histori Transfer</div>
-        <div style="font-size:13px;color:#94A3B8;margin-bottom:16px;">Riwayat transfer masuk dan keluar gudang Raden Saleh</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:4px;">
+          <div style="font-size:15px;font-weight:700;color:#0F172A;">Histori Transfer Raden Saleh</div>
+          <button onclick="exportHistoriTransfer()" class="btn btn-ghost" style="font-size:12px;">⬇ Export</button>
+        </div>
+        <div style="font-size:13px;color:#94A3B8;margin-bottom:16px;">Semua pengajuan transfer keluar dari Raden Saleh</div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
           <input type="month" id="filterHistoriTransfer" class="form-input" style="width:auto;" onchange="tampilkanHistoriTransfer()">
-          <button onclick="exportHistoriTransfer()" class="btn btn-ghost" style="font-size:12px;">⬇ Export</button>
+          <select id="filterStatusTransfer" class="form-input" style="width:auto;" onchange="tampilkanHistoriTransfer()">
+            <option value="">Semua Status</option>
+            <option value="PENDING">Pending</option>
+            <option value="APPROVED">Approved</option>
+            <option value="REJECTED">Rejected</option>
+          </select>
         </div>
         <div style="overflow-x:auto;border-radius:12px;border:1.5px solid #E2E8F0;">
           <table class="data-table">
-            <thead><tr><th>Tanggal</th><th>Arah</th><th>Nama Barang</th><th>Jumlah</th><th>Keterangan</th></tr></thead>
+            <thead><tr><th>No. Transfer</th><th>Tanggal</th><th>Tujuan</th><th>Nama Barang</th><th>Jumlah</th><th>Satuan</th><th>Keterangan</th><th>Status</th></tr></thead>
             <tbody id="tabelHistoriTransfer"></tbody>
           </table>
         </div>
@@ -522,7 +521,7 @@ function tampilSection(sectionId, btn) {
   if (t) { t.classList.remove('hidden'); t.scrollIntoView({ behavior:'smooth', block:'start' }); }
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
-  if (sectionId === 'transfer-section') tampilkanHistoriTransfer();
+  if (sectionId === 'transfer-section') { tampilkanHistoriTransfer(); loadTransferPendingMasuk(); }
 }
 
 /* ─── RANGE FILTER ─── */
@@ -603,104 +602,144 @@ async function updateBarangKeSupabase(barang) {
 }
 
 /* ─── TRANSFER FUNCTIONS ─── */
-// Simpan histori transfer ke tabel transfer_log di Supabase RS
-async function simpanTransferLog(data) {
-  // Coba insert ke tabel transfer_log. Jika tabel belum ada, gunakan histori_masuk/keluar sebagai fallback.
-  try {
-    const { error } = await supabaseClient.from('transfer_log').insert([{
-      tanggal: data.tanggal,
-      arah: data.arah, // 'RS→MG' atau 'MG→RS'
-      nama_barang: data.namaBarang,
-      jumlah: data.jumlah,
-      keterangan: data.keterangan
-    }]);
-    if (error) console.log('transfer_log insert error:', error);
-  } catch(e) { console.log('transfer_log not available:', e); }
+
+// Generate nomor transfer: TRF-RS-YYYYMMDD-XXX
+function generateNomorTransfer(asal) {
+  const d = new Date();
+  const tgl = d.getFullYear().toString() +
+    String(d.getMonth()+1).padStart(2,'0') +
+    String(d.getDate()).padStart(2,'0');
+  const rnd = String(Math.floor(Math.random()*900)+100);
+  return `TRF-${asal}-${tgl}-${rnd}`;
 }
-async function loadTransferLog() {
+
+// Load transfer requests yang PENDING dari MG (menunggu approve RS)
+async function loadTransferPendingMasuk() {
+  const tbody = document.getElementById('tabelTransferPendingMasuk');
+  if (!tbody) return;
+  tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#94A3B8;padding:16px;">⏳ Memuat...</td></tr>';
   try {
-    const { data, error } = await supabaseClient.from('transfer_log').select('*').order('id', { ascending: false });
-    if (!error && data) {
-      historiTransfer = data.map(i => ({
-        tanggal: i.tanggal, arah: i.arah, namaBarang: i.nama_barang, jumlah: i.jumlah, keterangan: i.keterangan
-      }));
+    // Cari transfer dengan tujuan='RS' dan status='PENDING' di Supabase MG
+    const { data, error } = await supabaseClientMG
+      .from('transfer_request')
+      .select('*')
+      .eq('tujuan', 'RS')
+      .eq('status', 'PENDING')
+      .order('id', { ascending: false });
+
+    if (error || !data || data.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#94A3B8;padding:20px;">✅ Tidak ada transfer pending dari Margomulyo</td></tr>';
+      return;
     }
-  } catch(e) { historiTransfer = []; }
+    tbody.innerHTML = '';
+    data.forEach(item => {
+      tbody.innerHTML += `<tr>
+        <td><span style="font-size:11px;font-weight:700;color:#7C3AED;background:#F5F3FF;padding:3px 8px;border-radius:6px;">${item.nomor_transfer}</span></td>
+        <td>${formatTanggal(item.tanggal)}</td>
+        <td style="font-weight:600;">${item.nama_barang}</td>
+        <td style="font-weight:700;color:#4F46E5;">${item.jumlah}</td>
+        <td>${item.satuan||'-'}</td>
+        <td style="color:#64748B;">${item.keterangan||'-'}</td>
+        <td><span class="badge badge-amber">⏳ PENDING</span></td>
+        <td>
+          <div style="display:flex;gap:6px;">
+            <button onclick="approveTransferMasuk(${item.id},'${item.nomor_transfer}','${item.nama_barang}',${item.jumlah},'${item.satuan||''}')" class="btn btn-sm btn-success">✅ Approve</button>
+            <button onclick="rejectTransferMasuk(${item.id},'${item.nomor_transfer}')" class="btn btn-sm btn-danger">❌ Reject</button>
+          </div>
+        </td>
+      </tr>`;
+    });
+  } catch(e) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#EF4444;padding:16px;">Gagal memuat data</td></tr>';
+    console.error(e);
+  }
 }
 
-function tambahBarisTransferKirim() {
-  const c = document.getElementById('listTransferKirim');
-  const w = document.createElement('div');
-  w.className = 'item-row item-row-transfer transfer-kirim-item';
-  w.innerHTML = `
-    <input list="masterBarangList" type="text" class="namaBarangTransferKirim form-input" placeholder="Cari barang...">
-    <input type="number" min="1" class="jumlahTransferKirim form-input" placeholder="Jumlah">
-    <input type="text" class="sisaTransferKirim form-input" placeholder="Sisa Stok RS" readonly>
-    <button type="button" onclick="hapusBarisTransferKirim(this)" class="icon-btn-del">🗑</button>`;
-  c.appendChild(w);
-  updateSisaTransferKirim();
-}
-function hapusBarisTransferKirim(btn) {
-  if (document.querySelectorAll('.transfer-kirim-item').length <= 1) { alert('Minimal 1 baris'); return; }
-  btn.closest('.transfer-kirim-item').remove();
-}
-function tambahBarisTransferTerima() {
-  const c = document.getElementById('listTransferTerima');
-  const w = document.createElement('div');
-  w.className = 'item-row item-row-transfer transfer-terima-item';
-  w.innerHTML = `
-    <input list="masterBarangList" type="text" class="namaBarangTransferTerima form-input" placeholder="Cari barang...">
-    <input type="number" min="1" class="jumlahTransferTerima form-input" placeholder="Jumlah">
-    <input type="text" class="sisaTransferTerima form-input" placeholder="Stok Setelah Terima" readonly>
-    <button type="button" onclick="hapusBarisTransferTerima(this)" class="icon-btn-del">🗑</button>`;
-  c.appendChild(w);
-  updateSisaTransferTerima();
-}
-function hapusBarisTransferTerima(btn) {
-  if (document.querySelectorAll('.transfer-terima-item').length <= 1) { alert('Minimal 1 baris'); return; }
-  btn.closest('.transfer-terima-item').remove();
+// Approve transfer masuk dari MG ke RS
+async function approveTransferMasuk(id, nomorTransfer, namaBarang, jumlah, satuan) {
+  if (!confirm(`Approve transfer masuk?
+
+No: ${nomorTransfer}
+Barang: ${namaBarang}
+Jumlah: ${jumlah} ${satuan}`)) return;
+
+  try {
+    // 1. Update status di Supabase MG → APPROVED
+    const { error: errUpdate } = await supabaseClientMG
+      .from('transfer_request')
+      .update({ status: 'APPROVED', approved_at: new Date().toISOString(), approved_by: 'Raden Saleh' })
+      .eq('id', id);
+    if (errUpdate) throw errUpdate;
+
+    // 2. Tambah stok RS
+    const kode = ambilKodeBarang(namaBarang);
+    const barang = kode ? barangList.find(b => b.kode === kode) : null;
+    const tanggal = new Date().toISOString().split('T')[0];
+
+    if (barang) {
+      barang.stokMasuk = Number(barang.stokMasuk || 0) + jumlah;
+      barang.sisaStok = Number(barang.sisaStok || 0) + jumlah;
+      await updateBarangKeSupabase(barang);
+    }
+
+    // 3. Catat histori masuk RS
+    await simpanHistoriMasukKeSupabase({
+      tanggal, namaBarang, jumlahMasuk: jumlah,
+      supplier: 'Margomulyo', nomorBTB: nomorTransfer,
+      keterangan: `[TRANSFER APPROVED] ${nomorTransfer}`
+    });
+
+    // 4. Catat juga di transfer_request RS (lokal) sebagai terima
+    await supabaseClient.from('transfer_request').insert([{
+      nomor_transfer: nomorTransfer,
+      tanggal,
+      asal: 'MG', tujuan: 'RS',
+      nama_barang: namaBarang,
+      jumlah, satuan,
+      keterangan: `Transfer masuk dari Margomulyo`,
+      status: 'APPROVED',
+      approved_at: new Date().toISOString(),
+      approved_by: 'Raden Saleh'
+    }]);
+
+    await loadBarangDariSupabase();
+    await loadTransferHistoriRS();
+    await loadTransferPendingMasuk();
+    tampilkanHistoriTransfer();
+    alert(`✅ Transfer ${nomorTransfer} berhasil di-approve!
+Stok ${namaBarang} bertambah ${jumlah} ${satuan}`);
+  } catch(e) {
+    console.error(e);
+    alert('Gagal approve: ' + (e.message || 'Cek koneksi'));
+  }
 }
 
-function updateSisaTransferKirim() {
-  document.querySelectorAll('.transfer-kirim-item').forEach(row => {
-    const n = row.querySelector('.namaBarangTransferKirim');
-    const j = row.querySelector('.jumlahTransferKirim');
-    const s = row.querySelector('.sisaTransferKirim');
-    if (!n || !j || !s) return;
-    const hitung = () => {
-      const k = ambilKodeBarang(n.value);
-      const barang = k ? barangList.find(b => b.kode === k) : null;
-      if (!barang) { s.value = ''; return; }
-      const jumlah = parseInt(j.value) || 0;
-      const sisa = Number(barang.sisaStok || 0) - jumlah;
-      if (jumlah <= 0) { s.value = barang.sisaStok; return; }
-      if (sisa < 0) { s.value = '⚠ Kurang!'; j.style.borderColor='#EF4444'; }
-      else { s.value = sisa; j.style.borderColor=''; }
-    };
-    ['input','keyup','change','blur'].forEach(ev => { n.addEventListener(ev, hitung); j.addEventListener(ev, hitung); }); hitung();
-  });
-}
-function updateSisaTransferTerima() {
-  document.querySelectorAll('.transfer-terima-item').forEach(row => {
-    const n = row.querySelector('.namaBarangTransferTerima');
-    const j = row.querySelector('.jumlahTransferTerima');
-    const s = row.querySelector('.sisaTransferTerima');
-    if (!n || !j || !s) return;
-    const hitung = () => {
-      const k = ambilKodeBarang(n.value);
-      const barang = k ? barangList.find(b => b.kode === k) : null;
-      if (!barang) { s.value = ''; return; }
-      const jumlah = parseInt(j.value) || 0;
-      s.value = jumlah > 0 ? Number(barang.sisaStok || 0) + jumlah : barang.sisaStok;
-    };
-    ['input','keyup','change','blur'].forEach(ev => { n.addEventListener(ev, hitung); j.addEventListener(ev, hitung); }); hitung();
-  });
+// Reject transfer masuk dari MG
+async function rejectTransferMasuk(id, nomorTransfer) {
+  const alasan = prompt(`Tolak transfer ${nomorTransfer}?
+Masukkan alasan penolakan:`);
+  if (alasan === null) return;
+
+  try {
+    // Update status di MG → REJECTED
+    await supabaseClientMG.from('transfer_request')
+      .update({ status: 'REJECTED', approved_at: new Date().toISOString(), approved_by: 'Raden Saleh', keterangan: `REJECTED: ${alasan}` })
+      .eq('id', id);
+
+    // Kembalikan stok MG (karena saat MG buat transfer, stok MG dikurangi)
+    await loadTransferPendingMasuk();
+    alert(`Transfer ${nomorTransfer} telah ditolak.
+Margomulyo akan mendapat notifikasi.`);
+  } catch(e) {
+    alert('Gagal reject: ' + (e.message || 'Cek koneksi'));
+  }
 }
 
-async function prosesTransferKirim() {
+// Buat pengajuan transfer RS → MG (stok RS langsung berkurang, status PENDING)
+async function buatPengajuanTransfer() {
   const tanggal = document.getElementById('tanggalTransferKirim').value;
   const keterangan = document.getElementById('keteranganTransferKirim').value.trim() || 'Transfer ke Margomulyo';
-  const status = document.getElementById('statusTransferKirim');
+  const statusEl = document.getElementById('statusTransferKirim');
   if (!tanggal) { alert('Tanggal wajib diisi!'); return; }
 
   const rows = document.querySelectorAll('.transfer-kirim-item');
@@ -713,176 +752,195 @@ async function prosesTransferKirim() {
     if (!kode) { alert('Pilih barang dari daftar!'); return; }
     const barang = barangList.find(b => b.kode === kode);
     if (!barang) { alert('Barang tidak ditemukan'); return; }
-    if (Number(barang.sisaStok || 0) < jumlah) { alert(`❌ Stok tidak cukup!\nBarang: ${barang.nama}\nSisa RS: ${barang.sisaStok}\nDiminta: ${jumlah}`); return; }
-    items.push({ barang, jumlah, nama });
+    if (Number(barang.sisaStok || 0) < jumlah) {
+      alert(`❌ Stok tidak cukup!
+Barang: ${barang.nama}
+Sisa RS: ${barang.sisaStok}
+Diminta: ${jumlah}`);
+      return;
+    }
+    items.push({ barang, jumlah });
   }
   if (items.length === 0) { alert('Tidak ada barang yang valid'); return; }
 
-  if (!confirm(`Kirim ${items.length} jenis barang ke Margomulyo?\n\n${items.map(i=>i.nama+' ('+i.jumlah+')').join('\n')}`)) return;
+  if (!confirm(`Ajukan transfer ke Margomulyo?
 
-  status.textContent = '⏳ Memproses...';
+${items.map(i=>i.barang.nama+' — '+i.jumlah+' '+i.barang.satuan).join('\n')}\n\n⚠️ Stok RS akan langsung berkurang.`)) return;
+
+  statusEl.textContent = '⏳ Memproses...';
+  const nomorList = [];
   try {
-    for (const { barang, jumlah, nama } of items) {
+    for (const { barang, jumlah } of items) {
+      const nomorTransfer = generateNomorTransfer('RS');
+      nomorList.push(nomorTransfer);
+
       // 1. Kurangi stok RS
       barang.stokKeluar = Number(barang.stokKeluar || 0) + jumlah;
       barang.sisaStok = Number(barang.sisaStok || 0) - jumlah;
       await updateBarangKeSupabase(barang);
-      // Catat sebagai histori keluar RS dengan keterangan transfer
+
+      // 2. Catat histori keluar RS
       await simpanHistoriKeluarKeSupabase({
         tanggal, namaBarang: barang.nama, jumlahKeluar: jumlah,
         pengambil: 'TRANSFER', departemen: 'Transfer → Margomulyo',
-        keterangan: `[TRANSFER] ${keterangan}`
+        keterangan: `[TRANSFER ${nomorTransfer}] ${keterangan}`
       });
 
-      // 2. Tambah stok MG (cari barang yang sama di MG berdasarkan nama)
-      const { data: mgBarang } = await supabaseClientMG.from('master_barang')
-        .select('*').ilike('nama', barang.nama).limit(1);
-      if (mgBarang && mgBarang.length > 0) {
-        const mb = mgBarang[0];
-        const newMasuk = Number(mb.stok_masuk || 0) + jumlah;
-        const newSisa = Number(mb.sisa_stok || 0) + jumlah;
-        await supabaseClientMG.from('master_barang').update({ stok_masuk: newMasuk, sisa_stok: newSisa }).eq('kode', mb.kode);
-        // Catat di histori masuk MG
-        await supabaseClientMG.from('histori_masuk').insert([{
-          tanggal, nama_barang: mb.nama, jumlah_masuk: jumlah,
-          supplier: 'Raden Saleh', nomor_btb: '-',
-          keterangan: `[TRANSFER] ${keterangan}`
-        }]);
-      } else {
-        console.warn('Barang tidak ditemukan di MG:', barang.nama);
-      }
+      // 3. Simpan transfer_request di RS (lokal) — status PENDING
+      await supabaseClient.from('transfer_request').insert([{
+        nomor_transfer: nomorTransfer,
+        tanggal, asal: 'RS', tujuan: 'MG',
+        nama_barang: barang.nama, jumlah, satuan: barang.satuan,
+        keterangan, status: 'PENDING'
+      }]);
 
-      // 3. Log transfer di RS
-      await simpanTransferLog({ tanggal, arah: 'RS→MG', namaBarang: barang.nama, jumlah, keterangan });
+      // 4. Simpan juga di Supabase MG agar MG bisa approve
+      await supabaseClientMG.from('transfer_request').insert([{
+        nomor_transfer: nomorTransfer,
+        tanggal, asal: 'RS', tujuan: 'MG',
+        nama_barang: barang.nama, jumlah, satuan: barang.satuan,
+        keterangan, status: 'PENDING'
+      }]);
     }
 
-    status.textContent = '✅ Berhasil!';
-    setTimeout(() => { status.textContent = ''; }, 3000);
+    statusEl.textContent = '✅ Pengajuan berhasil!';
+    setTimeout(() => { statusEl.textContent = ''; }, 4000);
 
     // Reset form
     document.getElementById('listTransferKirim').innerHTML = `
       <div class="item-row item-row-transfer transfer-kirim-item">
         <input list="masterBarangList" type="text" class="namaBarangTransferKirim form-input" placeholder="Cari barang...">
         <input type="number" min="1" class="jumlahTransferKirim form-input" placeholder="Jumlah">
+        <input type="text" class="satuanTransferKirim form-input" placeholder="Satuan" readonly>
         <input type="text" class="sisaTransferKirim form-input" placeholder="Sisa Stok RS" readonly>
         <button type="button" onclick="hapusBarisTransferKirim(this)" class="icon-btn-del">🗑</button>
       </div>`;
     document.getElementById('tanggalTransferKirim').value = '';
     document.getElementById('keteranganTransferKirim').value = '';
 
-    await loadBarangDariSupabase(); await loadHistoriKeluarDariSupabase(); await loadTransferLog();
-    tampilkanHistoriTransfer(); renderGrafikPengeluaran(); updateSisaTransferKirim();
-    alert(`✅ Transfer berhasil!\n${items.length} jenis barang telah dikirim ke Margomulyo.`);
+    await loadBarangDariSupabase();
+    await loadHistoriKeluarDariSupabase();
+    await loadTransferHistoriRS();
+    tampilkanHistoriTransfer();
+    renderGrafikPengeluaran();
+    updateSisaTransferKirim();
+
+    alert(`✅ Pengajuan transfer berhasil!
+
+Nomor Transfer:
+${nomorList.join('\n')}\n\nMenunggu approval dari Margomulyo.`);
   } catch(err) {
-    status.textContent = '❌ Gagal!';
+    statusEl.textContent = '❌ Gagal!';
     console.error('Transfer error:', err);
     alert('Transfer gagal: ' + (err.message || 'Cek koneksi internet'));
   }
 }
 
-async function prosesTransferTerima() {
-  const tanggal = document.getElementById('tanggalTransferTerima').value;
-  const keterangan = document.getElementById('keteranganTransferTerima').value.trim() || 'Transfer dari Margomulyo';
-  const status = document.getElementById('statusTransferTerima');
-  if (!tanggal) { alert('Tanggal wajib diisi!'); return; }
-
-  const rows = document.querySelectorAll('.transfer-terima-item');
-  const items = [];
-  for (const row of rows) {
-    const nama = row.querySelector('.namaBarangTransferTerima').value.trim();
-    const jumlah = parseInt(row.querySelector('.jumlahTransferTerima').value);
-    if (!nama || isNaN(jumlah) || jumlah <= 0) continue;
-    const kode = ambilKodeBarang(nama);
-    if (!kode) { alert('Pilih barang dari daftar!'); return; }
-    const barang = barangList.find(b => b.kode === kode);
-    if (!barang) { alert('Barang tidak ditemukan'); return; }
-    items.push({ barang, jumlah, nama });
-  }
-  if (items.length === 0) { alert('Tidak ada barang yang valid'); return; }
-
-  if (!confirm(`Terima ${items.length} jenis barang dari Margomulyo?\n\n${items.map(i=>i.nama+' ('+i.jumlah+')').join('\n')}`)) return;
-
-  status.textContent = '⏳ Memproses...';
+// Load histori transfer RS (semua, dari tabel transfer_request RS)
+async function loadTransferHistoriRS() {
   try {
-    for (const { barang, jumlah, nama } of items) {
-      // 1. Tambah stok RS
-      barang.stokMasuk = Number(barang.stokMasuk || 0) + jumlah;
-      barang.sisaStok = Number(barang.sisaStok || 0) + jumlah;
-      await updateBarangKeSupabase(barang);
-      // Catat histori masuk RS
-      await simpanHistoriMasukKeSupabase({
-        tanggal, namaBarang: barang.nama, jumlahMasuk: jumlah,
-        supplier: 'Margomulyo', nomorBTB: '-', keterangan: `[TRANSFER] ${keterangan}`
-      });
-
-      // 2. Kurangi stok MG
-      const { data: mgBarang } = await supabaseClientMG.from('master_barang')
-        .select('*').ilike('nama', barang.nama).limit(1);
-      if (mgBarang && mgBarang.length > 0) {
-        const mb = mgBarang[0];
-        const newKeluar = Number(mb.stok_keluar || 0) + jumlah;
-        const newSisa = Number(mb.sisa_stok || 0) - jumlah;
-        await supabaseClientMG.from('master_barang').update({ stok_keluar: newKeluar, sisa_stok: Math.max(0, newSisa) }).eq('kode', mb.kode);
-        // Catat histori keluar MG
-        await supabaseClientMG.from('histori_keluar').insert([{
-          tanggal, nama_barang: mb.nama, jumlah_keluar: jumlah,
-          pengambil: 'TRANSFER', departemen: 'Transfer → Raden Saleh',
-          keterangan: `[TRANSFER] ${keterangan}`
-        }]);
-      }
-
-      // 3. Log transfer di RS
-      await simpanTransferLog({ tanggal, arah: 'MG→RS', namaBarang: barang.nama, jumlah, keterangan });
+    const { data, error } = await supabaseClient
+      .from('transfer_request')
+      .select('*')
+      .order('id', { ascending: false });
+    if (!error && data) {
+      historiTransfer = data.map(i => ({
+        nomorTransfer: i.nomor_transfer,
+        tanggal: i.tanggal,
+        asal: i.asal, tujuan: i.tujuan,
+        namaBarang: i.nama_barang,
+        jumlah: i.jumlah, satuan: i.satuan,
+        keterangan: i.keterangan,
+        status: i.status,
+        approvedAt: i.approved_at
+      }));
     }
+  } catch(e) { historiTransfer = []; }
+}
 
-    status.textContent = '✅ Berhasil!';
-    setTimeout(() => { status.textContent = ''; }, 3000);
+function tambahBarisTransferKirim() {
+  const c = document.getElementById('listTransferKirim');
+  const w = document.createElement('div');
+  w.className = 'item-row item-row-transfer transfer-kirim-item';
+  w.innerHTML = `
+    <input list="masterBarangList" type="text" class="namaBarangTransferKirim form-input" placeholder="Cari barang...">
+    <input type="number" min="1" class="jumlahTransferKirim form-input" placeholder="Jumlah">
+    <input type="text" class="satuanTransferKirim form-input" placeholder="Satuan" readonly>
+    <input type="text" class="sisaTransferKirim form-input" placeholder="Sisa Stok RS" readonly>
+    <button type="button" onclick="hapusBarisTransferKirim(this)" class="icon-btn-del">🗑</button>`;
+  c.appendChild(w);
+  updateSisaTransferKirim();
+}
+function hapusBarisTransferKirim(btn) {
+  if (document.querySelectorAll('.transfer-kirim-item').length <= 1) { alert('Minimal 1 baris'); return; }
+  btn.closest('.transfer-kirim-item').remove();
+}
 
-    document.getElementById('listTransferTerima').innerHTML = `
-      <div class="item-row item-row-transfer transfer-terima-item">
-        <input list="masterBarangList" type="text" class="namaBarangTransferTerima form-input" placeholder="Cari barang...">
-        <input type="number" min="1" class="jumlahTransferTerima form-input" placeholder="Jumlah">
-        <input type="text" class="sisaTransferTerima form-input" placeholder="Stok Setelah Terima" readonly>
-        <button type="button" onclick="hapusBarisTransferTerima(this)" class="icon-btn-del">🗑</button>
-      </div>`;
-    document.getElementById('tanggalTransferTerima').value = '';
-    document.getElementById('keteranganTransferTerima').value = '';
-
-    await loadBarangDariSupabase(); await loadHistoriMasukDariSupabase(); await loadTransferLog();
-    tampilkanHistoriTransfer(); updateSisaTransferTerima();
-    alert(`✅ Penerimaan berhasil!\n${items.length} jenis barang telah diterima dari Margomulyo.`);
-  } catch(err) {
-    status.textContent = '❌ Gagal!';
-    console.error('Transfer terima error:', err);
-    alert('Proses gagal: ' + (err.message || 'Cek koneksi internet'));
-  }
+function updateSisaTransferKirim() {
+  document.querySelectorAll('.transfer-kirim-item').forEach(row => {
+    const n = row.querySelector('.namaBarangTransferKirim');
+    const j = row.querySelector('.jumlahTransferKirim');
+    const s = row.querySelector('.sisaTransferKirim');
+    const sat = row.querySelector('.satuanTransferKirim');
+    if (!n || !j || !s) return;
+    const hitung = () => {
+      const k = ambilKodeBarang(n.value);
+      const barang = k ? barangList.find(b => b.kode === k) : null;
+      if (!barang) { s.value = ''; if(sat) sat.value=''; return; }
+      if(sat) sat.value = barang.satuan;
+      const jumlah = parseInt(j.value) || 0;
+      if (jumlah <= 0) { s.value = barang.sisaStok + ' ' + barang.satuan; return; }
+      const sisa = Number(barang.sisaStok || 0) - jumlah;
+      if (sisa < 0) { s.value = '⚠ Kurang!'; j.style.borderColor='#EF4444'; }
+      else { s.value = sisa + ' ' + barang.satuan; j.style.borderColor=''; }
+    };
+    ['input','keyup','change','blur'].forEach(ev => { n.addEventListener(ev, hitung); j.addEventListener(ev, hitung); });
+    hitung();
+  });
 }
 
 function tampilkanHistoriTransfer() {
   const tbody = document.getElementById('tabelHistoriTransfer'); if (!tbody) return;
   const bulan = document.getElementById('filterHistoriTransfer')?.value || '';
+  const filterStatus = document.getElementById('filterStatusTransfer')?.value || '';
   tbody.innerHTML = '';
   if (historiTransfer.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#94A3B8;padding:24px;">Belum ada histori transfer</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#94A3B8;padding:24px;">Belum ada histori transfer</td></tr>';
     return;
   }
+  let count = 0;
   [...historiTransfer].forEach(item => {
     if (bulan && !item.tanggal.startsWith(bulan)) return;
-    const arahBadge = item.arah === 'RS→MG'
+    if (filterStatus && item.status !== filterStatus) return;
+    count++;
+    const arahLabel = item.asal === 'RS'
       ? '<span class="badge badge-violet">📤 RS → MG</span>'
       : '<span class="badge badge-green">📥 MG → RS</span>';
+    const statusBadge = item.status === 'APPROVED'
+      ? '<span class="badge badge-green">✅ APPROVED</span>'
+      : item.status === 'REJECTED'
+      ? '<span class="badge badge-red">❌ REJECTED</span>'
+      : '<span class="badge badge-amber">⏳ PENDING</span>';
     tbody.innerHTML += `<tr>
+      <td><span style="font-size:11px;font-weight:700;color:#7C3AED;background:#F5F3FF;padding:3px 8px;border-radius:6px;">${item.nomorTransfer}</span></td>
       <td>${formatTanggal(item.tanggal)}</td>
-      <td>${arahBadge}</td>
+      <td>${arahLabel}</td>
       <td style="font-weight:600;">${item.namaBarang}</td>
       <td style="font-weight:700;color:#4F46E5;">${item.jumlah}</td>
-      <td style="color:#64748B;">${item.keterangan}</td>
+      <td>${item.satuan||'-'}</td>
+      <td style="color:#64748B;max-width:180px;overflow:hidden;text-overflow:ellipsis;">${item.keterangan||'-'}</td>
+      <td>${statusBadge}</td>
     </tr>`;
   });
+  if (count === 0) tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#94A3B8;padding:24px;">Tidak ada data</td></tr>';
 }
 
 function exportHistoriTransfer() {
-  const d = historiTransfer.map(i => ({ Tanggal:i.tanggal, Arah:i.arah, Nama_Barang:i.namaBarang, Jumlah:i.jumlah, Keterangan:i.keterangan }));
+  const d = historiTransfer.map(i => ({
+    No_Transfer: i.nomorTransfer, Tanggal: i.tanggal, Asal: i.asal, Tujuan: i.tujuan,
+    Nama_Barang: i.namaBarang, Jumlah: i.jumlah, Satuan: i.satuan,
+    Keterangan: i.keterangan, Status: i.status
+  }));
   const ws = XLSX.utils.json_to_sheet(d); const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Histori Transfer');
   XLSX.writeFile(wb, `histori-transfer-rs-${new Date().toISOString().split('T')[0]}.xlsx`);
@@ -902,7 +960,7 @@ async function loadBarangDariSupabase() {
       return { kode:item.kode, nama:item.nama, kategori:item.kategori, satuan:item.satuan, stokAwal:Number(item.stok_awal||0), stokMasuk:sm, stokKeluar:sk, sisaStok:Number(item.stok_awal||0)+sm-sk };
     });
     tampilkanBarang(); updateSelectBarang(); updateSatuanOtomatis(); updateSisaStokRealtime(); updateAtkTerbanyak();
-    updateSisaTransferKirim(); updateSisaTransferTerima();
+    updateSisaTransferKirim(); ;
   }
 }
 async function loadHistoriMasukDariSupabase() {
@@ -1216,10 +1274,10 @@ window.onload=async function(){
   ['database-barang-section','master-barang-section','master-karyawan-section','histori-masuk-section','histori-keluar-section','transfer-section','laporan-departemen-section'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add('hidden');});
   document.getElementById('stok-atk-section').classList.remove('hidden');
   try{
-    await loadHistoriMasukDariSupabase();await loadHistoriKeluarDariSupabase();await loadBarangDariSupabase();await loadKaryawanDariSupabase();await loadTransferLog();
+    await loadHistoriMasukDariSupabase();await loadHistoriKeluarDariSupabase();await loadBarangDariSupabase();await loadKaryawanDariSupabase();await loadTransferHistoriRS();
     tampilkanBarang();tampilkanKaryawan();updateSelectBarang();updateDatalistKaryawan();tampilkanHistoriMasuk();tampilkanHistoriKeluar();
     buildMonthCheckboxes();renderGrafikPengeluaran();renderGrafikBarangDepartemen();updateDepartemenTerbanyak();updateAtkTerbanyak();
-    updateSatuanOtomatis();requestAnimationFrame(updateSisaStokRealtime);updateSisaTransferKirim();updateSisaTransferTerima();
+    updateSatuanOtomatis();requestAnimationFrame(updateSisaStokRealtime);updateSisaTransferKirim();
   }catch(err){console.log('ERROR LOAD:',err);}
 };
 </script>
